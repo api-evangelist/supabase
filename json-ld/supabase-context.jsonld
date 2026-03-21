@@ -1,0 +1,197 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "supabase": "https://supabase.com/ns/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+
+    "Project": {
+      "@id": "supabase:Project",
+      "@context": {
+        "name": "schema:name",
+        "description": "schema:description",
+        "region": "supabase:region",
+        "status": "supabase:projectStatus",
+        "ref": "supabase:projectRef",
+        "plan": "supabase:billingPlan",
+        "database": {
+          "@id": "supabase:database",
+          "@type": "@id"
+        },
+        "organization": {
+          "@id": "schema:memberOf",
+          "@type": "@id"
+        },
+        "apiUrl": {
+          "@id": "supabase:apiUrl",
+          "@type": "@id"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Organization": {
+      "@id": "supabase:Organization",
+      "@context": {
+        "name": "schema:name",
+        "slug": "supabase:slug",
+        "billingEmail": {
+          "@id": "schema:email",
+          "@type": "xsd:string"
+        },
+        "members": {
+          "@id": "schema:member",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "projects": {
+          "@id": "supabase:hasProject",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "User": {
+      "@id": "supabase:User",
+      "@context": {
+        "email": "schema:email",
+        "phone": "schema:telephone",
+        "role": "supabase:userRole",
+        "emailConfirmedAt": {
+          "@id": "supabase:emailConfirmedAt",
+          "@type": "xsd:dateTime"
+        },
+        "phoneConfirmedAt": {
+          "@id": "supabase:phoneConfirmedAt",
+          "@type": "xsd:dateTime"
+        },
+        "lastSignInAt": {
+          "@id": "supabase:lastSignInAt",
+          "@type": "xsd:dateTime"
+        },
+        "appMetadata": "supabase:appMetadata",
+        "userMetadata": "supabase:userMetadata",
+        "identities": {
+          "@id": "supabase:hasIdentity",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Database": {
+      "@id": "supabase:Database",
+      "@context": {
+        "host": "supabase:host",
+        "port": "supabase:port",
+        "version": "schema:softwareVersion",
+        "sslEnforced": "supabase:sslEnforced"
+      }
+    },
+
+    "StorageBucket": {
+      "@id": "supabase:StorageBucket",
+      "@context": {
+        "name": "schema:name",
+        "isPublic": "supabase:isPublic",
+        "fileSizeLimit": "supabase:fileSizeLimit",
+        "allowedMimeTypes": "supabase:allowedMimeTypes",
+        "objects": {
+          "@id": "supabase:containsObject",
+          "@type": "@id",
+          "@container": "@set"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "StorageObject": {
+      "@id": "supabase:StorageObject",
+      "@context": {
+        "name": "schema:name",
+        "bucket": {
+          "@id": "supabase:inBucket",
+          "@type": "@id"
+        },
+        "mimeType": "schema:encodingFormat",
+        "size": "schema:contentSize",
+        "publicUrl": {
+          "@id": "schema:contentUrl",
+          "@type": "@id"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "lastAccessedAt": {
+          "@id": "supabase:lastAccessedAt",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "EdgeFunction": {
+      "@id": "supabase:EdgeFunction",
+      "@context": {
+        "name": "schema:name",
+        "slug": "supabase:slug",
+        "status": "supabase:functionStatus",
+        "version": "schema:softwareVersion",
+        "verifyJwt": "supabase:verifyJwt",
+        "invokeUrl": {
+          "@id": "supabase:invokeUrl",
+          "@type": "@id"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "RealtimeChannel": {
+      "@id": "supabase:RealtimeChannel",
+      "@context": {
+        "topic": "supabase:channelTopic",
+        "broadcastEnabled": "supabase:broadcastEnabled",
+        "presenceEnabled": "supabase:presenceEnabled",
+        "postgresChangesEnabled": "supabase:postgresChangesEnabled"
+      }
+    },
+
+    "Secret": {
+      "@id": "supabase:Secret",
+      "@context": {
+        "name": "schema:name"
+      }
+    }
+  }
+}

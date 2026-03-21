@@ -1,0 +1,359 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://supabase.com/schemas/supabase/project.json",
+  "title": "Supabase Project",
+  "description": "Represents a Supabase project with its database, services, and configuration. A project is the primary unit of organization in Supabase, containing a PostgreSQL database and associated services like Auth, Storage, Realtime, and Edge Functions.",
+  "type": "object",
+  "required": ["id", "name", "organization_id", "region", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the project"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the project",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "organization_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "ID of the organization that owns this project"
+    },
+    "region": {
+      "type": "string",
+      "description": "Cloud region where the project is hosted",
+      "enum": [
+        "us-east-1",
+        "us-west-1",
+        "eu-west-1",
+        "eu-west-2",
+        "eu-central-1",
+        "ap-southeast-1",
+        "ap-southeast-2",
+        "ap-northeast-1",
+        "ap-south-1",
+        "sa-east-1"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "description": "Current operational status of the project",
+      "enum": [
+        "ACTIVE_HEALTHY",
+        "ACTIVE_UNHEALTHY",
+        "INACTIVE",
+        "INIT_FAILED",
+        "REMOVED",
+        "RESTORING",
+        "UPGRADING",
+        "PAUSING",
+        "COMING_UP"
+      ]
+    },
+    "ref": {
+      "type": "string",
+      "description": "Unique reference identifier used in API URLs",
+      "pattern": "^[a-z]{20}$"
+    },
+    "database": {
+      "$ref": "#/$defs/DatabaseConfig"
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ServiceStatus"
+      },
+      "description": "Status of each service in the project"
+    },
+    "api_keys": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ApiKey"
+      },
+      "description": "API keys for accessing the project"
+    },
+    "plan": {
+      "type": "string",
+      "description": "Billing plan for the project",
+      "enum": ["free", "pro", "team", "enterprise"]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the project was created"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the project was last updated"
+    }
+  },
+  "$defs": {
+    "DatabaseConfig": {
+      "type": "object",
+      "description": "PostgreSQL database configuration for the project",
+      "properties": {
+        "host": {
+          "type": "string",
+          "description": "Database host address"
+        },
+        "port": {
+          "type": "integer",
+          "description": "Database port number",
+          "default": 5432
+        },
+        "name": {
+          "type": "string",
+          "description": "Database name",
+          "default": "postgres"
+        },
+        "version": {
+          "type": "string",
+          "description": "PostgreSQL version"
+        },
+        "ssl_enforced": {
+          "type": "boolean",
+          "description": "Whether SSL connections are enforced"
+        }
+      }
+    },
+    "ServiceStatus": {
+      "type": "object",
+      "description": "Status of an individual project service",
+      "required": ["name", "healthy"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the service",
+          "enum": ["database", "auth", "storage", "realtime", "functions", "postgrest"]
+        },
+        "healthy": {
+          "type": "boolean",
+          "description": "Whether the service is healthy"
+        },
+        "status": {
+          "type": "string",
+          "description": "Detailed status message"
+        }
+      }
+    },
+    "ApiKey": {
+      "type": "object",
+      "description": "An API key for authenticating requests to the project",
+      "required": ["name", "api_key"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Key name identifying its role",
+          "enum": ["anon", "service_role"]
+        },
+        "api_key": {
+          "type": "string",
+          "description": "The API key value (JWT)"
+        }
+      }
+    },
+    "Organization": {
+      "type": "object",
+      "description": "An organization that owns one or more Supabase projects",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for the organization"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the organization",
+          "minLength": 1
+        },
+        "slug": {
+          "type": "string",
+          "description": "URL-friendly slug"
+        },
+        "billing_email": {
+          "type": "string",
+          "format": "email",
+          "description": "Billing contact email"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the organization was created"
+        }
+      }
+    },
+    "EdgeFunction": {
+      "type": "object",
+      "description": "A deployed Edge Function in a Supabase project",
+      "required": ["id", "slug", "name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for the function"
+        },
+        "slug": {
+          "type": "string",
+          "description": "URL-friendly slug used in the invocation URL",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the function"
+        },
+        "status": {
+          "type": "string",
+          "description": "Deployment status",
+          "enum": ["ACTIVE", "REMOVED", "THROTTLED"]
+        },
+        "version": {
+          "type": "integer",
+          "description": "Current deployment version",
+          "minimum": 1
+        },
+        "verify_jwt": {
+          "type": "boolean",
+          "description": "Whether JWT verification is required for invocations",
+          "default": true
+        },
+        "import_map": {
+          "type": "boolean",
+          "description": "Whether an import map is used"
+        },
+        "entrypoint_path": {
+          "type": "string",
+          "description": "Path to the function entry point file"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the function was created"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the function was last updated"
+        }
+      }
+    },
+    "StorageBucket": {
+      "type": "object",
+      "description": "A storage bucket for organizing files",
+      "required": ["id", "name"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the bucket"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the bucket"
+        },
+        "public": {
+          "type": "boolean",
+          "description": "Whether the bucket is publicly accessible",
+          "default": false
+        },
+        "file_size_limit": {
+          "type": "integer",
+          "description": "Maximum file size allowed in bytes",
+          "minimum": 0
+        },
+        "allowed_mime_types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9.*+-]+/[a-zA-Z0-9.*+-]+$"
+          },
+          "description": "List of allowed MIME types for uploads"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the bucket was created"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the bucket was last updated"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "description": "A user account managed by Supabase Auth",
+      "required": ["id"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique user identifier"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "User email address"
+        },
+        "phone": {
+          "type": "string",
+          "description": "User phone number in E.164 format"
+        },
+        "role": {
+          "type": "string",
+          "description": "User role"
+        },
+        "email_confirmed_at": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "Timestamp when email was confirmed"
+        },
+        "phone_confirmed_at": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "Timestamp when phone was confirmed"
+        },
+        "last_sign_in_at": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "Timestamp of last sign-in"
+        },
+        "app_metadata": {
+          "type": "object",
+          "description": "Application-level metadata managed by the system",
+          "properties": {
+            "provider": {
+              "type": "string",
+              "description": "Primary authentication provider"
+            },
+            "providers": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "List of linked authentication providers"
+            }
+          }
+        },
+        "user_metadata": {
+          "type": "object",
+          "description": "Custom user metadata set by the application"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when user was created"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when user was last updated"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,191 @@
+aid: supabase
+url: https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/apis.yml
+modified: '2026-03-20'
+apis:
+  - aid: supabase:database-rest-api
+    name: Supabase Database REST API
+    tags:
+      - Databases
+      - PostgreSQL
+      - REST
+      - CRUD
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.supabase.com
+    humanURL: https://supabase.com/docs/guides/api
+    properties:
+      - url: https://supabase.com/docs/guides/api
+        type: Documentation
+      - url: openapi/supabase-database-rest-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      The Supabase Database REST API provides auto-generated RESTful endpoints
+      for every table and view in your PostgreSQL database. It is powered by
+      PostgREST and supports full CRUD operations including GET, POST, PATCH,
+      and DELETE requests. The API automatically updates as your database schema
+      changes, and supports filtering, pagination, and embedding of related
+      resources. Row Level Security policies are enforced on all API requests
+      to ensure data access control.
+  - aid: supabase:auth-api
+    name: Supabase Auth API
+    tags:
+      - Authentication
+      - Authorization
+      - OAuth
+      - Identity
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.supabase.com
+    humanURL: https://supabase.com/docs/guides/auth
+    properties:
+      - url: https://supabase.com/docs/guides/auth
+        type: Documentation
+      - url: openapi/supabase-auth-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      The Supabase Auth API provides a complete authentication and authorization
+      system built on top of PostgreSQL. It supports email and password login,
+      passwordless authentication via magic links, OAuth social login with
+      providers like Google, GitHub, and Apple, and mobile authentication. The
+      API handles user management, session tokens, multi-factor authentication,
+      and integrates with Row Level Security for fine-grained access control
+      at the database level.
+  - aid: supabase:storage-api
+    name: Supabase Storage API
+    tags:
+      - Storage
+      - Files
+      - Objects
+      - Media
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.supabase.com
+    humanURL: https://supabase.com/docs/guides/storage
+    properties:
+      - url: https://supabase.com/docs/guides/storage
+        type: Documentation
+      - url: openapi/supabase-storage-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      The Supabase Storage API enables developers to store, organize, and serve
+      large files such as images, videos, and documents. It provides bucket-based
+      organization with support for uploading, downloading, and transforming
+      files including on-the-fly image resizing and optimization. Access control
+      is managed through Row Level Security policies tied to the PostgreSQL
+      database, allowing fine-grained permissions on file operations. The API
+      supports both public and private storage buckets.
+  - aid: supabase:realtime-api
+    name: Supabase Realtime API
+    tags:
+      - Realtime
+      - WebSockets
+      - Streaming
+      - Events
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.supabase.com
+    humanURL: https://supabase.com/docs/guides/realtime
+    properties:
+      - url: https://supabase.com/docs/guides/realtime
+        type: Documentation
+      - url: asyncapi/supabase-realtime-api-asyncapi.yml
+        type: AsyncAPI
+    description: >-
+      The Supabase Realtime API allows developers to listen to database changes
+      in real time using WebSocket connections. It supports three main features:
+      Postgres Changes for subscribing to INSERT, UPDATE, and DELETE events on
+      database tables; Broadcast for sending ephemeral messages between connected
+      clients on a channel; and Presence for tracking and synchronizing shared
+      state across clients such as online status indicators. The API integrates
+      with Row Level Security to ensure authorized access to real-time data.
+  - aid: supabase:edge-functions-api
+    name: Supabase Edge Functions API
+    tags:
+      - Serverless
+      - Edge Computing
+      - Functions
+      - Deno
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.supabase.com
+    humanURL: https://supabase.com/docs/guides/functions
+    properties:
+      - url: https://supabase.com/docs/guides/functions
+        type: Documentation
+      - url: openapi/supabase-edge-functions-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      Supabase Edge Functions are globally distributed, server-side TypeScript
+      functions powered by the Deno runtime. They execute at the edge closest
+      to the user for low-latency responses and can be invoked via HTTP requests
+      or triggered by database webhooks. Edge Functions support NPM modules and
+      Node.js built-in APIs, and have direct access to the Supabase client
+      libraries for interacting with the database, auth, and storage services.
+      They are useful for implementing custom business logic, third-party
+      integrations, and webhook handlers.
+  - aid: supabase:management-api
+    name: Supabase Management API
+    tags:
+      - Management
+      - Administration
+      - Projects
+      - Organizations
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.supabase.com/v1
+    humanURL: https://supabase.com/docs/reference/api/introduction
+    properties:
+      - url: https://supabase.com/docs/reference/api/introduction
+        type: Documentation
+      - url: openapi/supabase-management-api-openapi.yml
+        type: OpenAPI
+    description: >-
+      The Supabase Management API provides programmatic access to manage
+      Supabase projects and organizations. It supports operations for creating,
+      updating, and deleting projects, managing database configurations,
+      retrieving project API keys, and controlling organization membership.
+      Authentication is handled via personal access tokens or OAuth2 tokens.
+      The API enables automation of infrastructure management tasks and
+      integration with CI/CD pipelines for deploying and configuring Supabase
+      projects at scale.
+  - aid: supabase:javascript-sdk
+    name: Supabase JavaScript SDK
+    tags:
+      - JavaScript
+      - SDK
+      - Client Library
+      - Node.js
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.example.com
+    humanURL: https://supabase.com/docs/reference/javascript/introduction
+    properties:
+      - url: https://supabase.com/docs/reference/javascript/introduction
+        type: Documentation
+    description: >-
+      The Supabase JavaScript SDK (supabase-js) is the official client library
+      for interacting with Supabase services from JavaScript and TypeScript
+      applications. It provides methods for querying the PostgreSQL database,
+      managing user authentication sessions, uploading and downloading files
+      from storage, subscribing to real-time database changes, and invoking
+      Edge Functions. The SDK works in both browser and Node.js environments
+      and includes full TypeScript type definitions generated from the database
+      schema.
+  - aid: supabase:python-sdk
+    name: Supabase Python SDK
+    tags:
+      - Python
+      - SDK
+      - Client Library
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.example.com
+    humanURL: https://supabase.com/docs/reference/python/introduction
+    properties:
+      - url: https://supabase.com/docs/reference/python/introduction
+        type: Documentation
+    description: >-
+      The Supabase Python SDK (supabase-py) is the official client library for
+      accessing Supabase services from Python applications. It provides methods
+      for performing database queries, managing authentication, handling file
+      storage operations, subscribing to real-time events, and invoking Edge
+      Functions. The library supports both synchronous and asynchronous usage
+      patterns and is suitable for backend services, data pipelines, and
+      scripting workflows that interact with Supabase projects.
+common:
+  - type: JSON-LD
+    url: json-ld/supabase-context.jsonld
+  - type: JSONSchema
+    url: json-schema/supabase-project-schema.json

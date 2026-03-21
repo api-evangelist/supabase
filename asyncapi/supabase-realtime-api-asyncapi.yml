@@ -1,0 +1,553 @@
+asyncapi: 2.6.0
+info:
+  title: Supabase Realtime API
+  description: >-
+    The Supabase Realtime API enables real-time communication over WebSocket
+    connections using the Phoenix Channel protocol (v2). It supports three
+    main features: Postgres Changes for subscribing to INSERT, UPDATE, and
+    DELETE events on database tables; Broadcast for sending ephemeral messages
+    between connected clients on a channel; and Presence for tracking and
+    synchronizing shared state across clients such as online status indicators.
+    Row Level Security policies are enforced for Postgres Changes to ensure
+    authorized access to real-time data. Messages use JSON-encoded text frames
+    except for Broadcast which also supports binary frames.
+  version: '2.0.0'
+  contact:
+    name: Supabase Support
+    url: https://supabase.com/support
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+servers:
+  supabaseRealtime:
+    url: 'wss://{project_ref}.supabase.co/realtime/v1/websocket'
+    protocol: wss
+    description: >-
+      Supabase Realtime WebSocket server. Connect with the apikey query
+      parameter containing your project anon key.
+    variables:
+      project_ref:
+        description: Your Supabase project reference ID
+    security:
+      - apiKeyQuery: []
+channels:
+  realtime/{topic}:
+    description: >-
+      A Realtime channel identified by a topic string. Clients join a channel
+      by sending a phx_join message with configuration for the desired
+      features (postgres_changes, broadcast, presence). Multiple features
+      can be configured on a single channel.
+    parameters:
+      topic:
+        description: >-
+          The channel topic identifier. For Postgres Changes, this typically
+          follows the pattern realtime:schema:table. For Broadcast and
+          Presence, any unique string can be used.
+        schema:
+          type: string
+    subscribe:
+      operationId: receiveRealtimeMessages
+      summary: Receive real-time messages from a channel
+      description: >-
+        After joining a channel, the client receives messages for all
+        subscribed events including database changes, broadcast messages,
+        presence state changes, and system events.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/PostgresChange'
+          - $ref: '#/components/messages/BroadcastMessage'
+          - $ref: '#/components/messages/PresenceState'
+          - $ref: '#/components/messages/PresenceDiff'
+          - $ref: '#/components/messages/SystemReply'
+          - $ref: '#/components/messages/Heartbeat'
+    publish:
+      operationId: sendRealtimeMessages
+      summary: Send messages to a channel
+      description: >-
+        Clients send messages to join channels, broadcast to other clients,
+        track presence state, and maintain the connection heartbeat.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/PhxJoin'
+          - $ref: '#/components/messages/BroadcastSend'
+          - $ref: '#/components/messages/PresenceTrack'
+          - $ref: '#/components/messages/PresenceUntrack'
+          - $ref: '#/components/messages/PhxLeave'
+          - $ref: '#/components/messages/HeartbeatSend'
+components:
+  securitySchemes:
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: apikey
+      description: >-
+        Supabase project anon API key passed as a query parameter on the
+        WebSocket connection URL.
+    bearerToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        JWT access token passed in the access_token field of the phx_join
+        payload for authenticated channel access.
+  messages:
+    PhxJoin:
+      name: phx_join
+      title: Join Channel
+      summary: Join a Realtime channel with feature configuration
+      description: >-
+        The initial message required to join a channel. Contains configuration
+        for which features to enable: postgres_changes (database event
+        subscriptions), broadcast (client-to-client messaging), and presence
+        (shared state tracking). An access_token can be included for
+        authenticated access.
+      payload:
+        $ref: '#/components/schemas/PhxJoinPayload'
+    PhxLeave:
+      name: phx_leave
+      title: Leave Channel
+      summary: Leave a Realtime channel
+      description: >-
+        Sent by the client to leave a channel and stop receiving messages
+        for its subscriptions.
+      payload:
+        $ref: '#/components/schemas/PhxLeavePayload'
+    PostgresChange:
+      name: postgres_changes
+      title: Postgres Change Event
+      summary: Database change notification
+      description: >-
+        Sent by the server when a database change occurs in a subscribed
+        schema and table. Contains the event type (INSERT, UPDATE, DELETE),
+        the affected table, and the new and old record data. Row Level
+        Security policies determine which clients receive each change.
+      payload:
+        $ref: '#/components/schemas/PostgresChangePayload'
+    BroadcastMessage:
+      name: broadcast
+      title: Broadcast Message
+      summary: Ephemeral message broadcast to channel clients
+      description: >-
+        Sent by the server to all clients subscribed to a channel when
+        another client broadcasts a message. Messages are ephemeral and
+        not persisted.
+      payload:
+        $ref: '#/components/schemas/BroadcastPayload'
+    BroadcastSend:
+      name: broadcast
+      title: Send Broadcast
+      summary: Broadcast a message to channel clients
+      description: >-
+        Sent by a client to broadcast an ephemeral message to all other
+        clients connected to the same channel.
+      payload:
+        $ref: '#/components/schemas/BroadcastSendPayload'
+    PresenceState:
+      name: presence_state
+      title: Presence State
+      summary: Full presence state for the channel
+      description: >-
+        Sent by the server after joining a channel with presence enabled.
+        Contains the complete presence state of all tracked clients in
+        the channel, backed by a CRDT for consistency across nodes.
+      payload:
+        $ref: '#/components/schemas/PresenceStatePayload'
+    PresenceDiff:
+      name: presence_diff
+      title: Presence Diff
+      summary: Incremental presence state change
+      description: >-
+        Sent by the server when the presence state changes due to clients
+        joining or leaving. Contains the joins and leaves since the last
+        update.
+      payload:
+        $ref: '#/components/schemas/PresenceDiffPayload'
+    PresenceTrack:
+      name: presence
+      title: Track Presence
+      summary: Start tracking client presence
+      description: >-
+        Sent by a client to register its presence state in the channel.
+        The payload contains arbitrary metadata to be tracked and shared
+        with other clients.
+      payload:
+        $ref: '#/components/schemas/PresenceTrackPayload'
+    PresenceUntrack:
+      name: presence
+      title: Untrack Presence
+      summary: Stop tracking client presence
+      description: >-
+        Sent by a client to remove its presence state from the channel.
+      payload:
+        $ref: '#/components/schemas/PresenceUntrackPayload'
+    SystemReply:
+      name: phx_reply
+      title: System Reply
+      summary: Server reply to client messages
+      description: >-
+        Sent by the server in response to client messages such as phx_join,
+        broadcast, and presence operations. Contains the status of the
+        operation and any response data.
+      payload:
+        $ref: '#/components/schemas/SystemReplyPayload'
+    Heartbeat:
+      name: phx_reply
+      title: Heartbeat Reply
+      summary: Server heartbeat reply
+      description: >-
+        Sent by the server in response to a client heartbeat to confirm
+        the connection is alive.
+      payload:
+        $ref: '#/components/schemas/HeartbeatReplyPayload'
+    HeartbeatSend:
+      name: heartbeat
+      title: Send Heartbeat
+      summary: Client heartbeat to keep connection alive
+      description: >-
+        Sent periodically by the client (typically every 30 seconds) to
+        keep the WebSocket connection alive and prevent server-side
+        timeout.
+      payload:
+        $ref: '#/components/schemas/HeartbeatSendPayload'
+  schemas:
+    PhxJoinPayload:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: Channel topic to join
+        event:
+          type: string
+          const: phx_join
+          description: Event type
+        ref:
+          type: string
+          description: Unique message reference for correlation
+        join_ref:
+          type: string
+          description: Reference for the join operation
+        payload:
+          type: object
+          properties:
+            config:
+              type: object
+              properties:
+                broadcast:
+                  type: object
+                  properties:
+                    self:
+                      type: boolean
+                      description: Whether the sender receives their own broadcasts
+                    ack:
+                      type: boolean
+                      description: Whether to acknowledge broadcast messages
+                  description: Broadcast configuration
+                presence:
+                  type: object
+                  properties:
+                    key:
+                      type: string
+                      description: Unique key for presence tracking
+                  description: Presence configuration
+                postgres_changes:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      event:
+                        type: string
+                        description: Database event to listen for
+                        enum:
+                          - INSERT
+                          - UPDATE
+                          - DELETE
+                          - '*'
+                      schema:
+                        type: string
+                        description: PostgreSQL schema name
+                        default: public
+                      table:
+                        type: string
+                        description: Table name to watch
+                      filter:
+                        type: string
+                        description: >-
+                          Optional filter expression (e.g. column=eq.value)
+                  description: Postgres change subscriptions
+            access_token:
+              type: string
+              description: JWT access token for authenticated access
+    PhxLeavePayload:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: Channel topic to leave
+        event:
+          type: string
+          const: phx_leave
+        ref:
+          type: string
+          description: Unique message reference
+    PostgresChangePayload:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: Channel topic
+        event:
+          type: string
+          const: postgres_changes
+        ref:
+          type: string
+          description: Message reference
+        payload:
+          type: object
+          properties:
+            data:
+              type: object
+              properties:
+                schema:
+                  type: string
+                  description: Database schema name
+                table:
+                  type: string
+                  description: Table name
+                commit_timestamp:
+                  type: string
+                  format: date-time
+                  description: Timestamp of the database transaction
+                eventType:
+                  type: string
+                  description: Type of database event
+                  enum:
+                    - INSERT
+                    - UPDATE
+                    - DELETE
+                new:
+                  type: object
+                  description: New row data (present for INSERT and UPDATE)
+                old:
+                  type: object
+                  description: Previous row data (present for UPDATE and DELETE)
+                errors:
+                  type: array
+                  items:
+                    type: string
+                  description: Any errors processing the change
+            ids:
+              type: array
+              items:
+                type: integer
+              description: Subscription IDs that matched this change
+    BroadcastPayload:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: Channel topic
+        event:
+          type: string
+          const: broadcast
+        payload:
+          type: object
+          properties:
+            event:
+              type: string
+              description: Custom event name
+            payload:
+              type: object
+              description: Custom message payload
+            type:
+              type: string
+              const: broadcast
+    BroadcastSendPayload:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: Channel topic
+        event:
+          type: string
+          const: broadcast
+        ref:
+          type: string
+          description: Message reference
+        payload:
+          type: object
+          properties:
+            event:
+              type: string
+              description: Custom event name
+            payload:
+              type: object
+              description: Custom message payload
+            type:
+              type: string
+              const: broadcast
+    PresenceStatePayload:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: Channel topic
+        event:
+          type: string
+          const: presence_state
+        payload:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              metas:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    phx_ref:
+                      type: string
+                      description: Phoenix reference for this presence entry
+                  additionalProperties: true
+                description: Presence metadata entries
+          description: >-
+            Map of presence keys to their tracked state. Each key contains
+            a metas array with one entry per connected device/tab.
+    PresenceDiffPayload:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: Channel topic
+        event:
+          type: string
+          const: presence_diff
+        payload:
+          type: object
+          properties:
+            joins:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  metas:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+              description: Presence entries that joined since last update
+            leaves:
+              type: object
+              additionalProperties:
+                type: object
+                properties:
+                  metas:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+              description: Presence entries that left since last update
+    PresenceTrackPayload:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: Channel topic
+        event:
+          type: string
+          const: presence
+        ref:
+          type: string
+          description: Message reference
+        payload:
+          type: object
+          properties:
+            type:
+              type: string
+              const: presence
+            event:
+              type: string
+              const: track
+            payload:
+              type: object
+              description: Custom presence metadata to track
+              additionalProperties: true
+    PresenceUntrackPayload:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: Channel topic
+        event:
+          type: string
+          const: presence
+        ref:
+          type: string
+          description: Message reference
+        payload:
+          type: object
+          properties:
+            type:
+              type: string
+              const: presence
+            event:
+              type: string
+              const: untrack
+    SystemReplyPayload:
+      type: object
+      properties:
+        topic:
+          type: string
+          description: Channel topic
+        event:
+          type: string
+          const: phx_reply
+        ref:
+          type: string
+          description: Reference matching the original message
+        payload:
+          type: object
+          properties:
+            status:
+              type: string
+              description: Status of the operation
+              enum:
+                - ok
+                - error
+            response:
+              type: object
+              description: Response data from the operation
+    HeartbeatSendPayload:
+      type: object
+      properties:
+        topic:
+          type: string
+          const: phoenix
+          description: Heartbeat topic is always phoenix
+        event:
+          type: string
+          const: heartbeat
+        ref:
+          type: string
+          description: Message reference
+        payload:
+          type: object
+    HeartbeatReplyPayload:
+      type: object
+      properties:
+        topic:
+          type: string
+          const: phoenix
+        event:
+          type: string
+          const: phx_reply
+        ref:
+          type: string
+          description: Reference matching the heartbeat message
+        payload:
+          type: object
+          properties:
+            status:
+              type: string
+              const: ok
+            response:
+              type: object
