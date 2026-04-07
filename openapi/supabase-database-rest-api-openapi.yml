@@ -26,17 +26,13 @@ servers:
         description: Your Supabase project reference ID
         default: your-project-ref
 tags:
+  - name: RPC
+    description: >-
+      Invoke PostgreSQL functions via remote procedure calls.
   - name: Tables
     description: >-
       CRUD operations on database tables. Paths are auto-generated based on
       your database schema.
-  - name: Views
-    description: >-
-      Read operations on database views. Views are exposed as read-only
-      endpoints unless they have INSTEAD OF triggers.
-  - name: RPC
-    description: >-
-      Invoke PostgreSQL functions via remote procedure calls.
 security:
   - apiKeyAuth: []
     bearerAuth: []

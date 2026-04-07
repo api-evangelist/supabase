@@ -20,34 +20,28 @@ servers:
   - url: https://api.supabase.com/v1
     description: Production Server
 tags:
-  - name: Projects
-    description: >-
-      Manage Supabase projects including creation, configuration, pausing,
-      restoring, and deletion.
-  - name: Organizations
-    description: >-
-      Manage organizations including membership, billing, and settings.
-  - name: Functions
-    description: >-
-      Deploy and manage Edge Functions for serverless compute at the edge.
-  - name: Secrets
-    description: >-
-      Manage project secrets used by Edge Functions and other services.
   - name: Database
     description: >-
       Manage database configurations, migrations, and extensions.
   - name: Domains
     description: >-
       Configure custom domains and vanity subdomains for projects.
+  - name: Functions
+    description: >-
+      Deploy and manage Edge Functions for serverless compute at the edge.
   - name: Network
     description: >-
       Manage network restrictions, bans, and SSL enforcement.
-  - name: Auth
+  - name: Organizations
     description: >-
-      Manage authentication configuration for projects.
-  - name: Storage
+      Manage organizations including membership, billing, and settings.
+  - name: Projects
     description: >-
-      Manage storage configuration for projects.
+      Manage Supabase projects including creation, configuration, pausing,
+      restoring, and deletion.
+  - name: Secrets
+    description: >-
+      Manage project secrets used by Edge Functions and other services.
 security:
   - bearerAuth: []
 paths:

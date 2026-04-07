@@ -24,27 +24,27 @@ servers:
         description: Your Supabase project reference ID
         default: your-project-ref
 tags:
-  - name: Authentication
-    description: >-
-      User signup, signin, and token management endpoints.
-  - name: User Management
-    description: >-
-      Endpoints for managing the currently authenticated user profile.
   - name: Admin
     description: >-
       Administrative endpoints for managing users. Requires service_role key.
-  - name: OAuth
+  - name: Authentication
     description: >-
-      OAuth social login provider endpoints.
-  - name: MFA
-    description: >-
-      Multi-factor authentication enrollment and verification endpoints.
-  - name: SSO
-    description: >-
-      SAML-based single sign-on endpoints.
+      User signup, signin, and token management endpoints.
   - name: Configuration
     description: >-
       Server configuration and settings endpoints.
+  - name: MFA
+    description: >-
+      Multi-factor authentication enrollment and verification endpoints.
+  - name: OAuth
+    description: >-
+      OAuth social login provider endpoints.
+  - name: SSO
+    description: >-
+      SAML-based single sign-on endpoints.
+  - name: User Management
+    description: >-
+      Endpoints for managing the currently authenticated user profile.
 security:
   - apiKeyAuth: []
 paths:
