@@ -1,0 +1,152 @@
+{
+  "name": "Supabase Project Structure",
+  "description": "Documentation of the Supabase project data structure and key entity relationships.",
+  "version": "1.0",
+  "entities": {
+    "Project": {
+      "description": "Top-level Supabase project containing all services",
+      "fields": {
+        "id": { "type": "uuid", "required": true, "description": "Unique project identifier" },
+        "name": { "type": "string", "required": true, "description": "Project display name" },
+        "ref": { "type": "string", "required": true, "description": "Short reference ID used in API URLs" },
+        "organization_id": { "type": "uuid", "required": true, "description": "Owning organization" },
+        "region": { "type": "string", "required": true, "description": "Cloud region" },
+        "status": { "type": "enum", "required": true, "values": ["ACTIVE_HEALTHY", "ACTIVE_UNHEALTHY", "INACTIVE", "RESTORING", "PAUSING"] },
+        "plan": { "type": "enum", "values": ["free", "pro", "team", "enterprise"] },
+        "created_at": { "type": "datetime" },
+        "updated_at": { "type": "datetime" }
+      },
+      "relationships": {
+        "belongs_to": "Organization",
+        "has_many": ["EdgeFunction", "StorageBucket", "ApiKey", "Secret", "DatabaseMigration"]
+      }
+    },
+    "Organization": {
+      "description": "Groups projects and manages team membership and billing",
+      "fields": {
+        "id": { "type": "uuid", "required": true },
+        "name": { "type": "string", "required": true },
+        "slug": { "type": "string" },
+        "billing_email": { "type": "email" },
+        "created_at": { "type": "datetime" }
+      },
+      "relationships": {
+        "has_many": ["Project", "OrganizationMember"]
+      }
+    },
+    "User": {
+      "description": "Authenticated user managed by Supabase Auth (GoTrue)",
+      "fields": {
+        "id": { "type": "uuid", "required": true },
+        "email": { "type": "email" },
+        "phone": { "type": "string" },
+        "role": { "type": "string" },
+        "email_confirmed_at": { "type": "datetime", "nullable": true },
+        "last_sign_in_at": { "type": "datetime", "nullable": true },
+        "app_metadata": { "type": "object", "description": "System metadata (provider, providers)" },
+        "user_metadata": { "type": "object", "description": "Custom application metadata" },
+        "created_at": { "type": "datetime" },
+        "updated_at": { "type": "datetime" }
+      },
+      "relationships": {
+        "has_many": ["MFAFactor", "Session"]
+      }
+    },
+    "EdgeFunction": {
+      "description": "Serverless TypeScript function deployed on Deno runtime",
+      "fields": {
+        "id": { "type": "uuid", "required": true },
+        "slug": { "type": "string", "required": true, "description": "URL slug for invocation" },
+        "name": { "type": "string", "required": true },
+        "status": { "type": "enum", "values": ["ACTIVE", "REMOVED", "THROTTLED"] },
+        "version": { "type": "integer" },
+        "verify_jwt": { "type": "boolean", "default": true },
+        "entrypoint_path": { "type": "string" },
+        "created_at": { "type": "datetime" },
+        "updated_at": { "type": "datetime" }
+      },
+      "relationships": {
+        "belongs_to": "Project"
+      }
+    },
+    "StorageBucket": {
+      "description": "Container for organizing files in Supabase Storage",
+      "fields": {
+        "id": { "type": "string", "required": true },
+        "name": { "type": "string", "required": true },
+        "public": { "type": "boolean", "default": false },
+        "file_size_limit": { "type": "integer", "description": "Max upload size in bytes" },
+        "allowed_mime_types": { "type": "array<string>" },
+        "created_at": { "type": "datetime" },
+        "updated_at": { "type": "datetime" }
+      },
+      "relationships": {
+        "belongs_to": "Project",
+        "has_many": ["StorageObject"]
+      }
+    },
+    "ApiKey": {
+      "description": "API key for authenticating project service requests",
+      "fields": {
+        "name": { "type": "enum", "required": true, "values": ["anon", "service_role"] },
+        "api_key": { "type": "string", "required": true, "description": "JWT API key value" }
+      },
+      "relationships": {
+        "belongs_to": "Project"
+      }
+    },
+    "Secret": {
+      "description": "Environment secret used by Edge Functions",
+      "fields": {
+        "name": { "type": "string", "required": true },
+        "value": { "type": "string", "required": true, "description": "Secret value (write-only)" }
+      },
+      "relationships": {
+        "belongs_to": "Project"
+      }
+    },
+    "DatabaseMigration": {
+      "description": "Versioned SQL migration script for schema changes",
+      "fields": {
+        "version": { "type": "string", "required": true },
+        "name": { "type": "string" },
+        "statements": { "type": "array<string>", "description": "SQL statements to execute" }
+      },
+      "relationships": {
+        "belongs_to": "Project"
+      }
+    }
+  },
+  "apiSurface": {
+    "managementAPI": {
+      "baseUrl": "https://api.supabase.com/v1",
+      "auth": "Bearer personal-access-token",
+      "entities": ["Project", "Organization", "EdgeFunction", "Secret", "DatabaseMigration"]
+    },
+    "authAPI": {
+      "baseUrl": "https://{ref}.supabase.co/auth/v1",
+      "auth": "apikey header + Bearer JWT",
+      "entities": ["User", "Session", "MFAFactor"]
+    },
+    "databaseRestAPI": {
+      "baseUrl": "https://{ref}.supabase.co/rest/v1",
+      "auth": "apikey header + Bearer JWT",
+      "entities": ["DatabaseTable", "DatabaseView", "DatabaseFunction"]
+    },
+    "storageAPI": {
+      "baseUrl": "https://{ref}.supabase.co/storage/v1",
+      "auth": "apikey header + Bearer JWT",
+      "entities": ["StorageBucket", "StorageObject", "SignedURL"]
+    },
+    "edgeFunctionsAPI": {
+      "baseUrl": "https://{ref}.supabase.co/functions/v1",
+      "auth": "apikey header + Bearer JWT",
+      "entities": ["EdgeFunctionInvocation"]
+    },
+    "realtimeAPI": {
+      "baseUrl": "wss://{ref}.supabase.co/realtime/v1",
+      "auth": "apikey param + Bearer JWT",
+      "entities": ["Channel", "PresenceState", "BroadcastMessage"]
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "operation": "listProjects",
+  "description": "List all Supabase projects for the authenticated user",
+  "request": {
+    "method": "GET",
+    "url": "https://api.supabase.com/v1/projects",
+    "headers": {
+      "Authorization": "Bearer sbp_your_personal_access_token",
+      "Content-Type": "application/json"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "body": [
+      {
+        "id": "7e2c4d8f-1a3b-4c5d-9e0f-2b3c4d5e6f7a",
+        "ref": "abcdefghijklmnop",
+        "name": "my-app-production",
+        "organization_id": "f1e2d3c4-b5a6-7890-abcd-ef1234567890",
+        "region": "us-east-1",
+        "status": "ACTIVE_HEALTHY",
+        "plan": "pro",
+        "created_at": "2025-03-15T10:30:00Z",
+        "updated_at": "2026-04-01T08:15:00Z"
+      },
+      {
+        "id": "8f3d5e9a-2b4c-5d6e-0f1a-3c4d5e6f7a8b",
+        "ref": "qrstuvwxyz012345",
+        "name": "my-app-staging",
+        "organization_id": "f1e2d3c4-b5a6-7890-abcd-ef1234567890",
+        "region": "us-east-1",
+        "status": "ACTIVE_HEALTHY",
+        "plan": "free",
+        "created_at": "2025-04-01T14:00:00Z",
+        "updated_at": "2026-03-15T12:30:00Z"
+      }
+    ]
+  }
+}

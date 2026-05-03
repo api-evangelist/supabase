@@ -1,0 +1,96 @@
+extends: spectral:oas
+rules:
+  supabase-operation-ids-camel-case:
+    description: Supabase operation IDs must use camelCase (e.g. listProjects, createProject)
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  supabase-tags-title-case:
+    description: All tags must use Title Case
+    severity: warn
+    given: "$.tags[*].name"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9 ]*$"
+
+  supabase-operation-tags-title-case:
+    description: All operation tags must use Title Case
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].tags[*]"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9 ]*$"
+
+  supabase-summaries-title-case:
+    description: Operation summaries must use Title Case
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+
+  supabase-project-ref-variable:
+    description: >-
+      Server URLs with per-project base URLs must use {project_ref} variable
+      naming convention
+    severity: warn
+    given: "$.servers[*].variables"
+    then:
+      function: truthy
+
+  supabase-security-apikey-or-bearer:
+    description: >-
+      Supabase APIs use either apikey header authentication, Bearer JWT
+      authentication, or both. Every operation should specify security.
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: security
+      function: defined
+
+  supabase-error-responses:
+    description: Operations should document 401 Unauthorized responses
+    severity: info
+    given: "$.paths[*][get,post,put,patch,delete].responses"
+    then:
+      field: "401"
+      function: defined
+
+  supabase-request-body-post:
+    description: POST operations creating resources should have a request body
+    severity: warn
+    given: "$.paths[*].post"
+    then:
+      field: requestBody
+      function: defined
+
+  supabase-operation-description:
+    description: All operations should have a description
+    severity: info
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: description
+      function: defined
+
+  supabase-info-contact:
+    description: APIs must include contact information
+    severity: warn
+    given: "$.info"
+    then:
+      field: contact
+      function: defined
+
+  supabase-servers-defined:
+    description: APIs must define at least one server
+    severity: error
+    given: "$"
+    then:
+      field: servers
+      function: defined

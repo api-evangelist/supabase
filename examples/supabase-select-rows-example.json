@@ -1,0 +1,35 @@
+{
+  "operation": "selectRows",
+  "description": "Query rows from a database table via the Supabase PostgREST API with filtering and ordering",
+  "request": {
+    "method": "GET",
+    "url": "https://abcdefghijklmnop.supabase.co/rest/v1/todos?select=id,title,completed,created_at&completed=eq.false&order=created_at.desc&limit=20",
+    "headers": {
+      "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.anon_key_here",
+      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.user_jwt_here",
+      "Content-Type": "application/json",
+      "Prefer": "count=exact"
+    }
+  },
+  "response": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Range": "0-1/2",
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "body": [
+      {
+        "id": 1,
+        "title": "Build the API",
+        "completed": false,
+        "created_at": "2026-05-02T09:00:00Z"
+      },
+      {
+        "id": 2,
+        "title": "Write documentation",
+        "completed": false,
+        "created_at": "2026-05-01T14:30:00Z"
+      }
+    ]
+  }
+}
