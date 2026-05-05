@@ -1,0 +1,55 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Supabase
+providerId: supabase
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Postgres
+  - Auth
+description: Supabase rate limits per-project.
+sources:
+  - https://supabase.com/pricing
+  - https://supabase.com/docs/guides/platform/going-into-prod
+headers: {}
+responseCodes:
+  throttled: 429
+limits:
+  - name: Auth signups (Free)
+    scope: project
+    metric: signups_per_hour
+    limit: 30
+    timeFrame: hour
+  - name: Auth signups (Pro)
+    scope: project
+    metric: signups_per_hour
+    limit: 150
+    timeFrame: hour
+  - name: Auth email send (default SMTP)
+    scope: project
+    metric: emails_per_hour
+    limit: 4
+    timeFrame: hour
+  - name: Realtime concurrent connections (Free)
+    scope: project
+    metric: concurrent
+    limit: 200
+  - name: Realtime concurrent connections (Pro)
+    scope: project
+    metric: concurrent
+    limit: 500
+  - name: Realtime messages/sec (Free)
+    scope: project
+    metric: messages_per_second
+    limit: 100
+  - name: Realtime messages/sec (Pro)
+    scope: project
+    metric: messages_per_second
+    limit: 500
+  - name: Edge Function invocations
+    scope: project
+    metric: concurrent_invocations
+    limit: 50

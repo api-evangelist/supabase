@@ -1,0 +1,71 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Supabase
+providerId: supabase
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - FinOps
+  - FOCUS
+  - Database
+description: FOCUS-aligned FinOps for Supabase.
+sources:
+  - https://supabase.com/pricing
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Supabase Inc.
+serviceCategory: Backend Platform
+billingModel:
+  pricingCategory: Subscription + Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+focusColumns:
+  ServiceName: Supabase
+  ServiceCategory: Backend Platform
+  ProviderName: Supabase
+  PublisherName: Supabase Inc.
+  BillingCurrency: USD
+meters:
+  - name: database_storage
+    unit: GB-month
+    aggregation: max
+    dimensions:
+      - project
+  - name: egress
+    unit: GB
+    aggregation: sum
+    dimensions:
+      - project
+      - type
+  - name: monthly_active_users
+    unit: MAU
+    aggregation: max
+  - name: file_storage
+    unit: GB-month
+    aggregation: max
+  - name: edge_function_invocations
+    unit: invocation
+    aggregation: sum
+  - name: compute_size_hours
+    unit: compute-hour
+    aggregation: sum
+    dimensions:
+      - instance_type
+  - name: realtime_messages
+    unit: message
+    aggregation: sum
+principles:
+  - name: Visibility
+    description: Use Usage tab per project; export billing JSON via Management API.
+  - name: Allocation
+    description: One project per env (dev/stage/prod); orgs for team-level cost roll-up.
+  - name: Optimization
+    description: Drop unused indexes; archive cold tables; right-size compute add-ons.
+  - name: Accountability
+    description: Cap MAU growth via Auth provider gating; quarterly compute right-sizing.

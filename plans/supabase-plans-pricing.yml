@@ -1,0 +1,231 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Supabase
+providerId: supabase
+created: '2026-05-04'
+modified: '2026-05-04'
+reconciled: true
+tags:
+  - Database
+  - Postgres
+  - Auth
+  - Storage
+  - Edge Functions
+description: Supabase plans for hosted Postgres + Auth + Storage + Realtime + Edge Functions.
+sources:
+  - https://supabase.com/pricing
+plans:
+  - id: supabase-free
+    name: Free
+    type: freemium
+    description: $0/month. 2 projects; pauses after 7 days inactivity.
+    entries:
+      - label: Projects
+        name: projects
+        type: quota
+        metric: project
+        limit: 2
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Database storage
+        name: db_storage
+        type: quota
+        metric: MB
+        limit: 500
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Database egress
+        name: db_egress
+        type: quota
+        metric: GB
+        limit: 5
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: MAU (Auth)
+        name: mau
+        type: quota
+        metric: MAU
+        limit: 50000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: File storage
+        name: file_storage
+        type: quota
+        metric: GB
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Storage egress
+        name: file_egress
+        type: quota
+        metric: GB
+        limit: 5
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Edge function invocations
+        name: fn
+        type: quota
+        metric: invocation
+        limit: 500000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+    elements:
+      - name: 2 projects
+      - name: Auto-pause after 7 days inactivity
+      - name: Community support
+  - id: supabase-pro
+    name: Pro
+    type: paid
+    description: $25/month + usage. 8GB DB, 100k MAU, 100GB storage included.
+    entries:
+      - label: Monthly base
+        name: base
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '25.00'
+        userMultiplied: false
+      - label: Database storage included
+        name: db_storage
+        type: quota
+        metric: GB
+        limit: 8
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: MAU included
+        name: mau
+        type: quota
+        metric: MAU
+        limit: 100000
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: File storage included
+        name: file_storage
+        type: quota
+        metric: GB
+        limit: 100
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Storage overage
+        name: storage_extra
+        type: metered
+        metric: GB
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.021'
+        userMultiplied: false
+      - label: Egress overage
+        name: egress_extra
+        type: metered
+        metric: GB
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.09'
+        userMultiplied: false
+      - label: MAU overage
+        name: mau_extra
+        type: metered
+        metric: MAU
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00325'
+        userMultiplied: false
+      - label: Extra micro compute
+        name: compute_micro
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '10.00'
+        userMultiplied: false
+    elements:
+      - name: No project pause
+      - name: Daily backups (7-day retention)
+      - name: Email support
+      - name: Custom SMTP
+      - name: Read replicas (add-on)
+  - id: supabase-team
+    name: Team
+    type: paid
+    description: $599/month. Pro features plus team collaboration, SOC 2, SSO.
+    entries:
+      - label: Monthly base
+        name: base
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '599.00'
+        userMultiplied: false
+    elements:
+      - name: All Pro features
+      - name: SOC 2 Type 2
+      - name: SSO (SAML 2.0)
+      - name: 14-day backup retention
+      - name: Priority support
+      - name: Audit logs
+  - id: supabase-enterprise
+    name: Enterprise
+    type: enterprise
+    description: Custom pricing. HIPAA, dedicated infrastructure, custom SLAs.
+    entries:
+      - label: Annual contract (custom)
+        name: contract
+        type: subscription
+        metric: year
+        limit: -1
+        timeFrame: year
+        geo: global
+        unit: 1
+        price: custom
+        userMultiplied: false
+    elements:
+      - name: HIPAA compliance
+      - name: BAA
+      - name: Dedicated infrastructure
+      - name: Custom SLAs
+      - name: Designated success manager
