@@ -1,0 +1,13 @@
+{
+  "repo": "supabase",
+  "feeds": [
+    {
+      "source": "https://supabase.com/blog",
+      "feed_url": "https://supabase.com/feed.xml",
+      "saved": 10,
+      "title": "Supabase Blog"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:37:23Z"
+}
