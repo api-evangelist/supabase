@@ -1,434 +1,955 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Supabase Backend As A Service"
-  description: >-
-    Unified workflow capability combining Supabase's database, authentication, and
-    storage services for full-stack application development. Used by developers
-    building web and mobile applications who need a complete backend without
-    managing infrastructure. Combines the Management API, Auth API, Database REST
-    API, and Storage API into a single coherent developer experience.
+  label: Supabase Backend As A Service
+  description: Unified workflow capability combining Supabase's database, authentication, and storage services for full-stack
+    application development. Used by developers building web and mobile applications who need a complete backend without managing
+    infrastructure. Combines the Management API, Auth API, Database REST API, and Storage API into a single coherent developer
+    experience.
   tags:
-    - Supabase
-    - Backend As A Service
-    - Full Stack
-    - PostgreSQL
-    - Authentication
-    - Storage
-  created: "2026-05-02"
-  modified: "2026-05-02"
-
+  - Supabase
+  - Backend As A Service
+  - Full Stack
+  - PostgreSQL
+  - Authentication
+  - Storage
+  created: '2026-05-02'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      SUPABASE_ACCESS_TOKEN: SUPABASE_ACCESS_TOKEN
-      SUPABASE_ANON_KEY: SUPABASE_ANON_KEY
-      SUPABASE_SERVICE_ROLE_KEY: SUPABASE_SERVICE_ROLE_KEY
-      SUPABASE_PROJECT_REF: SUPABASE_PROJECT_REF
-
+- namespace: env
+  keys:
+    SUPABASE_ACCESS_TOKEN: SUPABASE_ACCESS_TOKEN
+    SUPABASE_ANON_KEY: SUPABASE_ANON_KEY
+    SUPABASE_SERVICE_ROLE_KEY: SUPABASE_SERVICE_ROLE_KEY
+    SUPABASE_PROJECT_REF: SUPABASE_PROJECT_REF
 capability:
   consumes:
-    - import: supabase-mgmt
-      location: ./shared/management-api.yaml
-    - import: supabase-auth
-      location: ./shared/auth-api.yaml
-    - import: supabase-db
-      location: ./shared/database-rest-api.yaml
-    - import: supabase-storage
-      location: ./shared/storage-api.yaml
-
+  - type: http
+    namespace: supabase-mgmt
+    baseUri: https://api.supabase.com/v1
+    description: Supabase Management API for project and organization control
+    authentication:
+      type: bearer
+      token: '{{SUPABASE_ACCESS_TOKEN}}'
+    resources:
+    - name: projects
+      path: /projects
+      description: Manage Supabase projects
+      operations:
+      - name: list-projects
+        method: GET
+        description: List all projects
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: array
+          value: $.
+      - name: create-project
+        method: POST
+        description: Create a new project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            organization_id: '{{tools.organization_id}}'
+            db_pass: '{{tools.db_pass}}'
+            region: '{{tools.region}}'
+    - name: project
+      path: /projects/{ref}
+      description: Manage a specific project by reference ID
+      operations:
+      - name: get-project
+        method: GET
+        description: Get project details
+        inputParameters:
+        - name: ref
+          in: path
+          type: string
+          required: true
+          description: Project reference ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: delete-project
+        method: DELETE
+        description: Delete a project
+        inputParameters:
+        - name: ref
+          in: path
+          type: string
+          required: true
+          description: Project reference ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: project-api-keys
+      path: /projects/{ref}/api-keys
+      description: Retrieve API keys for a project
+      operations:
+      - name: get-project-api-keys
+        method: GET
+        description: Get project API keys
+        inputParameters:
+        - name: ref
+          in: path
+          type: string
+          required: true
+          description: Project reference ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: project-health
+      path: /projects/{ref}/health
+      description: Monitor project health
+      operations:
+      - name: get-project-health
+        method: GET
+        description: Get project health status
+        inputParameters:
+        - name: ref
+          in: path
+          type: string
+          required: true
+          description: Project reference ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: functions
+      path: /projects/{ref}/functions
+      description: Manage Edge Functions for a project
+      operations:
+      - name: list-functions
+        method: GET
+        description: List Edge Functions
+        inputParameters:
+        - name: ref
+          in: path
+          type: string
+          required: true
+          description: Project reference ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: array
+          value: $.
+      - name: create-function
+        method: POST
+        description: Create an Edge Function
+        inputParameters:
+        - name: ref
+          in: path
+          type: string
+          required: true
+          description: Project reference ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            slug: '{{tools.slug}}'
+            name: '{{tools.name}}'
+            body: '{{tools.body}}'
+    - name: secrets
+      path: /projects/{ref}/secrets
+      description: Manage project secrets
+      operations:
+      - name: list-secrets
+        method: GET
+        description: List project secrets
+        inputParameters:
+        - name: ref
+          in: path
+          type: string
+          required: true
+          description: Project reference ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: array
+          value: $.
+      - name: create-secrets
+        method: POST
+        description: Create project secrets
+        inputParameters:
+        - name: ref
+          in: path
+          type: string
+          required: true
+          description: Project reference ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            secrets: '{{tools.secrets}}'
+    - name: organizations
+      path: /organizations
+      description: Manage organizations
+      operations:
+      - name: list-organizations
+        method: GET
+        description: List all organizations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: array
+          value: $.
+      - name: create-organization
+        method: POST
+        description: Create an organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+  - type: http
+    namespace: supabase-auth
+    baseUri: https://{{SUPABASE_PROJECT_REF}}.supabase.co/auth/v1
+    description: Supabase Auth API for user authentication and management
+    authentication:
+      type: apikey
+      key: apikey
+      value: '{{SUPABASE_ANON_KEY}}'
+      placement: header
+    resources:
+    - name: signup
+      path: /signup
+      description: User registration
+      operations:
+      - name: sign-up
+        method: POST
+        description: Sign up a new user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            email: '{{tools.email}}'
+            password: '{{tools.password}}'
+    - name: token
+      path: /token
+      description: User authentication token operations
+      operations:
+      - name: sign-in
+        method: POST
+        description: Sign in with credentials
+        inputParameters:
+        - name: grant_type
+          in: query
+          type: string
+          required: true
+          description: 'Grant type: password, refresh_token, or id_token'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            email: '{{tools.email}}'
+            password: '{{tools.password}}'
+    - name: logout
+      path: /logout
+      description: User logout
+      operations:
+      - name: sign-out
+        method: POST
+        description: Sign out a user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: user
+      path: /user
+      description: Current user operations
+      operations:
+      - name: get-user
+        method: GET
+        description: Get the current user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: update-user
+        method: PUT
+        description: Update the current user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            email: '{{tools.email}}'
+            password: '{{tools.password}}'
+    - name: admin-users
+      path: /admin/users
+      description: Administrative user management (requires service_role key)
+      operations:
+      - name: list-users
+        method: GET
+        description: List all users (admin)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-user
+        method: POST
+        description: Create a user (admin)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            email: '{{tools.email}}'
+            password: '{{tools.password}}'
+  - type: http
+    namespace: supabase-db
+    baseUri: https://{{SUPABASE_PROJECT_REF}}.supabase.co/rest/v1
+    description: Supabase PostgREST auto-generated database REST API
+    authentication:
+      type: apikey
+      key: apikey
+      value: '{{SUPABASE_ANON_KEY}}'
+      placement: header
+    resources:
+    - name: table
+      path: /{table}
+      description: CRUD operations on database tables
+      operations:
+      - name: select-rows
+        method: GET
+        description: Select rows from a table
+        inputParameters:
+        - name: table
+          in: path
+          type: string
+          required: true
+          description: Table or view name
+        - name: select
+          in: query
+          type: string
+          required: false
+          description: Comma-separated columns to return
+        - name: order
+          in: query
+          type: string
+          required: false
+          description: Column to sort by
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Maximum rows to return
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Rows to skip
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: array
+          value: $.
+      - name: insert-rows
+        method: POST
+        description: Insert rows into a table
+        inputParameters:
+        - name: table
+          in: path
+          type: string
+          required: true
+          description: Table name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: array
+          value: $.
+        body:
+          type: json
+          data:
+            row_data: '{{tools.row_data}}'
+      - name: update-rows
+        method: PATCH
+        description: Update rows in a table
+        inputParameters:
+        - name: table
+          in: path
+          type: string
+          required: true
+          description: Table name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: array
+          value: $.
+        body:
+          type: json
+          data:
+            updates: '{{tools.updates}}'
+      - name: delete-rows
+        method: DELETE
+        description: Delete rows from a table
+        inputParameters:
+        - name: table
+          in: path
+          type: string
+          required: true
+          description: Table name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: array
+          value: $.
+    - name: rpc
+      path: /rpc/{function_name}
+      description: Invoke PostgreSQL stored functions
+      operations:
+      - name: invoke-function
+        method: POST
+        description: Invoke a PostgreSQL function
+        inputParameters:
+        - name: function_name
+          in: path
+          type: string
+          required: true
+          description: PostgreSQL function name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            args: '{{tools.args}}'
+  - type: http
+    namespace: supabase-storage
+    baseUri: https://{{SUPABASE_PROJECT_REF}}.supabase.co/storage/v1
+    description: Supabase Storage API for object storage and file management
+    authentication:
+      type: apikey
+      key: apikey
+      value: '{{SUPABASE_ANON_KEY}}'
+      placement: header
+    resources:
+    - name: buckets
+      path: /bucket
+      description: Manage storage buckets
+      operations:
+      - name: list-buckets
+        method: GET
+        description: List all buckets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: array
+          value: $.
+      - name: create-bucket
+        method: POST
+        description: Create a new bucket
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            id: '{{tools.id}}'
+            public: '{{tools.public}}'
+    - name: objects
+      path: /object/{bucket_id}
+      description: Manage objects within a bucket
+      operations:
+      - name: upload-file
+        method: POST
+        description: Upload a file to a bucket
+        inputParameters:
+        - name: bucket_id
+          in: path
+          type: string
+          required: true
+          description: Bucket ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: object-download
+      path: /object/authenticated/{bucket_id}/{object_name}
+      description: Download private files
+      operations:
+      - name: download-file
+        method: GET
+        description: Download a private file
+        inputParameters:
+        - name: bucket_id
+          in: path
+          type: string
+          required: true
+          description: Bucket ID
+        - name: object_name
+          in: path
+          type: string
+          required: true
+          description: Object path within the bucket
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: signed-url
+      path: /object/sign/{bucket_id}/{object_name}
+      description: Generate signed URLs for temporary access
+      operations:
+      - name: create-signed-url
+        method: POST
+        description: Create a signed URL
+        inputParameters:
+        - name: bucket_id
+          in: path
+          type: string
+          required: true
+          description: Bucket ID
+        - name: object_name
+          in: path
+          type: string
+          required: true
+          description: Object path
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            expiresIn: '{{tools.expiresIn}}'
   exposes:
-    - type: rest
-      port: 8080
-      namespace: supabase-baas-api
-      description: "Unified REST API for Supabase backend services."
-      resources:
-        - path: /v1/projects
-          name: projects
-          description: "Manage Supabase projects"
-          operations:
-            - method: GET
-              name: list-projects
-              description: "List all projects"
-              call: "supabase-mgmt.list-projects"
-              outputParameters:
-                - type: array
-                  mapping: "$."
-            - method: POST
-              name: create-project
-              description: "Create a new project"
-              call: "supabase-mgmt.create-project"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/projects/{ref}
-          name: project
-          description: "Manage a specific project"
-          operations:
-            - method: GET
-              name: get-project
-              description: "Get project details"
-              call: "supabase-mgmt.get-project"
-              with:
-                ref: "rest.ref"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/projects/{ref}/api-keys
-          name: api-keys
-          description: "Retrieve project API keys"
-          operations:
-            - method: GET
-              name: get-api-keys
-              description: "Get project API keys"
-              call: "supabase-mgmt.get-project-api-keys"
-              with:
-                ref: "rest.ref"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/projects/{ref}/health
-          name: project-health
-          description: "Project health status"
-          operations:
-            - method: GET
-              name: get-health
-              description: "Get project health status"
-              call: "supabase-mgmt.get-project-health"
-              with:
-                ref: "rest.ref"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/auth/signup
-          name: signup
-          description: "User registration"
-          operations:
-            - method: POST
-              name: sign-up
-              description: "Register a new user"
-              call: "supabase-auth.sign-up"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/auth/signin
-          name: signin
-          description: "User login"
-          operations:
-            - method: POST
-              name: sign-in
-              description: "Sign in a user"
-              call: "supabase-auth.sign-in"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/auth/users
-          name: users
-          description: "User management (admin)"
-          operations:
-            - method: GET
-              name: list-users
-              description: "List all users"
-              call: "supabase-auth.list-users"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/data/{table}
-          name: table-data
-          description: "Database CRUD operations"
-          operations:
-            - method: GET
-              name: select-rows
-              description: "Query table rows"
-              call: "supabase-db.select-rows"
-              with:
-                table: "rest.table"
-              outputParameters:
-                - type: array
-                  mapping: "$."
-            - method: POST
-              name: insert-rows
-              description: "Insert rows"
-              call: "supabase-db.insert-rows"
-              with:
-                table: "rest.table"
-              outputParameters:
-                - type: array
-                  mapping: "$."
-        - path: /v1/rpc/{function_name}
-          name: rpc
-          description: "PostgreSQL function invocation"
-          operations:
-            - method: POST
-              name: invoke-function
-              description: "Invoke a PostgreSQL function"
-              call: "supabase-db.invoke-function"
-              with:
-                function_name: "rest.function_name"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/buckets
-          name: buckets
-          description: "Storage bucket management"
-          operations:
-            - method: GET
-              name: list-buckets
-              description: "List all storage buckets"
-              call: "supabase-storage.list-buckets"
-              outputParameters:
-                - type: array
-                  mapping: "$."
-            - method: POST
-              name: create-bucket
-              description: "Create a storage bucket"
-              call: "supabase-storage.create-bucket"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-        - path: /v1/organizations
-          name: organizations
-          description: "Organization management"
-          operations:
-            - method: GET
-              name: list-organizations
-              description: "List all organizations"
-              call: "supabase-mgmt.list-organizations"
-              outputParameters:
-                - type: array
-                  mapping: "$."
-
-    - type: mcp
-      port: 9090
-      namespace: supabase-baas-mcp
-      transport: http
-      description: "MCP server for AI-assisted Supabase application development."
-      tools:
-        - name: list-projects
-          description: "List all Supabase projects"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "supabase-mgmt.list-projects"
-          outputParameters:
-            - type: array
-              mapping: "$."
-        - name: create-project
-          description: "Create a new Supabase project"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "supabase-mgmt.create-project"
-          with:
-            name: "tools.name"
-            organization_id: "tools.organization_id"
-            db_pass: "tools.db_pass"
-            region: "tools.region"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-project
-          description: "Get details for a specific project"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "supabase-mgmt.get-project"
-          with:
-            ref: "tools.ref"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-project-health
-          description: "Get project health and service status"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "supabase-mgmt.get-project-health"
-          with:
-            ref: "tools.ref"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-api-keys
-          description: "Get the API keys (anon, service_role) for a project"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "supabase-mgmt.get-project-api-keys"
-          with:
-            ref: "tools.ref"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-functions
-          description: "List all Edge Functions for a project"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "supabase-mgmt.list-functions"
-          with:
-            ref: "tools.ref"
-          outputParameters:
-            - type: array
-              mapping: "$."
-        - name: create-function
-          description: "Deploy a new Edge Function to a project"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "supabase-mgmt.create-function"
-          with:
-            ref: "tools.ref"
-            slug: "tools.slug"
-            name: "tools.name"
-            body: "tools.body"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-secrets
-          description: "List secrets stored for a project"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "supabase-mgmt.list-secrets"
-          with:
-            ref: "tools.ref"
-          outputParameters:
-            - type: array
-              mapping: "$."
-        - name: list-organizations
-          description: "List all organizations the user belongs to"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "supabase-mgmt.list-organizations"
-          outputParameters:
-            - type: array
-              mapping: "$."
-        - name: sign-up
-          description: "Register a new user with email and password"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "supabase-auth.sign-up"
-          with:
-            email: "tools.email"
-            password: "tools.password"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: sign-in
-          description: "Sign in a user and get JWT access token"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "supabase-auth.sign-in"
-          with:
-            email: "tools.email"
-            password: "tools.password"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: get-user
-          description: "Get the currently authenticated user's profile"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "supabase-auth.get-user"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-users
-          description: "List all users in the project (admin)"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "supabase-auth.list-users"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: select-rows
-          description: "Query rows from a database table with filtering and pagination"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "supabase-db.select-rows"
-          with:
-            table: "tools.table"
-            select: "tools.select"
-            limit: "tools.limit"
-            offset: "tools.offset"
-          outputParameters:
-            - type: array
-              mapping: "$."
-        - name: insert-rows
-          description: "Insert one or more rows into a database table"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "supabase-db.insert-rows"
-          with:
-            table: "tools.table"
-            row_data: "tools.row_data"
-          outputParameters:
-            - type: array
-              mapping: "$."
-        - name: update-rows
-          description: "Update rows in a table matching filter criteria"
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: true
-          call: "supabase-db.update-rows"
-          with:
-            table: "tools.table"
-            updates: "tools.updates"
-          outputParameters:
-            - type: array
-              mapping: "$."
-        - name: invoke-function
-          description: "Call a PostgreSQL stored function via RPC"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "supabase-db.invoke-function"
-          with:
-            function_name: "tools.function_name"
-            args: "tools.args"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: list-buckets
-          description: "List all storage buckets in the project"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "supabase-storage.list-buckets"
-          outputParameters:
-            - type: array
-              mapping: "$."
-        - name: create-bucket
-          description: "Create a new storage bucket"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "supabase-storage.create-bucket"
-          with:
-            id: "tools.id"
-            public: "tools.public"
-          outputParameters:
-            - type: object
-              mapping: "$."
-        - name: create-signed-url
-          description: "Create a signed URL for temporary access to a private file"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "supabase-storage.create-signed-url"
-          with:
-            bucket_id: "tools.bucket_id"
-            object_name: "tools.object_name"
-            expiresIn: "tools.expiresIn"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: supabase-baas-api
+    description: Unified REST API for Supabase backend services.
+    resources:
+    - path: /v1/projects
+      name: projects
+      description: Manage Supabase projects
+      operations:
+      - method: GET
+        name: list-projects
+        description: List all projects
+        call: supabase-mgmt.list-projects
+        outputParameters:
+        - type: array
+          mapping: $.
+      - method: POST
+        name: create-project
+        description: Create a new project
+        call: supabase-mgmt.create-project
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{ref}
+      name: project
+      description: Manage a specific project
+      operations:
+      - method: GET
+        name: get-project
+        description: Get project details
+        call: supabase-mgmt.get-project
+        with:
+          ref: rest.ref
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{ref}/api-keys
+      name: api-keys
+      description: Retrieve project API keys
+      operations:
+      - method: GET
+        name: get-api-keys
+        description: Get project API keys
+        call: supabase-mgmt.get-project-api-keys
+        with:
+          ref: rest.ref
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{ref}/health
+      name: project-health
+      description: Project health status
+      operations:
+      - method: GET
+        name: get-health
+        description: Get project health status
+        call: supabase-mgmt.get-project-health
+        with:
+          ref: rest.ref
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/auth/signup
+      name: signup
+      description: User registration
+      operations:
+      - method: POST
+        name: sign-up
+        description: Register a new user
+        call: supabase-auth.sign-up
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/auth/signin
+      name: signin
+      description: User login
+      operations:
+      - method: POST
+        name: sign-in
+        description: Sign in a user
+        call: supabase-auth.sign-in
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/auth/users
+      name: users
+      description: User management (admin)
+      operations:
+      - method: GET
+        name: list-users
+        description: List all users
+        call: supabase-auth.list-users
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/data/{table}
+      name: table-data
+      description: Database CRUD operations
+      operations:
+      - method: GET
+        name: select-rows
+        description: Query table rows
+        call: supabase-db.select-rows
+        with:
+          table: rest.table
+        outputParameters:
+        - type: array
+          mapping: $.
+      - method: POST
+        name: insert-rows
+        description: Insert rows
+        call: supabase-db.insert-rows
+        with:
+          table: rest.table
+        outputParameters:
+        - type: array
+          mapping: $.
+    - path: /v1/rpc/{function_name}
+      name: rpc
+      description: PostgreSQL function invocation
+      operations:
+      - method: POST
+        name: invoke-function
+        description: Invoke a PostgreSQL function
+        call: supabase-db.invoke-function
+        with:
+          function_name: rest.function_name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/buckets
+      name: buckets
+      description: Storage bucket management
+      operations:
+      - method: GET
+        name: list-buckets
+        description: List all storage buckets
+        call: supabase-storage.list-buckets
+        outputParameters:
+        - type: array
+          mapping: $.
+      - method: POST
+        name: create-bucket
+        description: Create a storage bucket
+        call: supabase-storage.create-bucket
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/organizations
+      name: organizations
+      description: Organization management
+      operations:
+      - method: GET
+        name: list-organizations
+        description: List all organizations
+        call: supabase-mgmt.list-organizations
+        outputParameters:
+        - type: array
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: supabase-baas-mcp
+    transport: http
+    description: MCP server for AI-assisted Supabase application development.
+    tools:
+    - name: list-projects
+      description: List all Supabase projects
+      hints:
+        readOnly: true
+        openWorld: false
+      call: supabase-mgmt.list-projects
+      outputParameters:
+      - type: array
+        mapping: $.
+    - name: create-project
+      description: Create a new Supabase project
+      hints:
+        readOnly: false
+        destructive: false
+      call: supabase-mgmt.create-project
+      with:
+        name: tools.name
+        organization_id: tools.organization_id
+        db_pass: tools.db_pass
+        region: tools.region
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-project
+      description: Get details for a specific project
+      hints:
+        readOnly: true
+        openWorld: false
+      call: supabase-mgmt.get-project
+      with:
+        ref: tools.ref
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-project-health
+      description: Get project health and service status
+      hints:
+        readOnly: true
+        openWorld: false
+      call: supabase-mgmt.get-project-health
+      with:
+        ref: tools.ref
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-api-keys
+      description: Get the API keys (anon, service_role) for a project
+      hints:
+        readOnly: true
+        openWorld: false
+      call: supabase-mgmt.get-project-api-keys
+      with:
+        ref: tools.ref
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-functions
+      description: List all Edge Functions for a project
+      hints:
+        readOnly: true
+        openWorld: false
+      call: supabase-mgmt.list-functions
+      with:
+        ref: tools.ref
+      outputParameters:
+      - type: array
+        mapping: $.
+    - name: create-function
+      description: Deploy a new Edge Function to a project
+      hints:
+        readOnly: false
+        destructive: false
+      call: supabase-mgmt.create-function
+      with:
+        ref: tools.ref
+        slug: tools.slug
+        name: tools.name
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-secrets
+      description: List secrets stored for a project
+      hints:
+        readOnly: true
+        openWorld: false
+      call: supabase-mgmt.list-secrets
+      with:
+        ref: tools.ref
+      outputParameters:
+      - type: array
+        mapping: $.
+    - name: list-organizations
+      description: List all organizations the user belongs to
+      hints:
+        readOnly: true
+        openWorld: false
+      call: supabase-mgmt.list-organizations
+      outputParameters:
+      - type: array
+        mapping: $.
+    - name: sign-up
+      description: Register a new user with email and password
+      hints:
+        readOnly: false
+        destructive: false
+      call: supabase-auth.sign-up
+      with:
+        email: tools.email
+        password: tools.password
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: sign-in
+      description: Sign in a user and get JWT access token
+      hints:
+        readOnly: false
+        destructive: false
+      call: supabase-auth.sign-in
+      with:
+        email: tools.email
+        password: tools.password
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-user
+      description: Get the currently authenticated user's profile
+      hints:
+        readOnly: true
+        openWorld: false
+      call: supabase-auth.get-user
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-users
+      description: List all users in the project (admin)
+      hints:
+        readOnly: true
+        openWorld: false
+      call: supabase-auth.list-users
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: select-rows
+      description: Query rows from a database table with filtering and pagination
+      hints:
+        readOnly: true
+        openWorld: false
+      call: supabase-db.select-rows
+      with:
+        table: tools.table
+        select: tools.select
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: array
+        mapping: $.
+    - name: insert-rows
+      description: Insert one or more rows into a database table
+      hints:
+        readOnly: false
+        destructive: false
+      call: supabase-db.insert-rows
+      with:
+        table: tools.table
+        row_data: tools.row_data
+      outputParameters:
+      - type: array
+        mapping: $.
+    - name: update-rows
+      description: Update rows in a table matching filter criteria
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: supabase-db.update-rows
+      with:
+        table: tools.table
+        updates: tools.updates
+      outputParameters:
+      - type: array
+        mapping: $.
+    - name: invoke-function
+      description: Call a PostgreSQL stored function via RPC
+      hints:
+        readOnly: false
+        destructive: false
+      call: supabase-db.invoke-function
+      with:
+        function_name: tools.function_name
+        args: tools.args
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-buckets
+      description: List all storage buckets in the project
+      hints:
+        readOnly: true
+        openWorld: false
+      call: supabase-storage.list-buckets
+      outputParameters:
+      - type: array
+        mapping: $.
+    - name: create-bucket
+      description: Create a new storage bucket
+      hints:
+        readOnly: false
+        destructive: false
+      call: supabase-storage.create-bucket
+      with:
+        id: tools.id
+        public: tools.public
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-signed-url
+      description: Create a signed URL for temporary access to a private file
+      hints:
+        readOnly: false
+        destructive: false
+      call: supabase-storage.create-signed-url
+      with:
+        bucket_id: tools.bucket_id
+        object_name: tools.object_name
+        expiresIn: tools.expiresIn
+      outputParameters:
+      - type: object
+        mapping: $.
