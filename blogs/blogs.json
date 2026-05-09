@@ -4,10 +4,10 @@
     {
       "source": "https://supabase.com/blog",
       "feed_url": "https://supabase.com/feed.xml",
-      "saved": 10,
-      "title": "Supabase Blog"
+      "title": "Supabase Blog",
+      "saved": 4
     }
   ],
-  "post_count": 10,
-  "fetched": "2026-05-03T23:37:23Z"
+  "post_count": 14,
+  "fetched": "2026-05-09T20:17:51Z"
 }
