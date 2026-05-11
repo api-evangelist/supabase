@@ -175,6 +175,21 @@ common:
     sources:
       - https://supabase.com/pricing
     updated: '2026-05-04'
+  - type: Integrations
+    url: https://supabase.com/partners
+integrations:
+  - name: Supabase
+  - name: Arengu
+  - name: Auth0
+  - name: Appsmith
+  - name: CALDA
+  - name: Morrow
+  - name: Voypost
+  - name: Vercel
+  - name: Prisma
+  - name: Cloudflare-workers
+  - name: Codesandbox
+  - name: Register app via API
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
