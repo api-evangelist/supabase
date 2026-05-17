@@ -142,9 +142,9 @@ common:
     url: https://supabase.com
   - type: Documentation
     url: https://supabase.com/docs
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/supabase
-  - type: Status Page
+  - type: StatusPage
     url: https://status.supabase.com
   - type: Pricing
     url: https://supabase.com/pricing
