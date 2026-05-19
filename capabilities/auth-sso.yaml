@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Supabase Auth API — SSO
+  description: 'Supabase Auth API — SSO. 1 operations. Lead operation: SAML Assertion Consumer Service. Self-contained Naftiko
+    capability covering one Supabase business surface.'
+  tags:
+  - Supabase
+  - SSO
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SUPABASE_API_KEY: SUPABASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: auth-sso
+    baseUri: https://{project_ref}.supabase.co/auth/v1
+    description: Supabase Auth API — SSO business capability. Self-contained, no shared references.
+    resources:
+    - name: sso-saml-acs
+      path: /sso/saml/acs
+      operations:
+      - name: samlacs
+        method: POST
+        description: SAML Assertion Consumer Service
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SUPABASE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: auth-sso-rest
+    port: 8080
+    description: REST adapter for Supabase Auth API — SSO. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/sso/saml/acs
+      name: sso-saml-acs
+      description: REST surface for sso-saml-acs.
+      operations:
+      - method: POST
+        name: samlacs
+        description: SAML Assertion Consumer Service
+        call: auth-sso.samlacs
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: auth-sso-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Supabase Auth API — SSO. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: saml-assertion-consumer-service
+      description: SAML Assertion Consumer Service
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-sso.samlacs
+      outputParameters:
+      - type: object
+        mapping: $.

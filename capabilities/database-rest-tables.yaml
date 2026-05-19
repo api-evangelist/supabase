@@ -1,0 +1,171 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Supabase Database REST API — Tables
+  description: 'Supabase Database REST API — Tables. 4 operations. Lead operation: Select rows from a table. Self-contained
+    Naftiko capability covering one Supabase business surface.'
+  tags:
+  - Supabase
+  - Tables
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SUPABASE_API_KEY: SUPABASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: database-rest-tables
+    baseUri: https://{project_ref}.supabase.co/rest/v1
+    description: Supabase Database REST API — Tables business capability. Self-contained, no shared references.
+    resources:
+    - name: table
+      path: /{table}
+      operations:
+      - name: selectrows
+        method: GET
+        description: Select rows from a table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: insertrows
+        method: POST
+        description: Insert rows into a table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Prefer
+          in: header
+          type: string
+          description: Upsert conflict resolution strategy
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updaterows
+        method: PATCH
+        description: Update rows in a table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleterows
+        method: DELETE
+        description: Delete rows from a table
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SUPABASE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: database-rest-tables-rest
+    port: 8080
+    description: REST adapter for Supabase Database REST API — Tables. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/{table}
+      name: table
+      description: REST surface for table.
+      operations:
+      - method: GET
+        name: selectrows
+        description: Select rows from a table
+        call: database-rest-tables.selectrows
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: insertrows
+        description: Insert rows into a table
+        call: database-rest-tables.insertrows
+        with:
+          Prefer: rest.Prefer
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updaterows
+        description: Update rows in a table
+        call: database-rest-tables.updaterows
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleterows
+        description: Delete rows from a table
+        call: database-rest-tables.deleterows
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: database-rest-tables-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Supabase Database REST API — Tables. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: select-rows-table
+      description: Select rows from a table
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: database-rest-tables.selectrows
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: insert-rows-table
+      description: Insert rows into a table
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: database-rest-tables.insertrows
+      with:
+        Prefer: tools.Prefer
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-rows-table
+      description: Update rows in a table
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: database-rest-tables.updaterows
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-rows-table
+      description: Delete rows from a table
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: database-rest-tables.deleterows
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,197 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Supabase Management API — Functions
+  description: 'Supabase Management API — Functions. 5 operations. Lead operation: List Edge Functions. Self-contained Naftiko
+    capability covering one Supabase business surface.'
+  tags:
+  - Supabase
+  - Functions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SUPABASE_API_KEY: SUPABASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-functions
+    baseUri: https://api.supabase.com/v1
+    description: Supabase Management API — Functions business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-ref-functions
+      path: /projects/{ref}/functions
+      operations:
+      - name: listfunctions
+        method: GET
+        description: List Edge Functions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createfunction
+        method: POST
+        description: Create an Edge Function
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-ref-functions-function_slug
+      path: /projects/{ref}/functions/{function_slug}
+      operations:
+      - name: getfunction
+        method: GET
+        description: Get an Edge Function
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatefunction
+        method: PATCH
+        description: Update an Edge Function
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletefunction
+        method: DELETE
+        description: Delete an Edge Function
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SUPABASE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-functions-rest
+    port: 8080
+    description: REST adapter for Supabase Management API — Functions. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/projects/{ref}/functions
+      name: projects-ref-functions
+      description: REST surface for projects-ref-functions.
+      operations:
+      - method: GET
+        name: listfunctions
+        description: List Edge Functions
+        call: management-functions.listfunctions
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createfunction
+        description: Create an Edge Function
+        call: management-functions.createfunction
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{ref}/functions/{function-slug}
+      name: projects-ref-functions-function-slug
+      description: REST surface for projects-ref-functions-function_slug.
+      operations:
+      - method: GET
+        name: getfunction
+        description: Get an Edge Function
+        call: management-functions.getfunction
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatefunction
+        description: Update an Edge Function
+        call: management-functions.updatefunction
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletefunction
+        description: Delete an Edge Function
+        call: management-functions.deletefunction
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-functions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Supabase Management API — Functions. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-edge-functions
+      description: List Edge Functions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-functions.listfunctions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-edge-function
+      description: Create an Edge Function
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-functions.createfunction
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-edge-function
+      description: Get an Edge Function
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-functions.getfunction
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-edge-function
+      description: Update an Edge Function
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: management-functions.updatefunction
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-edge-function
+      description: Delete an Edge Function
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: management-functions.deletefunction
+      outputParameters:
+      - type: object
+        mapping: $.

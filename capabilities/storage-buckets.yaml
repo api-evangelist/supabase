@@ -1,0 +1,229 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Supabase Storage API — Buckets
+  description: 'Supabase Storage API — Buckets. 6 operations. Lead operation: List all buckets. Self-contained Naftiko capability
+    covering one Supabase business surface.'
+  tags:
+  - Supabase
+  - Buckets
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SUPABASE_API_KEY: SUPABASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: storage-buckets
+    baseUri: https://{project_ref}.supabase.co/storage/v1
+    description: Supabase Storage API — Buckets business capability. Self-contained, no shared references.
+    resources:
+    - name: bucket
+      path: /bucket
+      operations:
+      - name: listbuckets
+        method: GET
+        description: List all buckets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createbucket
+        method: POST
+        description: Create a new bucket
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: bucket-bucketId
+      path: /bucket/{bucketId}
+      operations:
+      - name: getbucket
+        method: GET
+        description: Get bucket details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatebucket
+        method: PUT
+        description: Update a bucket
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletebucket
+        method: DELETE
+        description: Delete a bucket
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: bucket-bucketId-empty
+      path: /bucket/{bucketId}/empty
+      operations:
+      - name: emptybucket
+        method: POST
+        description: Empty a bucket
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SUPABASE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: storage-buckets-rest
+    port: 8080
+    description: REST adapter for Supabase Storage API — Buckets. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/bucket
+      name: bucket
+      description: REST surface for bucket.
+      operations:
+      - method: GET
+        name: listbuckets
+        description: List all buckets
+        call: storage-buckets.listbuckets
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createbucket
+        description: Create a new bucket
+        call: storage-buckets.createbucket
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/bucket/{bucketid}
+      name: bucket-bucketid
+      description: REST surface for bucket-bucketId.
+      operations:
+      - method: GET
+        name: getbucket
+        description: Get bucket details
+        call: storage-buckets.getbucket
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatebucket
+        description: Update a bucket
+        call: storage-buckets.updatebucket
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletebucket
+        description: Delete a bucket
+        call: storage-buckets.deletebucket
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/bucket/{bucketid}/empty
+      name: bucket-bucketid-empty
+      description: REST surface for bucket-bucketId-empty.
+      operations:
+      - method: POST
+        name: emptybucket
+        description: Empty a bucket
+        call: storage-buckets.emptybucket
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: storage-buckets-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Supabase Storage API — Buckets. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-all-buckets
+      description: List all buckets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: storage-buckets.listbuckets
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-new-bucket
+      description: Create a new bucket
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: storage-buckets.createbucket
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-bucket-details
+      description: Get bucket details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: storage-buckets.getbucket
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-bucket
+      description: Update a bucket
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: storage-buckets.updatebucket
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-bucket
+      description: Delete a bucket
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: storage-buckets.deletebucket
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: empty-bucket
+      description: Empty a bucket
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: storage-buckets.emptybucket
+      outputParameters:
+      - type: object
+        mapping: $.

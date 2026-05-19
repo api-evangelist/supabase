@@ -1,0 +1,387 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Supabase Auth API — Authentication
+  description: 'Supabase Auth API — Authentication. 8 operations. Lead operation: Sign out a user. Self-contained Naftiko
+    capability covering one Supabase business surface.'
+  tags:
+  - Supabase
+  - Authentication
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SUPABASE_API_KEY: SUPABASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: auth-authentication
+    baseUri: https://{project_ref}.supabase.co/auth/v1
+    description: Supabase Auth API — Authentication business capability. Self-contained, no shared references.
+    resources:
+    - name: logout
+      path: /logout
+      operations:
+      - name: signout
+        method: POST
+        description: Sign out a user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: scope
+          in: query
+          type: string
+          description: Scope of logout. Local revokes only the current session, global revokes all sessions, others revokes
+            all other sessions.
+    - name: magiclink
+      path: /magiclink
+      operations:
+      - name: sendmagiclink
+        method: POST
+        description: Send a magic link
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: otp
+      path: /otp
+      operations:
+      - name: sendotp
+        method: POST
+        description: Send a one-time password
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: recover
+      path: /recover
+      operations:
+      - name: recoverpassword
+        method: POST
+        description: Send password recovery email
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: signup
+      path: /signup
+      operations:
+      - name: signup
+        method: POST
+        description: Sign up a new user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: token
+      path: /token
+      operations:
+      - name: signin
+        method: POST
+        description: Sign in with credentials
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: grant_type
+          in: query
+          type: string
+          description: The type of authentication grant to use.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: verify
+      path: /verify
+      operations:
+      - name: verifyotp
+        method: POST
+        description: Verify an OTP or token hash
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: verifyotpredirect
+        method: GET
+        description: Verify OTP via redirect
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: token_hash
+          in: query
+          type: string
+          description: The token hash from the email link
+          required: true
+        - name: type
+          in: query
+          type: string
+          description: Type of verification
+          required: true
+        - name: redirect_to
+          in: query
+          type: string
+          description: URL to redirect to after verification
+    authentication:
+      type: bearer
+      token: '{{env.SUPABASE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: auth-authentication-rest
+    port: 8080
+    description: REST adapter for Supabase Auth API — Authentication. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/logout
+      name: logout
+      description: REST surface for logout.
+      operations:
+      - method: POST
+        name: signout
+        description: Sign out a user
+        call: auth-authentication.signout
+        with:
+          scope: rest.scope
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/magiclink
+      name: magiclink
+      description: REST surface for magiclink.
+      operations:
+      - method: POST
+        name: sendmagiclink
+        description: Send a magic link
+        call: auth-authentication.sendmagiclink
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/otp
+      name: otp
+      description: REST surface for otp.
+      operations:
+      - method: POST
+        name: sendotp
+        description: Send a one-time password
+        call: auth-authentication.sendotp
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/recover
+      name: recover
+      description: REST surface for recover.
+      operations:
+      - method: POST
+        name: recoverpassword
+        description: Send password recovery email
+        call: auth-authentication.recoverpassword
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/signup
+      name: signup
+      description: REST surface for signup.
+      operations:
+      - method: POST
+        name: signup
+        description: Sign up a new user
+        call: auth-authentication.signup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/token
+      name: token
+      description: REST surface for token.
+      operations:
+      - method: POST
+        name: signin
+        description: Sign in with credentials
+        call: auth-authentication.signin
+        with:
+          grant_type: rest.grant_type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/verify
+      name: verify
+      description: REST surface for verify.
+      operations:
+      - method: POST
+        name: verifyotp
+        description: Verify an OTP or token hash
+        call: auth-authentication.verifyotp
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: verifyotpredirect
+        description: Verify OTP via redirect
+        call: auth-authentication.verifyotpredirect
+        with:
+          token_hash: rest.token_hash
+          type: rest.type
+          redirect_to: rest.redirect_to
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: auth-authentication-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Supabase Auth API — Authentication. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: sign-out-user
+      description: Sign out a user
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-authentication.signout
+      with:
+        scope: tools.scope
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: send-magic-link
+      description: Send a magic link
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-authentication.sendmagiclink
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: send-one-time-password
+      description: Send a one-time password
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-authentication.sendotp
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: send-password-recovery-email
+      description: Send password recovery email
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-authentication.recoverpassword
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: sign-up-new-user
+      description: Sign up a new user
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-authentication.signup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: sign-credentials
+      description: Sign in with credentials
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-authentication.signin
+      with:
+        grant_type: tools.grant_type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: verify-otp-token-hash
+      description: Verify an OTP or token hash
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-authentication.verifyotp
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: verify-otp-redirect
+      description: Verify OTP via redirect
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: auth-authentication.verifyotpredirect
+      with:
+        token_hash: tools.token_hash
+        type: tools.type
+        redirect_to: tools.redirect_to
+      outputParameters:
+      - type: object
+        mapping: $.

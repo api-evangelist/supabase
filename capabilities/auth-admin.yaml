@@ -1,0 +1,254 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Supabase Auth API — Admin
+  description: 'Supabase Auth API — Admin. 6 operations. Lead operation: List all users (admin). Self-contained Naftiko capability
+    covering one Supabase business surface.'
+  tags:
+  - Supabase
+  - Admin
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SUPABASE_API_KEY: SUPABASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: auth-admin
+    baseUri: https://{project_ref}.supabase.co/auth/v1
+    description: Supabase Auth API — Admin business capability. Self-contained, no shared references.
+    resources:
+    - name: admin-users
+      path: /admin/users
+      operations:
+      - name: adminlistusers
+        method: GET
+        description: List all users (admin)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of users per page
+      - name: admincreateuser
+        method: POST
+        description: Create a user (admin)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: admin-users-user_id
+      path: /admin/users/{user_id}
+      operations:
+      - name: admingetuser
+        method: GET
+        description: Get a user by ID (admin)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: adminupdateuser
+        method: PUT
+        description: Update a user (admin)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: admindeleteuser
+        method: DELETE
+        description: Delete a user (admin)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: invite
+      path: /invite
+      operations:
+      - name: inviteuser
+        method: POST
+        description: Invite a user by email
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SUPABASE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: auth-admin-rest
+    port: 8080
+    description: REST adapter for Supabase Auth API — Admin. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/admin/users
+      name: admin-users
+      description: REST surface for admin-users.
+      operations:
+      - method: GET
+        name: adminlistusers
+        description: List all users (admin)
+        call: auth-admin.adminlistusers
+        with:
+          page: rest.page
+          per_page: rest.per_page
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: admincreateuser
+        description: Create a user (admin)
+        call: auth-admin.admincreateuser
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/admin/users/{user-id}
+      name: admin-users-user-id
+      description: REST surface for admin-users-user_id.
+      operations:
+      - method: GET
+        name: admingetuser
+        description: Get a user by ID (admin)
+        call: auth-admin.admingetuser
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: adminupdateuser
+        description: Update a user (admin)
+        call: auth-admin.adminupdateuser
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: admindeleteuser
+        description: Delete a user (admin)
+        call: auth-admin.admindeleteuser
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/invite
+      name: invite
+      description: REST surface for invite.
+      operations:
+      - method: POST
+        name: inviteuser
+        description: Invite a user by email
+        call: auth-admin.inviteuser
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: auth-admin-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Supabase Auth API — Admin. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-all-users-admin
+      description: List all users (admin)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: auth-admin.adminlistusers
+      with:
+        page: tools.page
+        per_page: tools.per_page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-user-admin
+      description: Create a user (admin)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-admin.admincreateuser
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-user-id-admin
+      description: Get a user by ID (admin)
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: auth-admin.admingetuser
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-user-admin
+      description: Update a user (admin)
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: auth-admin.adminupdateuser
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-user-admin
+      description: Delete a user (admin)
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: auth-admin.admindeleteuser
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: invite-user-email
+      description: Invite a user by email
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: auth-admin.inviteuser
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

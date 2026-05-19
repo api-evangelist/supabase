@@ -1,0 +1,105 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Supabase Management API — Database
+  description: 'Supabase Management API — Database. 2 operations. Lead operation: List database migrations. Self-contained
+    Naftiko capability covering one Supabase business surface.'
+  tags:
+  - Supabase
+  - Database
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SUPABASE_API_KEY: SUPABASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-database
+    baseUri: https://api.supabase.com/v1
+    description: Supabase Management API — Database business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-ref-database-migrations
+      path: /projects/{ref}/database/migrations
+      operations:
+      - name: listdatabasemigrations
+        method: GET
+        description: List database migrations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createdatabasemigration
+        method: POST
+        description: Create a database migration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SUPABASE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-database-rest
+    port: 8080
+    description: REST adapter for Supabase Management API — Database. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/projects/{ref}/database/migrations
+      name: projects-ref-database-migrations
+      description: REST surface for projects-ref-database-migrations.
+      operations:
+      - method: GET
+        name: listdatabasemigrations
+        description: List database migrations
+        call: management-database.listdatabasemigrations
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createdatabasemigration
+        description: Create a database migration
+        call: management-database.createdatabasemigration
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-database-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Supabase Management API — Database. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-database-migrations
+      description: List database migrations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-database.listdatabasemigrations
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-database-migration
+      description: Create a database migration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-database.createdatabasemigration
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

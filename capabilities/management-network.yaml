@@ -1,0 +1,172 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Supabase Management API — Network
+  description: 'Supabase Management API — Network. 4 operations. Lead operation: List network bans. Self-contained Naftiko
+    capability covering one Supabase business surface.'
+  tags:
+  - Supabase
+  - Network
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SUPABASE_API_KEY: SUPABASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-network
+    baseUri: https://api.supabase.com/v1
+    description: Supabase Management API — Network business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-ref-network-bans
+      path: /projects/{ref}/network-bans
+      operations:
+      - name: listnetworkbans
+        method: GET
+        description: List network bans
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: removenetworkbans
+        method: DELETE
+        description: Remove network bans
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-ref-network-restrictions
+      path: /projects/{ref}/network-restrictions
+      operations:
+      - name: getnetworkrestrictions
+        method: GET
+        description: Get network restrictions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatenetworkrestrictions
+        method: POST
+        description: Update network restrictions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SUPABASE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-network-rest
+    port: 8080
+    description: REST adapter for Supabase Management API — Network. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/projects/{ref}/network-bans
+      name: projects-ref-network-bans
+      description: REST surface for projects-ref-network-bans.
+      operations:
+      - method: GET
+        name: listnetworkbans
+        description: List network bans
+        call: management-network.listnetworkbans
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: removenetworkbans
+        description: Remove network bans
+        call: management-network.removenetworkbans
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{ref}/network-restrictions
+      name: projects-ref-network-restrictions
+      description: REST surface for projects-ref-network-restrictions.
+      operations:
+      - method: GET
+        name: getnetworkrestrictions
+        description: Get network restrictions
+        call: management-network.getnetworkrestrictions
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: updatenetworkrestrictions
+        description: Update network restrictions
+        call: management-network.updatenetworkrestrictions
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-network-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Supabase Management API — Network. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-network-bans
+      description: List network bans
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-network.listnetworkbans
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-network-bans
+      description: Remove network bans
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: management-network.removenetworkbans
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-network-restrictions
+      description: Get network restrictions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-network.getnetworkrestrictions
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-network-restrictions
+      description: Update network restrictions
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-network.updatenetworkrestrictions
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,139 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Supabase Auth API — OAuth
+  description: 'Supabase Auth API — OAuth. 2 operations. Lead operation: Initiate OAuth login. Self-contained Naftiko capability
+    covering one Supabase business surface.'
+  tags:
+  - Supabase
+  - OAuth
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SUPABASE_API_KEY: SUPABASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: auth-oauth
+    baseUri: https://{project_ref}.supabase.co/auth/v1
+    description: Supabase Auth API — OAuth business capability. Self-contained, no shared references.
+    resources:
+    - name: authorize
+      path: /authorize
+      operations:
+      - name: authorizeoauth
+        method: GET
+        description: Initiate OAuth login
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: provider
+          in: query
+          type: string
+          description: The OAuth provider to authenticate with
+          required: true
+        - name: redirect_to
+          in: query
+          type: string
+          description: URL to redirect to after authentication
+        - name: scopes
+          in: query
+          type: string
+          description: Space-separated list of OAuth scopes to request
+    - name: callback
+      path: /callback
+      operations:
+      - name: oauthcallback
+        method: GET
+        description: OAuth callback
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: code
+          in: query
+          type: string
+          description: Authorization code from the OAuth provider
+        - name: state
+          in: query
+          type: string
+          description: State parameter for CSRF protection
+    authentication:
+      type: bearer
+      token: '{{env.SUPABASE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: auth-oauth-rest
+    port: 8080
+    description: REST adapter for Supabase Auth API — OAuth. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/authorize
+      name: authorize
+      description: REST surface for authorize.
+      operations:
+      - method: GET
+        name: authorizeoauth
+        description: Initiate OAuth login
+        call: auth-oauth.authorizeoauth
+        with:
+          provider: rest.provider
+          redirect_to: rest.redirect_to
+          scopes: rest.scopes
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/callback
+      name: callback
+      description: REST surface for callback.
+      operations:
+      - method: GET
+        name: oauthcallback
+        description: OAuth callback
+        call: auth-oauth.oauthcallback
+        with:
+          code: rest.code
+          state: rest.state
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: auth-oauth-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Supabase Auth API — OAuth. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: initiate-oauth-login
+      description: Initiate OAuth login
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: auth-oauth.authorizeoauth
+      with:
+        provider: tools.provider
+        redirect_to: tools.redirect_to
+        scopes: tools.scopes
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: oauth-callback
+      description: OAuth callback
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: auth-oauth.oauthcallback
+      with:
+        code: tools.code
+        state: tools.state
+      outputParameters:
+      - type: object
+        mapping: $.

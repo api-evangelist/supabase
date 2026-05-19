@@ -1,0 +1,290 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Supabase Management API — Projects
+  description: 'Supabase Management API — Projects. 8 operations. Lead operation: List all projects. Self-contained Naftiko
+    capability covering one Supabase business surface.'
+  tags:
+  - Supabase
+  - Projects
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SUPABASE_API_KEY: SUPABASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-projects
+    baseUri: https://api.supabase.com/v1
+    description: Supabase Management API — Projects business capability. Self-contained, no shared references.
+    resources:
+    - name: projects
+      path: /projects
+      operations:
+      - name: listprojects
+        method: GET
+        description: List all projects
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createproject
+        method: POST
+        description: Create a new project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-ref
+      path: /projects/{ref}
+      operations:
+      - name: getproject
+        method: GET
+        description: Get project details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deleteproject
+        method: DELETE
+        description: Delete a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-ref-api-keys
+      path: /projects/{ref}/api-keys
+      operations:
+      - name: getprojectapikeys
+        method: GET
+        description: Get project API keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-ref-health
+      path: /projects/{ref}/health
+      operations:
+      - name: getprojecthealth
+        method: GET
+        description: Get project health status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-ref-pause
+      path: /projects/{ref}/pause
+      operations:
+      - name: pauseproject
+        method: POST
+        description: Pause a project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-ref-restore
+      path: /projects/{ref}/restore
+      operations:
+      - name: restoreproject
+        method: POST
+        description: Restore a paused project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SUPABASE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-projects-rest
+    port: 8080
+    description: REST adapter for Supabase Management API — Projects. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/projects
+      name: projects
+      description: REST surface for projects.
+      operations:
+      - method: GET
+        name: listprojects
+        description: List all projects
+        call: management-projects.listprojects
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createproject
+        description: Create a new project
+        call: management-projects.createproject
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{ref}
+      name: projects-ref
+      description: REST surface for projects-ref.
+      operations:
+      - method: GET
+        name: getproject
+        description: Get project details
+        call: management-projects.getproject
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteproject
+        description: Delete a project
+        call: management-projects.deleteproject
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{ref}/api-keys
+      name: projects-ref-api-keys
+      description: REST surface for projects-ref-api-keys.
+      operations:
+      - method: GET
+        name: getprojectapikeys
+        description: Get project API keys
+        call: management-projects.getprojectapikeys
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{ref}/health
+      name: projects-ref-health
+      description: REST surface for projects-ref-health.
+      operations:
+      - method: GET
+        name: getprojecthealth
+        description: Get project health status
+        call: management-projects.getprojecthealth
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{ref}/pause
+      name: projects-ref-pause
+      description: REST surface for projects-ref-pause.
+      operations:
+      - method: POST
+        name: pauseproject
+        description: Pause a project
+        call: management-projects.pauseproject
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{ref}/restore
+      name: projects-ref-restore
+      description: REST surface for projects-ref-restore.
+      operations:
+      - method: POST
+        name: restoreproject
+        description: Restore a paused project
+        call: management-projects.restoreproject
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-projects-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Supabase Management API — Projects. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-all-projects
+      description: List all projects
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-projects.listprojects
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-new-project
+      description: Create a new project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-projects.createproject
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-project-details
+      description: Get project details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-projects.getproject
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-project
+      description: Delete a project
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: management-projects.deleteproject
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-project-api-keys
+      description: Get project API keys
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-projects.getprojectapikeys
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-project-health-status
+      description: Get project health status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-projects.getprojecthealth
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: pause-project
+      description: Pause a project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-projects.pauseproject
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: restore-paused-project
+      description: Restore a paused project
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-projects.restoreproject
+      outputParameters:
+      - type: object
+        mapping: $.

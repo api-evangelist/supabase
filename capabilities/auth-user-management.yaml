@@ -1,0 +1,105 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Supabase Auth API — User Management
+  description: 'Supabase Auth API — User Management. 2 operations. Lead operation: Get the current user. Self-contained Naftiko
+    capability covering one Supabase business surface.'
+  tags:
+  - Supabase
+  - User Management
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SUPABASE_API_KEY: SUPABASE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: auth-user-management
+    baseUri: https://{project_ref}.supabase.co/auth/v1
+    description: Supabase Auth API — User Management business capability. Self-contained, no shared references.
+    resources:
+    - name: user
+      path: /user
+      operations:
+      - name: getuser
+        method: GET
+        description: Get the current user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateuser
+        method: PUT
+        description: Update the current user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SUPABASE_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: auth-user-management-rest
+    port: 8080
+    description: REST adapter for Supabase Auth API — User Management. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/user
+      name: user
+      description: REST surface for user.
+      operations:
+      - method: GET
+        name: getuser
+        description: Get the current user
+        call: auth-user-management.getuser
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateuser
+        description: Update the current user
+        call: auth-user-management.updateuser
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: auth-user-management-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Supabase Auth API — User Management. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-current-user
+      description: Get the current user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: auth-user-management.getuser
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-current-user
+      description: Update the current user
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: auth-user-management.updateuser
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
