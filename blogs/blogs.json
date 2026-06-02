@@ -2,12 +2,20 @@
   "repo": "supabase",
   "feeds": [
     {
-      "source": "https://supabase.com/blog",
+      "source": "https://supabase.com/feed.xml",
       "feed_url": "https://supabase.com/feed.xml",
-      "title": "Supabase Blog",
-      "saved": 39
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://supabase.com/pricing",
+      "feed_url": "https://supabase.com/pricing",
+      "title": "",
+      "saved": 0,
+      "method": "none"
     }
   ],
-  "post_count": 53,
-  "fetched": "2026-05-17T20:20:35Z"
+  "post_count": 54,
+  "fetched": "2026-06-01T23:35:02Z"
 }
