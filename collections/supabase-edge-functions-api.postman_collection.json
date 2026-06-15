@@ -1,0 +1,1078 @@
+{
+  "item": [
+    {
+      "id": "8b6d8075-1a25-4015-817b-329ba19b68c7",
+      "name": "Invocation",
+      "description": {
+        "content": "Invoke deployed Edge Functions via HTTP requests. Each function is accessible at its own URL path based on its slug.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c95e096d-66d9-4ce5-a081-118dac87bc88",
+          "name": "Invoke an Edge Function via GET",
+          "request": {
+            "name": "Invoke an Edge Function via GET",
+            "description": {
+              "content": "Invokes a deployed Edge Function using an HTTP GET request. The function can read query parameters and headers from the request. Authorization is required by default unless JWT verification is disabled for the function.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":function_slug"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "function_slug",
+                  "description": "(Required) The URL-friendly slug of the deployed Edge Function to invoke."
+                },
+                {
+                  "description": "Your Supabase project reference ID",
+                  "type": "any",
+                  "value": "{{project_ref}}",
+                  "key": "project_ref"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f5623450-223b-417c-aea5-3575e95fdb52",
+              "name": "Function executed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":function_slug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_slug",
+                      "description": "(Required) The URL-friendly slug of the deployed Edge Function to invoke."
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1450c239-7d15-4ff6-8f8b-da2a8c81beb8",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":function_slug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_slug",
+                      "description": "(Required) The URL-friendly slug of the deployed Edge Function to invoke."
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "923e8c71-fb69-4cd0-a6af-adb0aa0f0ffb",
+              "name": "Function not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":function_slug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_slug",
+                      "description": "(Required) The URL-friendly slug of the deployed Edge Function to invoke."
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8a957c18-b4c3-4e2a-832a-c39d242a5806",
+              "name": "Internal function error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":function_slug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_slug",
+                      "description": "(Required) The URL-friendly slug of the deployed Edge Function to invoke."
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df7da467-86f3-4bd0-9690-bf4ba6dd7291",
+          "name": "Invoke an Edge Function via POST",
+          "request": {
+            "name": "Invoke an Edge Function via POST",
+            "description": {
+              "content": "Invokes a deployed Edge Function using an HTTP POST request. The function can read the request body, query parameters, and headers. This is the most common invocation method for Edge Functions that process data or trigger actions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":function_slug"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "function_slug",
+                  "description": "(Required) The URL-friendly slug of the deployed Edge Function to invoke."
+                },
+                {
+                  "description": "Your Supabase project reference ID",
+                  "type": "any",
+                  "value": "{{project_ref}}",
+                  "key": "project_ref"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "0",
+                  "value": "<",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "1",
+                  "value": "o",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "2",
+                  "value": "b",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "3",
+                  "value": "j",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "4",
+                  "value": "e",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "5",
+                  "value": "c",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "6",
+                  "value": "t",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "7",
+                  "value": ">",
+                  "type": "text",
+                  "description": ""
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "10bccdec-5c88-4eb8-b218-e50471f8a315",
+              "name": "Function executed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":function_slug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_slug",
+                      "description": "(Required) The URL-friendly slug of the deployed Edge Function to invoke."
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "0",
+                      "value": "<",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "1",
+                      "value": "o",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "2",
+                      "value": "b",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "3",
+                      "value": "j",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "4",
+                      "value": "e",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "5",
+                      "value": "c",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "6",
+                      "value": "t",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "7",
+                      "value": ">",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf3b1381-4159-4450-8c04-ddafb19a30d7",
+              "name": "Bad request - invalid input",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":function_slug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_slug",
+                      "description": "(Required) The URL-friendly slug of the deployed Edge Function to invoke."
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "0",
+                      "value": "<",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "1",
+                      "value": "o",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "2",
+                      "value": "b",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "3",
+                      "value": "j",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "4",
+                      "value": "e",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "5",
+                      "value": "c",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "6",
+                      "value": "t",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "7",
+                      "value": ">",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d599e68c-d158-4de0-a351-469e50c6b496",
+              "name": "Unauthorized - missing or invalid JWT",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":function_slug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_slug",
+                      "description": "(Required) The URL-friendly slug of the deployed Edge Function to invoke."
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "0",
+                      "value": "<",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "1",
+                      "value": "o",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "2",
+                      "value": "b",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "3",
+                      "value": "j",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "4",
+                      "value": "e",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "5",
+                      "value": "c",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "6",
+                      "value": "t",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "7",
+                      "value": ">",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "65dc31c6-04c3-490f-9579-c65fa8b26996",
+              "name": "Function not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":function_slug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_slug",
+                      "description": "(Required) The URL-friendly slug of the deployed Edge Function to invoke."
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "0",
+                      "value": "<",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "1",
+                      "value": "o",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "2",
+                      "value": "b",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "3",
+                      "value": "j",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "4",
+                      "value": "e",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "5",
+                      "value": "c",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "6",
+                      "value": "t",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "7",
+                      "value": ">",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c9dfa259-5b39-4dea-bc9e-2877acb1412f",
+              "name": "Internal function error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":function_slug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_slug",
+                      "description": "(Required) The URL-friendly slug of the deployed Edge Function to invoke."
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "0",
+                      "value": "<",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "1",
+                      "value": "o",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "2",
+                      "value": "b",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "3",
+                      "value": "j",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "4",
+                      "value": "e",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "5",
+                      "value": "c",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "6",
+                      "value": "t",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "7",
+                      "value": ">",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Supabase project reference ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-project-ref",
+      "key": "project_ref"
+    },
+    {
+      "type": "string",
+      "value": "https://{{project_ref}}.supabase.co/functions/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fc39e013-49d0-424d-a12b-e757420f63f0",
+    "name": "Supabase Edge Functions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Supabase Edge Functions are globally distributed, server-side TypeScript functions powered by the Deno runtime. They are invoked via HTTP requests to a project-specific URL. Edge Functions can access the Supabase client libraries for interacting with the database, auth, and storage services. By default, they require a valid JWT in the authorization header, but this can be disabled per function. This specification documents the HTTP invocation interface for deployed Edge Functions.\n\nContact Support:\n Name: Supabase Support",
+      "type": "text/plain"
+    }
+  }
+}

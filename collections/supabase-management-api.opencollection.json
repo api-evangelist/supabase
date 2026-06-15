@@ -1,0 +1,691 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supabase Management API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.supabase.com/v1/projects"
+          },
+          "docs": "Returns a list of all projects belonging to the authenticated user across all organizations."
+        },
+        {
+          "info": {
+            "name": "Create a new project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.supabase.com/v1/projects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Supabase project within a specified organization. The project will be provisioned with a PostgreSQL database, Auth, Storage, and other services."
+        },
+        {
+          "info": {
+            "name": "Get project details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.supabase.com/v1/projects/:ref",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific project including its current status, region, database host, and configuration."
+        },
+        {
+          "info": {
+            "name": "Delete a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.supabase.com/v1/projects/:ref",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a Supabase project and all associated data including the database, storage files, and Edge Functions."
+        },
+        {
+          "info": {
+            "name": "Get project API keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.supabase.com/v1/projects/:ref/api-keys",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Retrieves the API keys (anon and service_role) for a specific project. These keys are used to authenticate requests to the project's APIs."
+        },
+        {
+          "info": {
+            "name": "Get project health status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.supabase.com/v1/projects/:ref/health",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Returns the health status of all services in a project including the database, Auth, Storage, Realtime, and Edge Functions."
+        },
+        {
+          "info": {
+            "name": "Pause a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.supabase.com/v1/projects/:ref/pause",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Pauses a Supabase project to stop incurring compute costs. The project database and services will become unavailable until restored."
+        },
+        {
+          "info": {
+            "name": "Restore a paused project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.supabase.com/v1/projects/:ref/restore",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Restores a previously paused project, making its database and services available again."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Database",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List database migrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.supabase.com/v1/projects/:ref/database/migrations",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Returns a list of all migrations that have been applied to the project database, stored in the supabase_migrations schema."
+        },
+        {
+          "info": {
+            "name": "Create a database migration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.supabase.com/v1/projects/:ref/database/migrations",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates and runs a new SQL migration on the project database. The migration is recorded in the supabase_migrations schema."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Functions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Edge Functions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.supabase.com/v1/projects/:ref/functions",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Returns a list of all Edge Functions deployed to a project including their status, slug, and creation date."
+        },
+        {
+          "info": {
+            "name": "Create an Edge Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.supabase.com/v1/projects/:ref/functions",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deploys a new Edge Function to the project. The function will be globally distributed and accessible via HTTP requests."
+        },
+        {
+          "info": {
+            "name": "Get an Edge Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.supabase.com/v1/projects/:ref/functions/:function_slug",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              },
+              {
+                "name": "function_slug",
+                "value": "",
+                "type": "path",
+                "description": "The URL-friendly slug identifier for the Edge Function."
+              }
+            ]
+          },
+          "docs": "Retrieves details about a specific Edge Function including its slug, status, version, and creation date."
+        },
+        {
+          "info": {
+            "name": "Update an Edge Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.supabase.com/v1/projects/:ref/functions/:function_slug",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              },
+              {
+                "name": "function_slug",
+                "value": "",
+                "type": "path",
+                "description": "The URL-friendly slug identifier for the Edge Function."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing Edge Function with new code or configuration changes."
+        },
+        {
+          "info": {
+            "name": "Delete an Edge Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.supabase.com/v1/projects/:ref/functions/:function_slug",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              },
+              {
+                "name": "function_slug",
+                "value": "",
+                "type": "path",
+                "description": "The URL-friendly slug identifier for the Edge Function."
+              }
+            ]
+          },
+          "docs": "Permanently removes an Edge Function from the project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Secrets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List project secrets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.supabase.com/v1/projects/:ref/secrets",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Returns a list of all encrypted secrets stored for a project. Secret values are not returned, only their names."
+        },
+        {
+          "info": {
+            "name": "Create project secrets",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.supabase.com/v1/projects/:ref/secrets",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates one or more encrypted secrets for the project. These secrets are available to Edge Functions as environment variables."
+        },
+        {
+          "info": {
+            "name": "Delete project secrets",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.supabase.com/v1/projects/:ref/secrets",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes one or more secrets from the project by their names."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Domains",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get custom hostname configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.supabase.com/v1/projects/:ref/custom-hostname",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Retrieves the custom hostname configuration for a project including its current status and verification records."
+        },
+        {
+          "info": {
+            "name": "Activate custom hostname",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.supabase.com/v1/projects/:ref/custom-hostname",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Activates a custom hostname for the project. The custom domain must have DNS records properly configured before activation."
+        },
+        {
+          "info": {
+            "name": "Remove custom hostname",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.supabase.com/v1/projects/:ref/custom-hostname",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Removes the custom hostname configuration from a project, reverting to the default supabase.co subdomain."
+        },
+        {
+          "info": {
+            "name": "Get vanity subdomain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.supabase.com/v1/projects/:ref/vanity-subdomain",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Retrieves the vanity subdomain configuration for a project."
+        },
+        {
+          "info": {
+            "name": "Activate vanity subdomain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.supabase.com/v1/projects/:ref/vanity-subdomain",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Activates a vanity subdomain on supabase.co for the project. Use of vanity subdomains and custom domains is mutually exclusive."
+        },
+        {
+          "info": {
+            "name": "Remove vanity subdomain",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.supabase.com/v1/projects/:ref/vanity-subdomain",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Removes the vanity subdomain from a project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Network",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List network bans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.supabase.com/v1/projects/:ref/network-bans",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Returns a list of IP addresses that are currently banned from accessing the project due to abusive traffic patterns such as multiple failed authentication attempts."
+        },
+        {
+          "info": {
+            "name": "Remove network bans",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.supabase.com/v1/projects/:ref/network-bans",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes specified IP addresses from the project's network ban list, allowing them to access the project again."
+        },
+        {
+          "info": {
+            "name": "Get network restrictions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.supabase.com/v1/projects/:ref/network-restrictions",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Retrieves the network restriction configuration for a project, which controls which IP addresses or CIDR ranges are allowed to connect to the database."
+        },
+        {
+          "info": {
+            "name": "Update network restrictions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.supabase.com/v1/projects/:ref/network-restrictions",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the allowed IP addresses or CIDR ranges that can connect to the project database."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.supabase.com/v1/organizations"
+          },
+          "docs": "Returns a list of all organizations the authenticated user belongs to."
+        },
+        {
+          "info": {
+            "name": "Create an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.supabase.com/v1/organizations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new organization that can contain Supabase projects and team members."
+        },
+        {
+          "info": {
+            "name": "List organization members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.supabase.com/v1/organizations/:slug/members",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path",
+                "description": "The URL-friendly slug identifier for the organization."
+              }
+            ]
+          },
+          "docs": "Returns a list of all members in an organization along with their roles and permissions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

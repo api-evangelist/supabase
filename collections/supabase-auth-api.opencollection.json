@@ -1,0 +1,547 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supabase Auth API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Sign up a new user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/signup",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user account with email and password, or phone and password. Returns the user object and session tokens. A confirmation email or SMS may be sent depending on project configuration."
+        },
+        {
+          "info": {
+            "name": "Sign in with credentials",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/token",
+            "params": [
+              {
+                "name": "grant_type",
+                "value": "",
+                "type": "query",
+                "description": "The type of authentication grant to use."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates a user with their credentials and returns a session including access and refresh tokens. The grant_type parameter determines the authentication method."
+        },
+        {
+          "info": {
+            "name": "Send a one-time password",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/otp",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a one-time password to the specified email or phone number. If the email template uses a confirmation URL variable, a magic link is sent instead. The OTP can be verified using the /verify endpoint."
+        },
+        {
+          "info": {
+            "name": "Send a magic link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/magiclink",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a magic link email to the specified address for passwordless authentication. The user clicks the link to be authenticated."
+        },
+        {
+          "info": {
+            "name": "Send password recovery email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/recover",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Sends a password recovery email to the specified address containing a link that allows the user to reset their password."
+        },
+        {
+          "info": {
+            "name": "Verify OTP via redirect",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/verify",
+            "params": [
+              {
+                "name": "token_hash",
+                "value": "",
+                "type": "query",
+                "description": "The token hash from the email link"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of verification"
+              },
+              {
+                "name": "redirect_to",
+                "value": "",
+                "type": "query",
+                "description": "URL to redirect to after verification"
+              }
+            ]
+          },
+          "docs": "Verifies a token hash from a magic link or email confirmation redirect. This endpoint is typically called by clicking the link in the email."
+        },
+        {
+          "info": {
+            "name": "Verify an OTP or token hash",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/verify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verifies a one-time password or token hash received via email or SMS. Supports different verification types including signup, recovery, invite, magiclink, email_change, and phone_change."
+        },
+        {
+          "info": {
+            "name": "Sign out a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/logout",
+            "params": [
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Scope of logout. Local revokes only the current session, global revokes all sessions, others revokes all other sessions."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Invalidates the user's current session and refresh token. Requires a valid access token in the Authorization header."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/user",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the user object for the currently authenticated user based on the access token in the Authorization header."
+        },
+        {
+          "info": {
+            "name": "Update the current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{project_ref}.supabase.co/auth/v1/user",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the currently authenticated user's profile data including email, phone, password, and custom user metadata."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "OAuth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initiate OAuth login",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/authorize",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "The OAuth provider to authenticate with"
+              },
+              {
+                "name": "redirect_to",
+                "value": "",
+                "type": "query",
+                "description": "URL to redirect to after authentication"
+              },
+              {
+                "name": "scopes",
+                "value": "",
+                "type": "query",
+                "description": "Space-separated list of OAuth scopes to request"
+              }
+            ]
+          },
+          "docs": "Redirects the user to the specified OAuth provider's authorization page. After the user grants access, they are redirected back to the application with an authorization code or tokens."
+        },
+        {
+          "info": {
+            "name": "OAuth callback",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/callback",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "Authorization code from the OAuth provider"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State parameter for CSRF protection"
+              }
+            ]
+          },
+          "docs": "Receives the OAuth callback from the provider after user authorization. Exchanges the authorization code for tokens and creates or updates the user account."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "MFA",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Enroll an MFA factor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/factors",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Enrolls a new multi-factor authentication factor for the authenticated user. Supports TOTP (time-based one-time password) authenticator apps."
+        },
+        {
+          "info": {
+            "name": "Create an MFA challenge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/factors/:factorId/challenge",
+            "params": [
+              {
+                "name": "factorId",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the MFA factor"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a challenge for a specific MFA factor, prompting the user to provide verification from their authenticator device."
+        },
+        {
+          "info": {
+            "name": "Verify an MFA challenge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/factors/:factorId/verify",
+            "params": [
+              {
+                "name": "factorId",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the MFA factor"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Verifies an MFA challenge by providing the code from the authenticator device. On success, the session is upgraded to an authenticated assurance level."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Admin",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all users (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/admin/users",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of users per page"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a paginated list of all users in the project. Requires service_role key authentication."
+        },
+        {
+          "info": {
+            "name": "Create a user (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/admin/users",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new user without requiring email confirmation. Requires service_role key authentication."
+        },
+        {
+          "info": {
+            "name": "Get a user by ID (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/admin/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the user"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a specific user by their UUID. Requires service_role key authentication."
+        },
+        {
+          "info": {
+            "name": "Update a user (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{project_ref}.supabase.co/auth/v1/admin/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the user"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a user's profile, role, or confirmation status. Requires service_role key authentication."
+        },
+        {
+          "info": {
+            "name": "Delete a user (admin)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{project_ref}.supabase.co/auth/v1/admin/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the user"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Permanently deletes a user and their associated data. Requires service_role key authentication."
+        },
+        {
+          "info": {
+            "name": "Invite a user by email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/invite",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Sends an invitation email to the specified address. The recipient can use the link in the email to create their account. Requires service_role key authentication."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "SSO",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "SAML Assertion Consumer Service",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/sso/saml/acs"
+          },
+          "docs": "Receives the SAML assertion from an identity provider after successful authentication. This endpoint processes the assertion and creates or updates the user session."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get auth settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/settings"
+          },
+          "docs": "Returns the publicly available auth server settings including enabled providers, auto-confirm settings, and external provider configurations. This endpoint does not require authentication."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

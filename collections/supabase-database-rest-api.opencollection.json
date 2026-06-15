@@ -1,0 +1,193 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supabase Database REST API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Select rows from a table",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/rest/v1/:table",
+            "headers": [
+              {
+                "name": "Range",
+                "value": ""
+              },
+              {
+                "name": "Prefer",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "Name of the database table or view"
+              },
+              {
+                "name": "select",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of columns to return. Supports renaming (alias:column), casting (column::type), and embedding related resources via foreign keys (related_table(columns))."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of columns to sort by. Append .desc for descending, .asc for ascending. Use .nullsfirst or .nullslast to control null ordering."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of rows to return"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of rows to skip before starting to return rows"
+              }
+            ]
+          },
+          "docs": "Retrieves rows from a database table with support for filtering, sorting, pagination, and column selection. PostgREST operators are used in query parameters for horizontal filtering (e.g. eq, neq, gt, lt, gte, lte, like, ilike, in, is, fts, plfts, phfts, wfts, cs, cd, ov, sl, sr, nxl, nxr, adj, not, or, and). Vertical filtering uses the select parameter."
+        },
+        {
+          "info": {
+            "name": "Insert rows into a table",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/rest/v1/:table",
+            "headers": [
+              {
+                "name": "Prefer",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "Name of the database table or view"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Inserts one or more rows into a database table. Use the Prefer header with return=representation to get the inserted rows in the response. Supports upsert with Prefer: resolution=merge-duplicates."
+        },
+        {
+          "info": {
+            "name": "Update rows in a table",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{project_ref}.supabase.co/rest/v1/:table",
+            "headers": [
+              {
+                "name": "Prefer",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "Name of the database table or view"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates rows in a database table that match the specified filters. All PostgREST filter operators can be used as query parameters to select which rows to update."
+        },
+        {
+          "info": {
+            "name": "Delete rows from a table",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{project_ref}.supabase.co/rest/v1/:table",
+            "headers": [
+              {
+                "name": "Prefer",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "table",
+                "value": "",
+                "type": "path",
+                "description": "Name of the database table or view"
+              }
+            ]
+          },
+          "docs": "Deletes rows from a database table that match the specified filters. All PostgREST filter operators can be used as query parameters. It is strongly recommended to always include filters to avoid deleting all rows."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "RPC",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Invoke a PostgreSQL function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/rest/v1/rpc/:function_name",
+            "params": [
+              {
+                "name": "function_name",
+                "value": "",
+                "type": "path",
+                "description": "Name of the PostgreSQL function to invoke"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Calls a PostgreSQL function (stored procedure) via a remote procedure call. Function arguments are passed in the request body. Functions must be created in the public schema or an exposed schema."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,115 +1,222 @@
-# Supabase
+# Supabase (supabase)
 
-Supabase is an open-source Firebase alternative that provides a full suite of backend services built on top of PostgreSQL. The developer platform offers managed databases with auto-generated REST and GraphQL APIs, authentication with JWT, file storage, real-time WebSocket subscriptions, globally distributed edge functions, and a Management API for programmatic project administration.
+Supabase is an open-source Firebase alternative that provides a suite of backend services built on top of PostgreSQL. It offers a managed PostgreSQL database with auto-generated REST and GraphQL APIs via PostgREST, real-time data subscriptions via WebSockets, user authentication with JWT (GoTrue), file storage with S3-compatible object storage, edge compute via globally distributed TypeScript functions on the Deno runtime, and a management API for programmatic control of projects and organizations. Supabase is available as a fully managed cloud service (app.supabase.com) and as a self-hosted open-source deployment.
 
-**URL:** [APIs.yml](https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/apis.yml)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/apis.yml)
+
+## Scope
+
+- **Type:** Index
 
 ## Tags
 
-Backend As A Service, PostgreSQL, Open Source, Authentication, Real Time, Storage, Edge Functions, Database
+- Backend As A Service
+- PostgreSQL
+- Open Source
+- Authentication
+- Real Time
+- Storage
+- Edge Functions
+- Database
+
+## Timestamps
+
+- **Created:** 2026-05-02
+- **Modified:** 2026-05-19
 
 ## APIs
 
 ### Supabase Management API
-Programmatic management of projects, organizations, Edge Functions, secrets, custom domains, network restrictions, and database migrations. Auth: Personal Access Token (Bearer). Base: `https://api.supabase.com/v1`.
 
-**URL:** [https://supabase.com/docs/reference/api/introduction](https://supabase.com/docs/reference/api/introduction)
+The Supabase Management API provides programmatic access to manage Supabase projects and organizations. Supports creating, configuring, pausing, and deleting projects; managing database migrations and extensions; deploying Edge Functions; managing secrets; configuring custom domains and vanity subdomains; controlling network restrictions; and managing organization membership. Authentication uses personal access tokens or OAuth2 tokens. Base URL: https://api.supabase.com/v1.
 
-**Tags:** Management, Projects, Organizations, Edge Functions, Database
+- **Human URL:** [https://supabase.com/docs/reference/api/introduction](https://supabase.com/docs/reference/api/introduction)
 
-**Properties:**
+#### Tags
+
+- Management
+- Projects
+- Organizations
+- Edge Functions
+- Database
+
+#### Properties
+
 - [Documentation](https://supabase.com/docs/reference/api/introduction)
-- [OpenAPI](openapi/supabase-management-api-openapi.yml)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/openapi/supabase-management-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/supabase-auth-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-auth-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-database-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-database-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-edge-functions-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-edge-functions-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-storage-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-storage-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Supabase Auth API
-JWT-based authentication service (GoTrue) supporting email/password, magic links, OTP, OAuth2 social login, MFA (TOTP/WebAuthn), and SAML SSO. Auth: `apikey` header + Bearer JWT. Base: `https://{ref}.supabase.co/auth/v1`.
 
-**URL:** [https://supabase.com/docs/guides/auth](https://supabase.com/docs/guides/auth)
+The Supabase Auth API (based on GoTrue) is a JWT-based authentication service supporting user signup, email/password sign-in, magic links, one-time passwords (OTP), OAuth2 social login (Google, GitHub, etc.), token refresh, multi-factor authentication (TOTP/WebAuthn), SAML-based SSO, and administrative user management. Authentication uses an apikey header (anon or service_role key) plus JWT bearer tokens for user context. Per-project base URL: https://{project_ref}.supabase.co/auth/v1.
 
-**Tags:** Authentication, Users, OAuth, JWT, MFA, SAML
+- **Human URL:** [https://supabase.com/docs/guides/auth](https://supabase.com/docs/guides/auth)
 
-**Properties:**
+#### Tags
+
+- Authentication
+- Users
+- OAuth
+- JWT
+- MFA
+- SAML
+
+#### Properties
+
 - [Documentation](https://supabase.com/docs/guides/auth)
-- [OpenAPI](openapi/supabase-auth-api-openapi.yml)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/openapi/supabase-auth-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/supabase-auth-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-auth-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-database-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-database-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-edge-functions-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-edge-functions-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-storage-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-storage-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Supabase Storage API
-S3-compatible object storage with bucket management, standard and TUS resumable uploads, on-the-fly image transformation, and signed URL generation. Access controlled via Row Level Security. Base: `https://{ref}.supabase.co/storage/v1`.
 
-**URL:** [https://supabase.com/docs/guides/storage](https://supabase.com/docs/guides/storage)
+The Supabase Storage API enables developers to store, organize, and serve large files in S3-compatible object storage. Provides bucket management (public/private), file upload (standard and TUS resumable), download, deletion, and on-the-fly image transformations (resize, format, quality). Access control is enforced via Row Level Security policies. Supports signed URLs for temporary access. Per-project base URL: https://{project_ref}.supabase.co/storage/v1.
 
-**Tags:** Storage, File Upload, Buckets, Images, S3
+- **Human URL:** [https://supabase.com/docs/guides/storage](https://supabase.com/docs/guides/storage)
 
-**Properties:**
+#### Tags
+
+- Storage
+- File Upload
+- Buckets
+- Images
+- S3
+
+#### Properties
+
 - [Documentation](https://supabase.com/docs/guides/storage)
-- [OpenAPI](openapi/supabase-storage-api-openapi.yml)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/openapi/supabase-storage-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/supabase-auth-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-auth-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-database-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-database-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-edge-functions-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-edge-functions-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-storage-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-storage-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Supabase Database REST API
-Auto-generated PostgREST endpoints for all database tables, views, and stored functions with full CRUD, advanced filtering operators, pagination, sorting, and foreign key embedding. Base: `https://{ref}.supabase.co/rest/v1`.
 
-**URL:** [https://supabase.com/docs/guides/api](https://supabase.com/docs/guides/api)
+The Supabase Database REST API provides auto-generated RESTful endpoints for every table, view, and stored function in the PostgreSQL database, powered by PostgREST. Supports full CRUD operations with advanced filtering operators (eq, neq, gt, lt, like, ilike, in, fts, cs, cd, ov, adj, not, or, and), horizontal and vertical filtering, pagination, ordering, and embedding related resources via foreign key relationships. Row Level Security policies are enforced on all requests. Per-project base URL: https://{project_ref}.supabase.co/rest/v1.
 
-**Tags:** Database, REST, PostgreSQL, PostgREST, CRUD
+- **Human URL:** [https://supabase.com/docs/guides/api](https://supabase.com/docs/guides/api)
 
-**Properties:**
+#### Tags
+
+- Database
+- REST
+- PostgreSQL
+- PostgREST
+- CRUD
+
+#### Properties
+
 - [Documentation](https://supabase.com/docs/guides/api)
-- [OpenAPI](openapi/supabase-database-rest-api-openapi.yml)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/openapi/supabase-database-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/supabase-auth-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-auth-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-database-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-database-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-edge-functions-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-edge-functions-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-storage-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-storage-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Supabase Edge Functions API
-Globally distributed TypeScript serverless functions on the Deno runtime. Invoked via HTTP. Supports JWT verification, Supabase client access, and custom logic. Base: `https://{ref}.supabase.co/functions/v1`.
 
-**URL:** [https://supabase.com/docs/guides/functions](https://supabase.com/docs/guides/functions)
+Supabase Edge Functions are globally distributed, server-side TypeScript functions powered by the Deno runtime. They are deployed and invoked via HTTP requests to a project-specific URL. Functions can access Supabase client libraries to interact with the database, auth, and storage services. JWT verification is required by default but can be disabled per function. Per-project base URL: https://{project_ref}.supabase.co/functions/v1.
 
-**Tags:** Edge Functions, Serverless, Deno, TypeScript
+- **Human URL:** [https://supabase.com/docs/guides/functions](https://supabase.com/docs/guides/functions)
 
-**Properties:**
+#### Tags
+
+- Edge Functions
+- Serverless
+- Deno
+- TypeScript
+
+#### Properties
+
 - [Documentation](https://supabase.com/docs/guides/functions)
-- [OpenAPI](openapi/supabase-edge-functions-api-openapi.yml)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/openapi/supabase-edge-functions-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/supabase-auth-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-auth-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-database-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-database-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-edge-functions-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-edge-functions-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-storage-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-storage-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ### Supabase Realtime API
-WebSocket-based real-time subscriptions for database change events (INSERT/UPDATE/DELETE), presence (connected user tracking), and broadcast (client-to-client messaging). Uses Phoenix channels protocol.
 
-**URL:** [https://supabase.com/docs/guides/realtime](https://supabase.com/docs/guides/realtime)
+The Supabase Realtime API provides WebSocket-based subscriptions for real-time data changes from PostgreSQL databases. It supports three channel types: database change events (INSERT/UPDATE/DELETE on tables via logical replication), presence (track and synchronize connected users' state), and broadcast (low-latency message passing between clients). Authentication uses JWT tokens. Implemented using the Phoenix channels protocol.
 
-**Tags:** Realtime, WebSocket, Database, Presence, Broadcast
+- **Human URL:** [https://supabase.com/docs/guides/realtime](https://supabase.com/docs/guides/realtime)
 
-**Properties:**
+#### Tags
+
+- Realtime
+- WebSocket
+- Database
+- Presence
+- Broadcast
+
+#### Properties
+
 - [Documentation](https://supabase.com/docs/guides/realtime)
-- [AsyncAPI](asyncapi/supabase-realtime-api-asyncapi.yml)
-
-## Artifacts
-
-| Type | File |
-|------|------|
-| OpenAPI — Management API | [supabase-management-api-openapi.yml](openapi/supabase-management-api-openapi.yml) |
-| OpenAPI — Auth API | [supabase-auth-api-openapi.yml](openapi/supabase-auth-api-openapi.yml) |
-| OpenAPI — Storage API | [supabase-storage-api-openapi.yml](openapi/supabase-storage-api-openapi.yml) |
-| OpenAPI — Database REST API | [supabase-database-rest-api-openapi.yml](openapi/supabase-database-rest-api-openapi.yml) |
-| OpenAPI — Edge Functions API | [supabase-edge-functions-api-openapi.yml](openapi/supabase-edge-functions-api-openapi.yml) |
-| AsyncAPI — Realtime API | [supabase-realtime-api-asyncapi.yml](asyncapi/supabase-realtime-api-asyncapi.yml) |
-| JSON Schema — Project | [supabase-project-schema.json](json-schema/supabase-project-schema.json) |
-| JSON Structure — Project | [supabase-project-structure.json](json-structure/supabase-project-structure.json) |
-| JSON-LD Context | [supabase-context.jsonld](json-ld/supabase-context.jsonld) |
-| Spectral Rules | [supabase-rules.yml](rules/supabase-rules.yml) |
-| Capabilities — Shared: Management | [capabilities/shared/management-api.yaml](capabilities/shared/management-api.yaml) |
-| Capabilities — Shared: Auth | [capabilities/shared/auth-api.yaml](capabilities/shared/auth-api.yaml) |
-| Capabilities — Shared: Storage | [capabilities/shared/storage-api.yaml](capabilities/shared/storage-api.yaml) |
-| Capabilities — Shared: Database REST | [capabilities/shared/database-rest-api.yaml](capabilities/shared/database-rest-api.yaml) |
-| Capabilities — Backend as a Service | [capabilities/backend-as-a-service.yaml](capabilities/backend-as-a-service.yaml) |
-| Vocabulary | [supabase-vocabulary.yml](vocabulary/supabase-vocabulary.yml) |
-| Example — List Projects | [supabase-list-projects-example.json](examples/supabase-list-projects-example.json) |
-| Example — Sign Up | [supabase-sign-up-example.json](examples/supabase-sign-up-example.json) |
-| Example — Select Rows | [supabase-select-rows-example.json](examples/supabase-select-rows-example.json) |
+- [AsyncAPI](https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/asyncapi/supabase-realtime-api-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [Postman Collection](collections/supabase-auth-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-auth-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-database-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-database-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-edge-functions-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-edge-functions-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Postman Collection](collections/supabase-storage-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/supabase-storage-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
 
 ## Common Properties
 
+- [LinkedIn](https://www.linkedin.com/company/supabase)
 - [Website](https://supabase.com)
 - [Documentation](https://supabase.com/docs)
 - [GitHub Organization](https://github.com/supabase)
 - [Status Page](https://status.supabase.com)
 - [Pricing](https://supabase.com/pricing)
 - [Blog](https://supabase.com/blog)
+- [Community](https://github.com/supabase/supabase/discussions)
+- [X (Twitter)](https://twitter.com/supabase)
+- [Features](undefined)
+- [Integrations](https://supabase.com/partners)
+- [M C P Server](https://supabase.com/blog/remote-mcp-server)
+- [Agent Skill](https://github.com/supabase/agent-skills)
 
 ## Maintainers
 
-**FN:** Kin Lane  
+**FN:** Kin Lane
 **Email:** kin@apievangelist.com

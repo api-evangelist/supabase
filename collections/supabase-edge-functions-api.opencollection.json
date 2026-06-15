@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supabase Edge Functions API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Invocation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Invoke an Edge Function via GET",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/functions/v1/:function_slug",
+            "params": [
+              {
+                "name": "function_slug",
+                "value": "",
+                "type": "path",
+                "description": "The URL-friendly slug of the deployed Edge Function to invoke."
+              }
+            ]
+          },
+          "docs": "Invokes a deployed Edge Function using an HTTP GET request. The function can read query parameters and headers from the request. Authorization is required by default unless JWT verification is disabled for the function."
+        },
+        {
+          "info": {
+            "name": "Invoke an Edge Function via POST",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/functions/v1/:function_slug",
+            "params": [
+              {
+                "name": "function_slug",
+                "value": "",
+                "type": "path",
+                "description": "The URL-friendly slug of the deployed Edge Function to invoke."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invokes a deployed Edge Function using an HTTP POST request. The function can read the request body, query parameters, and headers. This is the most common invocation method for Edge Functions that process data or trigger actions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

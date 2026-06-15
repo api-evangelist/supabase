@@ -1,0 +1,1687 @@
+{
+  "item": [
+    {
+      "id": "05b3faed-197d-452f-9f68-16372509b775",
+      "name": "RPC",
+      "description": {
+        "content": "Invoke PostgreSQL functions via remote procedure calls.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "30144812-e21f-4893-ba30-323dc0a88c3b",
+          "name": "Invoke a PostgreSQL function",
+          "request": {
+            "name": "Invoke a PostgreSQL function",
+            "description": {
+              "content": "Calls a PostgreSQL function (stored procedure) via a remote procedure call. Function arguments are passed in the request body. Functions must be created in the public schema or an exposed schema.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rpc",
+                ":function_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "function_name",
+                  "description": "(Required) Name of the PostgreSQL function to invoke"
+                },
+                {
+                  "description": "Your Supabase project reference ID",
+                  "type": "any",
+                  "value": "{{project_ref}}",
+                  "key": "project_ref"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2fed45e1-0c25-4a6d-8f36-6e794df8adef",
+              "name": "Function executed successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rpc",
+                    ":function_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_name",
+                      "description": "(Required) Name of the PostgreSQL function to invoke"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dc8aef90-851f-4da8-9570-31edb124c675",
+              "name": "Bad request - invalid arguments",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rpc",
+                    ":function_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_name",
+                      "description": "(Required) Name of the PostgreSQL function to invoke"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "27741564-0a65-49ef-8a0e-18d23d2cf691",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rpc",
+                    ":function_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_name",
+                      "description": "(Required) Name of the PostgreSQL function to invoke"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "348676fe-07c7-4416-b1ec-b925fa837a0a",
+              "name": "Function not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rpc",
+                    ":function_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "function_name",
+                      "description": "(Required) Name of the PostgreSQL function to invoke"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "099beb79-2d94-4fb4-81e5-28c1051fead5",
+      "name": "Tables",
+      "description": {
+        "content": "CRUD operations on database tables. Paths are auto-generated based on your database schema.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c14996e1-7679-4ae1-8791-23e07cc61a41",
+          "name": "Select rows from a table",
+          "request": {
+            "name": "Select rows from a table",
+            "description": {
+              "content": "Retrieves rows from a database table with support for filtering, sorting, pagination, and column selection. PostgREST operators are used in query parameters for horizontal filtering (e.g. eq, neq, gt, lt, gte, lte, like, ilike, in, is, fts, plfts, phfts, wfts, cs, cd, ov, sl, sr, nxl, nxr, adj, not, or, and). Vertical filtering uses the select parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":table"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "select",
+                  "value": "<string>",
+                  "description": "Comma-separated list of columns to return. Supports renaming (alias:column), casting (column::type), and embedding related resources via foreign keys (related_table(columns))."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>",
+                  "description": "Comma-separated list of columns to sort by. Append .desc for descending, .asc for ascending. Use .nullsfirst or .nullslast to control null ordering."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "Maximum number of rows to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Number of rows to skip before starting to return rows"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "table",
+                  "description": "(Required) Name of the database table or view"
+                },
+                {
+                  "description": "Your Supabase project reference ID",
+                  "type": "any",
+                  "value": "{{project_ref}}",
+                  "key": "project_ref"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Request a specific range of rows using HTTP Range header (e.g. 0-24 for first 25 rows).",
+                "key": "Range",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Request a total row count. Use count=exact for precise count, count=planned for estimated count, or count=estimated for a combination.",
+                "key": "Prefer",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "581f4f47-c75b-4b05-a232-834a8b4b514c",
+              "name": "Rows retrieved successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":table"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "select",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "table",
+                      "description": "(Required) Name of the database table or view"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request a specific range of rows using HTTP Range header (e.g. 0-24 for first 25 rows).",
+                    "key": "Range",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request a total row count. Use count=exact for precise count, count=planned for estimated count, or count=estimated for a combination.",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Range of returned rows and total count",
+                  "key": "Content-Range",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e03f147-feb3-467c-808a-07e387589576",
+              "name": "Bad request - invalid filter or parameter",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":table"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "select",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "table",
+                      "description": "(Required) Name of the database table or view"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request a specific range of rows using HTTP Range header (e.g. 0-24 for first 25 rows).",
+                    "key": "Range",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request a total row count. Use count=exact for precise count, count=planned for estimated count, or count=estimated for a combination.",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1eeeb47c-d323-417b-9897-2d42381b6612",
+              "name": "Unauthorized - missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":table"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "select",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "table",
+                      "description": "(Required) Name of the database table or view"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request a specific range of rows using HTTP Range header (e.g. 0-24 for first 25 rows).",
+                    "key": "Range",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request a total row count. Use count=exact for precise count, count=planned for estimated count, or count=estimated for a combination.",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "95ddb358-d9d2-442b-8ae4-938fd1a7bd9a",
+              "name": "Table not found in schema",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":table"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "select",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "table",
+                      "description": "(Required) Name of the database table or view"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request a specific range of rows using HTTP Range header (e.g. 0-24 for first 25 rows).",
+                    "key": "Range",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Request a total row count. Use count=exact for precise count, count=planned for estimated count, or count=estimated for a combination.",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e6551718-8518-4f65-8614-777533a8c23d",
+          "name": "Insert rows into a table",
+          "request": {
+            "name": "Insert rows into a table",
+            "description": {
+              "content": "Inserts one or more rows into a database table. Use the Prefer header with return=representation to get the inserted rows in the response. Supports upsert with Prefer: resolution=merge-duplicates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":table"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "table",
+                  "description": "(Required) Name of the database table or view"
+                },
+                {
+                  "description": "Your Supabase project reference ID",
+                  "type": "any",
+                  "value": "{{project_ref}}",
+                  "key": "project_ref"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.",
+                "key": "Prefer",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Upsert conflict resolution strategy",
+                "key": "Prefer",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "14fbd3fb-471e-48c8-8d76-6b617ead5aba",
+              "name": "Rows inserted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":table"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "table",
+                      "description": "(Required) Name of the database table or view"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Upsert conflict resolution strategy",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "331dcdb8-d308-4d25-8fd6-a2c4064be3d6",
+              "name": "Bad request - invalid data or constraint violation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":table"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "table",
+                      "description": "(Required) Name of the database table or view"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Upsert conflict resolution strategy",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a58d8fa7-640d-4365-81cf-43c1ca7bb757",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":table"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "table",
+                      "description": "(Required) Name of the database table or view"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Upsert conflict resolution strategy",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "870a851a-68fc-479a-a34a-a2000bfd552d",
+              "name": "Conflict - duplicate key violation",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":table"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "table",
+                      "description": "(Required) Name of the database table or view"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Upsert conflict resolution strategy",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e836a2e2-3a6b-4cbe-863f-fff861cc33f4",
+          "name": "Update rows in a table",
+          "request": {
+            "name": "Update rows in a table",
+            "description": {
+              "content": "Updates rows in a database table that match the specified filters. All PostgREST filter operators can be used as query parameters to select which rows to update.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":table"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "table",
+                  "description": "(Required) Name of the database table or view"
+                },
+                {
+                  "description": "Your Supabase project reference ID",
+                  "type": "any",
+                  "value": "{{project_ref}}",
+                  "key": "project_ref"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.",
+                "key": "Prefer",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<object>",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "33449314-ae81-45c7-b3ee-7254c37e7439",
+              "name": "Rows updated successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":table"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "table",
+                      "description": "(Required) Name of the database table or view"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fcdc6032-e7a8-4c46-8b57-6d27a0a98b24",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":table"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "table",
+                      "description": "(Required) Name of the database table or view"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "45af4a18-a10a-45bc-be8e-a0ea42a84cee",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":table"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "table",
+                      "description": "(Required) Name of the database table or view"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<object>",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ccae814-8ef7-4a38-9ace-71b4fcc3937a",
+          "name": "Delete rows from a table",
+          "request": {
+            "name": "Delete rows from a table",
+            "description": {
+              "content": "Deletes rows from a database table that match the specified filters. All PostgREST filter operators can be used as query parameters. It is strongly recommended to always include filters to avoid deleting all rows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":table"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "table",
+                  "description": "(Required) Name of the database table or view"
+                },
+                {
+                  "description": "Your Supabase project reference ID",
+                  "type": "any",
+                  "value": "{{project_ref}}",
+                  "key": "project_ref"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.",
+                "key": "Prefer",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eefccabb-3ee1-4468-a900-85bf761ee2c9",
+              "name": "Rows deleted successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":table"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "table",
+                      "description": "(Required) Name of the database table or view"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20155724-37c7-4cac-8596-aea7681cecdd",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":table"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "table",
+                      "description": "(Required) Name of the database table or view"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bbb87219-6944-4836-804b-c2743a48cef0",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":table"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "table",
+                      "description": "(Required) Name of the database table or view"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.",
+                    "key": "Prefer",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Supabase project reference ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-project-ref",
+      "key": "project_ref"
+    },
+    {
+      "type": "string",
+      "value": "https://{{project_ref}}.supabase.co/rest/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "61469515-5280-4f02-8d4a-e0d6ec155ca6",
+    "name": "Supabase Database REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Supabase Database REST API provides auto-generated RESTful endpoints for every table, view, and function in your PostgreSQL database. Powered by PostgREST, it supports full CRUD operations, complex filtering with horizontal and vertical filtering operators, pagination, sorting, and embedding of related resources via foreign key relationships. Row Level Security policies are enforced on all API requests. The schema is auto-generated from your database, so paths and schemas vary per project. This specification documents the common patterns and conventions.\n\nContact Support:\n Name: Supabase Support",
+      "type": "text/plain"
+    }
+  }
+}

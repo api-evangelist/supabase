@@ -1,11 +1,12 @@
 aid: supabase
 name: Supabase
-description: Supabase is an open-source Firebase alternative that provides a suite of backend services built on top of PostgreSQL.
-  It offers a managed PostgreSQL database with auto-generated REST and GraphQL APIs via PostgREST, real-time data subscriptions
-  via WebSockets, user authentication with JWT (GoTrue), file storage with S3-compatible object storage, edge compute via
-  globally distributed TypeScript functions on the Deno runtime, and a management API for programmatic control of projects
-  and organizations. Supabase is available as a fully managed cloud service (app.supabase.com) and as a self-hosted open-source
-  deployment.
+description: >-
+  Supabase is an open-source Firebase alternative that provides a suite of backend services built on top of PostgreSQL.
+  It offers a managed PostgreSQL database with auto-generated REST and GraphQL APIs via PostgREST, real-time data
+  subscriptions via WebSockets, user authentication with JWT (GoTrue), file storage with S3-compatible object storage,
+  edge compute via globally distributed TypeScript functions on the Deno runtime, and a management API for programmatic
+  control of projects and organizations. Supabase is available as a fully managed cloud service (app.supabase.com) and
+  as a self-hosted open-source deployment.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
@@ -24,10 +25,12 @@ specificationVersion: '0.19'
 apis:
 - aid: supabase:management-api
   name: Supabase Management API
-  description: 'The Supabase Management API provides programmatic access to manage Supabase projects and organizations. Supports
-    creating, configuring, pausing, and deleting projects; managing database migrations and extensions; deploying Edge Functions;
-    managing secrets; configuring custom domains and vanity subdomains; controlling network restrictions; and managing organization
-    membership. Authentication uses personal access tokens or OAuth2 tokens. Base URL: https://api.supabase.com/v1.'
+  description: >-
+    The Supabase Management API provides programmatic access to manage Supabase projects and organizations. Supports
+    creating, configuring, pausing, and deleting projects; managing database migrations and extensions; deploying Edge
+    Functions; managing secrets; configuring custom domains and vanity subdomains; controlling network restrictions;
+    and managing organization membership. Authentication uses personal access tokens or OAuth2 tokens. Base URL:
+    https://api.supabase.com/v1.
   humanURL: https://supabase.com/docs/reference/api/introduction
   tags:
   - Management
@@ -39,27 +42,18 @@ apis:
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
   - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/openapi/supabase-management-api-openapi.yml
-  - type: NaftikoCapability
-    url: capabilities/management-database.yaml
-  - type: NaftikoCapability
-    url: capabilities/management-domains.yaml
-  - type: NaftikoCapability
-    url: capabilities/management-functions.yaml
-  - type: NaftikoCapability
-    url: capabilities/management-network.yaml
-  - type: NaftikoCapability
-    url: capabilities/management-organizations.yaml
-  - type: NaftikoCapability
-    url: capabilities/management-projects.yaml
-  - type: NaftikoCapability
-    url: capabilities/management-secrets.yaml
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/openapi/supabase-management-api-openapi.yml
+  - url: graphql/supabase-graphql.md
+    type: GraphQL
 - aid: supabase:auth-api
   name: Supabase Auth API
-  description: 'The Supabase Auth API (based on GoTrue) is a JWT-based authentication service supporting user signup, email/password
-    sign-in, magic links, one-time passwords (OTP), OAuth2 social login (Google, GitHub, etc.), token refresh, multi-factor
-    authentication (TOTP/WebAuthn), SAML-based SSO, and administrative user management. Authentication uses an apikey header
-    (anon or service_role key) plus JWT bearer tokens for user context. Per-project base URL: https://{project_ref}.supabase.co/auth/v1.'
+  description: >-
+    The Supabase Auth API (based on GoTrue) is a JWT-based authentication service supporting user signup,
+    email/password sign-in, magic links, one-time passwords (OTP), OAuth2 social login (Google, GitHub, etc.), token
+    refresh, multi-factor authentication (TOTP/WebAuthn), SAML-based SSO, and administrative user management.
+    Authentication uses an apikey header (anon or service_role key) plus JWT bearer tokens for user context.
+    Per-project base URL: https://{project_ref}.supabase.co/auth/v1.
   humanURL: https://supabase.com/docs/guides/auth
   tags:
   - Authentication
@@ -72,27 +66,16 @@ apis:
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/openapi/supabase-auth-api-openapi.yml
-  - type: NaftikoCapability
-    url: capabilities/auth-admin.yaml
-  - type: NaftikoCapability
-    url: capabilities/auth-authentication.yaml
-  - type: NaftikoCapability
-    url: capabilities/auth-configuration.yaml
-  - type: NaftikoCapability
-    url: capabilities/auth-mfa.yaml
-  - type: NaftikoCapability
-    url: capabilities/auth-oauth.yaml
-  - type: NaftikoCapability
-    url: capabilities/auth-sso.yaml
-  - type: NaftikoCapability
-    url: capabilities/auth-user-management.yaml
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/openapi/supabase-auth-api-openapi.yml
 - aid: supabase:storage-api
   name: Supabase Storage API
-  description: 'The Supabase Storage API enables developers to store, organize, and serve large files in S3-compatible object
-    storage. Provides bucket management (public/private), file upload (standard and TUS resumable), download, deletion, and
-    on-the-fly image transformations (resize, format, quality). Access control is enforced via Row Level Security policies.
-    Supports signed URLs for temporary access. Per-project base URL: https://{project_ref}.supabase.co/storage/v1.'
+  description: >-
+    The Supabase Storage API enables developers to store, organize, and serve large files in S3-compatible object
+    storage. Provides bucket management (public/private), file upload (standard and TUS resumable), download,
+    deletion, and on-the-fly image transformations (resize, format, quality). Access control is enforced via Row Level
+    Security policies. Supports signed URLs for temporary access. Per-project base URL:
+    https://{project_ref}.supabase.co/storage/v1.
   humanURL: https://supabase.com/docs/guides/storage
   tags:
   - Storage
@@ -104,20 +87,16 @@ apis:
   - type: Documentation
     url: https://supabase.com/docs/guides/storage
   - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/openapi/supabase-storage-api-openapi.yml
-  - type: NaftikoCapability
-    url: capabilities/storage-buckets.yaml
-  - type: NaftikoCapability
-    url: capabilities/storage-objects.yaml
-  - type: NaftikoCapability
-    url: capabilities/storage-rendering.yaml
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/openapi/supabase-storage-api-openapi.yml
 - aid: supabase:database-rest-api
   name: Supabase Database REST API
-  description: 'The Supabase Database REST API provides auto-generated RESTful endpoints for every table, view, and stored
-    function in the PostgreSQL database, powered by PostgREST. Supports full CRUD operations with advanced filtering operators
-    (eq, neq, gt, lt, like, ilike, in, fts, cs, cd, ov, adj, not, or, and), horizontal and vertical filtering, pagination,
-    ordering, and embedding related resources via foreign key relationships. Row Level Security policies are enforced on all
-    requests. Per-project base URL: https://{project_ref}.supabase.co/rest/v1.'
+  description: >-
+    The Supabase Database REST API provides auto-generated RESTful endpoints for every table, view, and stored
+    function in the PostgreSQL database, powered by PostgREST. Supports full CRUD operations with advanced filtering
+    operators (eq, neq, gt, lt, like, ilike, in, fts, cs, cd, ov, adj, not, or, and), horizontal and vertical
+    filtering, pagination, ordering, and embedding related resources via foreign key relationships. Row Level Security
+    policies are enforced on all requests. Per-project base URL: https://{project_ref}.supabase.co/rest/v1.
   humanURL: https://supabase.com/docs/guides/api
   tags:
   - Database
@@ -129,17 +108,15 @@ apis:
   - type: Documentation
     url: https://supabase.com/docs/guides/api
   - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/openapi/supabase-database-rest-api-openapi.yml
-  - type: NaftikoCapability
-    url: capabilities/database-rest-rpc.yaml
-  - type: NaftikoCapability
-    url: capabilities/database-rest-tables.yaml
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/openapi/supabase-database-rest-api-openapi.yml
 - aid: supabase:edge-functions-api
   name: Supabase Edge Functions API
-  description: 'Supabase Edge Functions are globally distributed, server-side TypeScript functions powered by the Deno runtime.
-    They are deployed and invoked via HTTP requests to a project-specific URL. Functions can access Supabase client libraries
-    to interact with the database, auth, and storage services. JWT verification is required by default but can be disabled
-    per function. Per-project base URL: https://{project_ref}.supabase.co/functions/v1.'
+  description: >-
+    Supabase Edge Functions are globally distributed, server-side TypeScript functions powered by the Deno runtime.
+    They are deployed and invoked via HTTP requests to a project-specific URL. Functions can access Supabase client
+    libraries to interact with the database, auth, and storage services. JWT verification is required by default but
+    can be disabled per function. Per-project base URL: https://{project_ref}.supabase.co/functions/v1.
   humanURL: https://supabase.com/docs/guides/functions
   tags:
   - Edge Functions
@@ -150,15 +127,15 @@ apis:
   - type: Documentation
     url: https://supabase.com/docs/guides/functions
   - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/openapi/supabase-edge-functions-api-openapi.yml
-  - type: NaftikoCapability
-    url: capabilities/edge-functions-invocation.yaml
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/openapi/supabase-edge-functions-api-openapi.yml
 - aid: supabase:realtime-api
   name: Supabase Realtime API
-  description: 'The Supabase Realtime API provides WebSocket-based subscriptions for real-time data changes from PostgreSQL
-    databases. It supports three channel types: database change events (INSERT/UPDATE/DELETE on tables via logical replication),
-    presence (track and synchronize connected users'' state), and broadcast (low-latency message passing between clients).
-    Authentication uses JWT tokens. Implemented using the Phoenix channels protocol.'
+  description: >-
+    The Supabase Realtime API provides WebSocket-based subscriptions for real-time data changes from PostgreSQL
+    databases. It supports three channel types: database change events (INSERT/UPDATE/DELETE on tables via logical
+    replication), presence (track and synchronize connected users' state), and broadcast (low-latency message passing
+    between clients). Authentication uses JWT tokens. Implemented using the Phoenix channels protocol.
   humanURL: https://supabase.com/docs/guides/realtime
   tags:
   - Realtime
@@ -170,7 +147,8 @@ apis:
   - type: Documentation
     url: https://supabase.com/docs/guides/realtime
   - type: AsyncAPI
-    url: https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/asyncapi/supabase-realtime-api-asyncapi.yml
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/asyncapi/supabase-realtime-api-asyncapi.yml
 common:
 - type: LinkedIn
   url: https://www.linkedin.com/company/supabase

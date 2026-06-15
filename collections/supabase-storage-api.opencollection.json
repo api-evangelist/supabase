@@ -1,0 +1,501 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supabase Storage API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Buckets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all buckets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/storage/v1/bucket"
+          },
+          "docs": "Returns a list of all storage buckets in the project. Requires authenticated access with appropriate permissions."
+        },
+        {
+          "info": {
+            "name": "Create a new bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/storage/v1/bucket",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new storage bucket with the specified configuration. Bucket names must be unique within a project and follow URL-safe naming conventions."
+        },
+        {
+          "info": {
+            "name": "Get bucket details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/storage/v1/bucket/:bucketId",
+            "params": [
+              {
+                "name": "bucketId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier or name of the storage bucket"
+              }
+            ]
+          },
+          "docs": "Retrieves details about a specific storage bucket including its configuration, visibility, and file size limits."
+        },
+        {
+          "info": {
+            "name": "Update a bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{project_ref}.supabase.co/storage/v1/bucket/:bucketId",
+            "params": [
+              {
+                "name": "bucketId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier or name of the storage bucket"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing storage bucket including its visibility, file size limits, and allowed MIME types."
+        },
+        {
+          "info": {
+            "name": "Delete a bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{project_ref}.supabase.co/storage/v1/bucket/:bucketId",
+            "params": [
+              {
+                "name": "bucketId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier or name of the storage bucket"
+              }
+            ]
+          },
+          "docs": "Deletes an empty storage bucket. The bucket must be emptied of all objects before deletion."
+        },
+        {
+          "info": {
+            "name": "Empty a bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/storage/v1/bucket/:bucketId/empty",
+            "params": [
+              {
+                "name": "bucketId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier or name of the storage bucket"
+              }
+            ]
+          },
+          "docs": "Removes all objects from a storage bucket without deleting the bucket itself."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Objects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload a file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/storage/v1/object/:bucketName/:objectPath",
+            "headers": [
+              {
+                "name": "x-upsert",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "bucketName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the storage bucket"
+              },
+              {
+                "name": "objectPath",
+                "value": "",
+                "type": "path",
+                "description": "Path to the object within the bucket, including folder hierarchy and filename."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "cacheControl",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads a file to the specified path within a bucket. If a file already exists at the path, the upload will fail unless the upsert option is used. Supports standard uploads and multipart form data."
+        },
+        {
+          "info": {
+            "name": "Update (replace) a file",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{project_ref}.supabase.co/storage/v1/object/:bucketName/:objectPath",
+            "params": [
+              {
+                "name": "bucketName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the storage bucket"
+              },
+              {
+                "name": "objectPath",
+                "value": "",
+                "type": "path",
+                "description": "Path to the object within the bucket, including folder hierarchy and filename."
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "cacheControl",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Replaces an existing file at the specified path with new content. The file must already exist."
+        },
+        {
+          "info": {
+            "name": "Delete a file",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{project_ref}.supabase.co/storage/v1/object/:bucketName/:objectPath",
+            "params": [
+              {
+                "name": "bucketName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the storage bucket"
+              },
+              {
+                "name": "objectPath",
+                "value": "",
+                "type": "path",
+                "description": "Path to the object within the bucket, including folder hierarchy and filename."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a file at the specified path within a bucket."
+        },
+        {
+          "info": {
+            "name": "Download a private file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/storage/v1/object/authenticated/:bucketName/:objectPath",
+            "params": [
+              {
+                "name": "bucketName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the storage bucket"
+              },
+              {
+                "name": "objectPath",
+                "value": "",
+                "type": "path",
+                "description": "Path to the object within the bucket, including folder hierarchy and filename."
+              }
+            ]
+          },
+          "docs": "Downloads a file from a private bucket. Requires authentication and appropriate Row Level Security permissions."
+        },
+        {
+          "info": {
+            "name": "Download a public file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/storage/v1/object/public/:bucketName/:objectPath",
+            "params": [
+              {
+                "name": "bucketName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the storage bucket"
+              },
+              {
+                "name": "objectPath",
+                "value": "",
+                "type": "path",
+                "description": "Path to the object within the bucket, including folder hierarchy and filename."
+              }
+            ]
+          },
+          "docs": "Downloads a file from a public bucket. Does not require authentication."
+        },
+        {
+          "info": {
+            "name": "Create a signed URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/storage/v1/object/sign/:bucketName/:objectPath",
+            "params": [
+              {
+                "name": "bucketName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the storage bucket"
+              },
+              {
+                "name": "objectPath",
+                "value": "",
+                "type": "path",
+                "description": "Path to the object within the bucket, including folder hierarchy and filename."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates a time-limited signed URL for accessing a private file without authentication. Useful for sharing temporary access to files."
+        },
+        {
+          "info": {
+            "name": "List objects in a bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/storage/v1/object/list/:bucketName",
+            "params": [
+              {
+                "name": "bucketName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the storage bucket"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a list of objects within a bucket, optionally filtered by prefix (folder path). Supports pagination with limit and offset."
+        },
+        {
+          "info": {
+            "name": "Move a file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/storage/v1/object/move",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Moves a file from one location to another within the same bucket or across buckets. Can also be used to rename files."
+        },
+        {
+          "info": {
+            "name": "Copy a file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/storage/v1/object/copy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a copy of a file at a new location within the same bucket or across buckets."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Rendering",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Render a transformed private image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/storage/v1/render/image/authenticated/:bucketName/:objectPath",
+            "params": [
+              {
+                "name": "bucketName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the storage bucket"
+              },
+              {
+                "name": "objectPath",
+                "value": "",
+                "type": "path",
+                "description": "Path to the object within the bucket, including folder hierarchy and filename."
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query",
+                "description": "Target width in pixels for image transformation"
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query",
+                "description": "Target height in pixels for image transformation"
+              },
+              {
+                "name": "resize",
+                "value": "",
+                "type": "query",
+                "description": "Resize mode for image transformation"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Output format for image transformation"
+              },
+              {
+                "name": "quality",
+                "value": "",
+                "type": "query",
+                "description": "Output quality for image transformation (1-100)"
+              }
+            ]
+          },
+          "docs": "Downloads and optionally transforms a private image with resizing, format conversion, and quality adjustments applied on the fly."
+        },
+        {
+          "info": {
+            "name": "Render a transformed public image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/storage/v1/render/image/public/:bucketName/:objectPath",
+            "params": [
+              {
+                "name": "bucketName",
+                "value": "",
+                "type": "path",
+                "description": "Name of the storage bucket"
+              },
+              {
+                "name": "objectPath",
+                "value": "",
+                "type": "path",
+                "description": "Path to the object within the bucket, including folder hierarchy and filename."
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query",
+                "description": "Target width in pixels for image transformation"
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query",
+                "description": "Target height in pixels for image transformation"
+              },
+              {
+                "name": "resize",
+                "value": "",
+                "type": "query",
+                "description": "Resize mode for image transformation"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Output format for image transformation"
+              },
+              {
+                "name": "quality",
+                "value": "",
+                "type": "query",
+                "description": "Output quality for image transformation (1-100)"
+              }
+            ]
+          },
+          "docs": "Downloads and optionally transforms a public image with resizing, format conversion, and quality adjustments applied on the fly."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
