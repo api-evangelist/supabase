@@ -8,7 +8,7 @@ description: >-
   control of projects and organizations. Supabase is available as a fully managed cloud service (app.supabase.com) and
   as a self-hosted open-source deployment.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Backend As A Service
 - PostgreSQL
