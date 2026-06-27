@@ -196,7 +196,7 @@ common:
   type: MCPServer
 - name: Agent Skills
   url: https://github.com/supabase/agent-skills
-  type: AgentSkill
+  type: AgentSkills
 integrations:
 - name: Supabase
 - name: Arengu
