@@ -150,6 +150,14 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/asyncapi/supabase-realtime-api-asyncapi.yml
 common:
+- type: TrustCenter
+  url: security/supabase-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/supabase-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/supabase-domain-security.yml
+- type: Authentication
+  url: authentication/supabase-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/supabase
 - type: Website

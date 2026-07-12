@@ -1,0 +1,34 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/supabase-auth-api-openapi.yml, openapi/supabase-database-rest-api-openapi.yml,
+  openapi/supabase-edge-functions-api-openapi.yml, openapi/supabase-management-api-openapi.yml,
+  openapi/supabase-storage-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  parameter: apikey
+  description: Supabase project API key (anon key for public operations, service_role key for
+    admin operations).
+  sources:
+  - openapi/supabase-auth-api-openapi.yml
+  - openapi/supabase-database-rest-api-openapi.yml
+  - openapi/supabase-edge-functions-api-openapi.yml
+  - openapi/supabase-storage-api-openapi.yml
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: JWT access token obtained from a successful authentication.
+  sources:
+  - openapi/supabase-auth-api-openapi.yml
+  - openapi/supabase-database-rest-api-openapi.yml
+  - openapi/supabase-edge-functions-api-openapi.yml
+  - openapi/supabase-management-api-openapi.yml
+  - openapi/supabase-storage-api-openapi.yml
