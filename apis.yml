@@ -150,6 +150,8 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/asyncapi/supabase-realtime-api-asyncapi.yml
 common:
+- type: AgenticAccess
+  url: agentic-access/supabase-agentic-access.yml
 - type: TrustCenter
   url: security/supabase-trust-center.yml
 - type: VulnerabilityDisclosure
