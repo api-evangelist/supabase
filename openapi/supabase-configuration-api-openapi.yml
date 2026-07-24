@@ -1,0 +1,73 @@
+openapi: 3.1.0
+info:
+  title: Supabase Auth Admin Configuration API
+  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
+  version: 2.0.0
+  contact:
+    name: Supabase Support
+    url: https://supabase.com/support
+  termsOfService: https://supabase.com/terms
+servers:
+- url: https://{project_ref}.supabase.co/auth/v1
+  description: Supabase Project Auth Server
+  variables:
+    project_ref:
+      description: Your Supabase project reference ID
+      default: your-project-ref
+security:
+- apiKeyAuth: []
+tags:
+- name: Configuration
+  description: Server configuration and settings endpoints.
+paths:
+  /settings:
+    get:
+      operationId: getSettings
+      summary: Get auth settings
+      description: Returns the publicly available auth server settings including enabled providers, auto-confirm settings, and external provider configurations. This endpoint does not require authentication.
+      tags:
+      - Configuration
+      security: []
+      responses:
+        '200':
+          description: Successfully retrieved settings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthSettings'
+components:
+  schemas:
+    AuthSettings:
+      type: object
+      properties:
+        external:
+          type: object
+          description: External OAuth provider configurations
+          additionalProperties:
+            type: boolean
+        disable_signup:
+          type: boolean
+          description: Whether new signups are disabled
+        mailer_autoconfirm:
+          type: boolean
+          description: Whether emails are auto-confirmed
+        phone_autoconfirm:
+          type: boolean
+          description: Whether phones are auto-confirmed
+        sms_provider:
+          type: string
+          description: SMS provider in use
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token obtained from a successful authentication.
+externalDocs:
+  description: Supabase Auth Documentation
+  url: https://supabase.com/docs/guides/auth

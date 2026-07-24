@@ -1,0 +1,404 @@
+openapi: 3.1.0
+info:
+  title: Supabase Auth Admin API
+  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
+  version: 2.0.0
+  contact:
+    name: Supabase Support
+    url: https://supabase.com/support
+  termsOfService: https://supabase.com/terms
+servers:
+- url: https://{project_ref}.supabase.co/auth/v1
+  description: Supabase Project Auth Server
+  variables:
+    project_ref:
+      description: Your Supabase project reference ID
+      default: your-project-ref
+security:
+- apiKeyAuth: []
+tags:
+- name: Admin
+  description: Administrative endpoints for managing users. Requires service_role key.
+paths:
+  /admin/users:
+    get:
+      operationId: adminListUsers
+      summary: List all users (admin)
+      description: Returns a paginated list of all users in the project. Requires service_role key authentication.
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+        description: Page number for pagination
+      - name: per_page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+        description: Number of users per page
+      responses:
+        '200':
+          description: Successfully retrieved users
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+                  aud:
+                    type: string
+                    description: Audience claim
+        '401':
+          description: Unauthorized
+    post:
+      operationId: adminCreateUser
+      summary: Create a user (admin)
+      description: Creates a new user without requiring email confirmation. Requires service_role key authentication.
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminCreateUserRequest'
+      responses:
+        '200':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /admin/users/{user_id}:
+    get:
+      operationId: adminGetUser
+      summary: Get a user by ID (admin)
+      description: Retrieves a specific user by their UUID. Requires service_role key authentication.
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: Successfully retrieved user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+    put:
+      operationId: adminUpdateUser
+      summary: Update a user (admin)
+      description: Updates a user's profile, role, or confirmation status. Requires service_role key authentication.
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminUpdateUserRequest'
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+    delete:
+      operationId: adminDeleteUser
+      summary: Delete a user (admin)
+      description: Permanently deletes a user and their associated data. Requires service_role key authentication.
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: User deleted
+        '401':
+          description: Unauthorized
+        '404':
+          description: User not found
+  /invite:
+    post:
+      operationId: inviteUser
+      summary: Invite a user by email
+      description: Sends an invitation email to the specified address. The recipient can use the link in the email to create their account. Requires service_role key authentication.
+      tags:
+      - Admin
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: Email address to invite
+                data:
+                  type: object
+                  description: Custom user metadata to set on the invited user
+      responses:
+        '200':
+          description: Invitation sent
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '422':
+          description: User already exists
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique user identifier
+        aud:
+          type: string
+          description: Audience claim
+        role:
+          type: string
+          description: User role
+        email:
+          type: string
+          format: email
+          description: User email address
+        email_confirmed_at:
+          type: string
+          format: date-time
+          description: Timestamp when email was confirmed
+        phone:
+          type: string
+          description: User phone number
+        phone_confirmed_at:
+          type: string
+          format: date-time
+          description: Timestamp when phone was confirmed
+        confirmed_at:
+          type: string
+          format: date-time
+          description: Timestamp when user was confirmed
+        last_sign_in_at:
+          type: string
+          format: date-time
+          description: Timestamp of last sign-in
+        app_metadata:
+          type: object
+          properties:
+            provider:
+              type: string
+              description: Primary authentication provider
+            providers:
+              type: array
+              items:
+                type: string
+              description: List of linked authentication providers
+          description: Application-level metadata
+        user_metadata:
+          type: object
+          description: Custom user metadata
+        identities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Identity'
+          description: Linked identity providers
+        factors:
+          type: array
+          items:
+            $ref: '#/components/schemas/MfaFactor'
+          description: Enrolled MFA factors
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when user was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when user was last updated
+    MfaFactor:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique factor identifier
+        friendly_name:
+          type: string
+          description: Human-readable name for the factor
+        factor_type:
+          type: string
+          description: Type of MFA factor
+          enum:
+          - totp
+        status:
+          type: string
+          description: Factor status
+          enum:
+          - verified
+          - unverified
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when factor was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when factor was last updated
+    Identity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identity identifier
+        user_id:
+          type: string
+          format: uuid
+          description: ID of the associated user
+        identity_data:
+          type: object
+          description: Data from the identity provider
+        provider:
+          type: string
+          description: Identity provider name
+        last_sign_in_at:
+          type: string
+          format: date-time
+          description: Timestamp of last sign-in with this identity
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when identity was linked
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when identity was last updated
+    AdminUpdateUserRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: New email address
+        phone:
+          type: string
+          description: New phone number
+        password:
+          type: string
+          description: New password
+        email_confirm:
+          type: boolean
+          description: Whether to confirm the email
+        phone_confirm:
+          type: boolean
+          description: Whether to confirm the phone
+        user_metadata:
+          type: object
+          description: Custom user metadata
+        app_metadata:
+          type: object
+          description: Application-level metadata
+        role:
+          type: string
+          description: User role
+        ban_duration:
+          type: string
+          description: Duration to ban user (e.g. 24h, none to unban)
+    AdminCreateUserRequest:
+      type: object
+      required:
+      - email
+      properties:
+        email:
+          type: string
+          format: email
+          description: User email address
+        phone:
+          type: string
+          description: User phone number
+        password:
+          type: string
+          description: User password
+        email_confirm:
+          type: boolean
+          description: Whether to auto-confirm the email
+          default: false
+        phone_confirm:
+          type: boolean
+          description: Whether to auto-confirm the phone
+          default: false
+        user_metadata:
+          type: object
+          description: Custom user metadata
+        app_metadata:
+          type: object
+          description: Application-level metadata
+        role:
+          type: string
+          description: User role
+        ban_duration:
+          type: string
+          description: Duration to ban user (e.g. 24h, none)
+  parameters:
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      description: UUID of the user
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token obtained from a successful authentication.
+externalDocs:
+  description: Supabase Auth Documentation
+  url: https://supabase.com/docs/guides/auth

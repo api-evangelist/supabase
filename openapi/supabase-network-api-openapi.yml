@@ -1,0 +1,143 @@
+openapi: 3.1.0
+info:
+  title: Supabase Auth Admin Network API
+  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
+  version: 2.0.0
+  contact:
+    name: Supabase Support
+    url: https://supabase.com/support
+  termsOfService: https://supabase.com/terms
+servers:
+- url: https://{project_ref}.supabase.co/auth/v1
+  description: Supabase Project Auth Server
+  variables:
+    project_ref:
+      description: Your Supabase project reference ID
+      default: your-project-ref
+security:
+- apiKeyAuth: []
+tags:
+- name: Network
+  description: Manage network restrictions, bans, and SSL enforcement.
+paths:
+  /projects/{ref}/network-bans:
+    get:
+      operationId: listNetworkBans
+      summary: List network bans
+      description: Returns a list of IP addresses that are currently banned from accessing the project due to abusive traffic patterns such as multiple failed authentication attempts.
+      tags:
+      - Network
+      parameters:
+      - $ref: '#/components/parameters/ProjectRef'
+      responses:
+        '200':
+          description: Successfully retrieved network bans
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  banned_ipv4_addresses:
+                    type: array
+                    items:
+                      type: string
+                      format: ipv4
+                    description: List of banned IPv4 addresses
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: removeNetworkBans
+      summary: Remove network bans
+      description: Removes specified IP addresses from the project's network ban list, allowing them to access the project again.
+      tags:
+      - Network
+      parameters:
+      - $ref: '#/components/parameters/ProjectRef'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ipv4_addresses:
+                  type: array
+                  items:
+                    type: string
+                    format: ipv4
+      responses:
+        '200':
+          description: Network bans removed
+        '401':
+          description: Unauthorized
+  /projects/{ref}/network-restrictions:
+    get:
+      operationId: getNetworkRestrictions
+      summary: Get network restrictions
+      description: Retrieves the network restriction configuration for a project, which controls which IP addresses or CIDR ranges are allowed to connect to the database.
+      tags:
+      - Network
+      parameters:
+      - $ref: '#/components/parameters/ProjectRef'
+      responses:
+        '200':
+          description: Successfully retrieved network restrictions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NetworkRestrictions'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: updateNetworkRestrictions
+      summary: Update network restrictions
+      description: Updates the allowed IP addresses or CIDR ranges that can connect to the project database.
+      tags:
+      - Network
+      parameters:
+      - $ref: '#/components/parameters/ProjectRef'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NetworkRestrictions'
+      responses:
+        '200':
+          description: Network restrictions updated
+        '400':
+          description: Bad request - invalid CIDR
+        '401':
+          description: Unauthorized
+components:
+  parameters:
+    ProjectRef:
+      name: ref
+      in: path
+      required: true
+      description: The unique reference ID for the project, found in the project settings or URL.
+      schema:
+        type: string
+  schemas:
+    NetworkRestrictions:
+      type: object
+      properties:
+        dbAllowedCidrs:
+          type: array
+          items:
+            type: string
+          description: List of CIDR ranges allowed to connect to the database
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token obtained from a successful authentication.
+externalDocs:
+  description: Supabase Auth Documentation
+  url: https://supabase.com/docs/guides/auth

@@ -1,0 +1,111 @@
+openapi: 3.1.0
+info:
+  title: Supabase Auth Admin Database API
+  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
+  version: 2.0.0
+  contact:
+    name: Supabase Support
+    url: https://supabase.com/support
+  termsOfService: https://supabase.com/terms
+servers:
+- url: https://{project_ref}.supabase.co/auth/v1
+  description: Supabase Project Auth Server
+  variables:
+    project_ref:
+      description: Your Supabase project reference ID
+      default: your-project-ref
+security:
+- apiKeyAuth: []
+tags:
+- name: Database
+  description: Manage database configurations, migrations, and extensions.
+paths:
+  /projects/{ref}/database/migrations:
+    get:
+      operationId: listDatabaseMigrations
+      summary: List database migrations
+      description: Returns a list of all migrations that have been applied to the project database, stored in the supabase_migrations schema.
+      tags:
+      - Database
+      parameters:
+      - $ref: '#/components/parameters/ProjectRef'
+      responses:
+        '200':
+          description: Successfully retrieved migrations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DatabaseMigration'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Project not found
+    post:
+      operationId: createDatabaseMigration
+      summary: Create a database migration
+      description: Creates and runs a new SQL migration on the project database. The migration is recorded in the supabase_migrations schema.
+      tags:
+      - Database
+      parameters:
+      - $ref: '#/components/parameters/ProjectRef'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMigrationRequest'
+      responses:
+        '201':
+          description: Migration created and applied successfully
+        '400':
+          description: Bad request - invalid SQL or migration error
+        '401':
+          description: Unauthorized
+components:
+  parameters:
+    ProjectRef:
+      name: ref
+      in: path
+      required: true
+      description: The unique reference ID for the project, found in the project settings or URL.
+      schema:
+        type: string
+  schemas:
+    DatabaseMigration:
+      type: object
+      properties:
+        version:
+          type: string
+          description: Migration version identifier
+        name:
+          type: string
+          description: Migration name
+        statements:
+          type: array
+          items:
+            type: string
+          description: SQL statements in the migration
+    CreateMigrationRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: SQL statements to execute in the migration
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token obtained from a successful authentication.
+externalDocs:
+  description: Supabase Auth Documentation
+  url: https://supabase.com/docs/guides/auth

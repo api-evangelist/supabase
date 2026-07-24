@@ -1,0 +1,147 @@
+openapi: 3.1.0
+info:
+  title: Supabase Auth Admin Rendering API
+  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
+  version: 2.0.0
+  contact:
+    name: Supabase Support
+    url: https://supabase.com/support
+  termsOfService: https://supabase.com/terms
+servers:
+- url: https://{project_ref}.supabase.co/auth/v1
+  description: Supabase Project Auth Server
+  variables:
+    project_ref:
+      description: Your Supabase project reference ID
+      default: your-project-ref
+security:
+- apiKeyAuth: []
+tags:
+- name: Rendering
+  description: Serve and transform stored files including image resizing and format conversion.
+paths:
+  /render/image/authenticated/{bucketName}/{objectPath}:
+    get:
+      operationId: renderAuthenticatedImage
+      summary: Render a transformed private image
+      description: Downloads and optionally transforms a private image with resizing, format conversion, and quality adjustments applied on the fly.
+      tags:
+      - Rendering
+      parameters:
+      - $ref: '#/components/parameters/BucketName'
+      - $ref: '#/components/parameters/ObjectPath'
+      - $ref: '#/components/parameters/Width'
+      - $ref: '#/components/parameters/Height'
+      - $ref: '#/components/parameters/Resize'
+      - $ref: '#/components/parameters/Format'
+      - $ref: '#/components/parameters/Quality'
+      responses:
+        '200':
+          description: Transformed image content
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        '401':
+          description: Unauthorized
+        '404':
+          description: File not found
+  /render/image/public/{bucketName}/{objectPath}:
+    get:
+      operationId: renderPublicImage
+      summary: Render a transformed public image
+      description: Downloads and optionally transforms a public image with resizing, format conversion, and quality adjustments applied on the fly.
+      tags:
+      - Rendering
+      security: []
+      parameters:
+      - $ref: '#/components/parameters/BucketName'
+      - $ref: '#/components/parameters/ObjectPath'
+      - $ref: '#/components/parameters/Width'
+      - $ref: '#/components/parameters/Height'
+      - $ref: '#/components/parameters/Resize'
+      - $ref: '#/components/parameters/Format'
+      - $ref: '#/components/parameters/Quality'
+      responses:
+        '200':
+          description: Transformed image content
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: File not found
+components:
+  parameters:
+    Resize:
+      name: resize
+      in: query
+      description: Resize mode for image transformation
+      schema:
+        type: string
+        enum:
+        - cover
+        - contain
+        - fill
+    BucketName:
+      name: bucketName
+      in: path
+      required: true
+      description: Name of the storage bucket
+      schema:
+        type: string
+    Height:
+      name: height
+      in: query
+      description: Target height in pixels for image transformation
+      schema:
+        type: integer
+        minimum: 1
+    Quality:
+      name: quality
+      in: query
+      description: Output quality for image transformation (1-100)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    Width:
+      name: width
+      in: query
+      description: Target width in pixels for image transformation
+      schema:
+        type: integer
+        minimum: 1
+    Format:
+      name: format
+      in: query
+      description: Output format for image transformation
+      schema:
+        type: string
+        enum:
+        - origin
+        - avif
+        - webp
+    ObjectPath:
+      name: objectPath
+      in: path
+      required: true
+      description: Path to the object within the bucket, including folder hierarchy and filename.
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token obtained from a successful authentication.
+externalDocs:
+  description: Supabase Auth Documentation
+  url: https://supabase.com/docs/guides/auth

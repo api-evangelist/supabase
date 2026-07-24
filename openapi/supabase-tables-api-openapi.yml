@@ -1,0 +1,227 @@
+openapi: 3.1.0
+info:
+  title: Supabase Auth Admin Tables API
+  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
+  version: 2.0.0
+  contact:
+    name: Supabase Support
+    url: https://supabase.com/support
+  termsOfService: https://supabase.com/terms
+servers:
+- url: https://{project_ref}.supabase.co/auth/v1
+  description: Supabase Project Auth Server
+  variables:
+    project_ref:
+      description: Your Supabase project reference ID
+      default: your-project-ref
+security:
+- apiKeyAuth: []
+tags:
+- name: Tables
+  description: CRUD operations on database tables. Paths are auto-generated based on your database schema.
+paths:
+  /{table}:
+    get:
+      operationId: selectRows
+      summary: Select rows from a table
+      description: Retrieves rows from a database table with support for filtering, sorting, pagination, and column selection. PostgREST operators are used in query parameters for horizontal filtering (e.g. eq, neq, gt, lt, gte, lte, like, ilike, in, is, fts, plfts, phfts, wfts, cs, cd, ov, sl, sr, nxl, nxr, adj, not, or, and). Vertical filtering uses the select parameter.
+      tags:
+      - Tables
+      parameters:
+      - $ref: '#/components/parameters/TableName'
+      - $ref: '#/components/parameters/Select'
+      - $ref: '#/components/parameters/Order'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/Offset'
+      - $ref: '#/components/parameters/RangeHeader'
+      - $ref: '#/components/parameters/PreferCount'
+      responses:
+        '200':
+          description: Rows retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+          headers:
+            Content-Range:
+              description: Range of returned rows and total count
+              schema:
+                type: string
+        '400':
+          description: Bad request - invalid filter or parameter
+        '401':
+          description: Unauthorized - missing or invalid API key
+        '404':
+          description: Table not found in schema
+    post:
+      operationId: insertRows
+      summary: Insert rows into a table
+      description: 'Inserts one or more rows into a database table. Use the Prefer header with return=representation to get the inserted rows in the response. Supports upsert with Prefer: resolution=merge-duplicates.'
+      tags:
+      - Tables
+      parameters:
+      - $ref: '#/components/parameters/TableName'
+      - $ref: '#/components/parameters/PreferReturn'
+      - name: Prefer
+        in: header
+        schema:
+          type: string
+          enum:
+          - resolution=merge-duplicates
+          - resolution=ignore-duplicates
+        description: Upsert conflict resolution strategy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+                description: Single row to insert
+              - type: array
+                items:
+                  type: object
+                description: Multiple rows to insert
+      responses:
+        '201':
+          description: Rows inserted successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        '400':
+          description: Bad request - invalid data or constraint violation
+        '401':
+          description: Unauthorized
+        '409':
+          description: Conflict - duplicate key violation
+    patch:
+      operationId: updateRows
+      summary: Update rows in a table
+      description: Updates rows in a database table that match the specified filters. All PostgREST filter operators can be used as query parameters to select which rows to update.
+      tags:
+      - Tables
+      parameters:
+      - $ref: '#/components/parameters/TableName'
+      - $ref: '#/components/parameters/PreferReturn'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Column values to update
+      responses:
+        '200':
+          description: Rows updated successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: deleteRows
+      summary: Delete rows from a table
+      description: Deletes rows from a database table that match the specified filters. All PostgREST filter operators can be used as query parameters. It is strongly recommended to always include filters to avoid deleting all rows.
+      tags:
+      - Tables
+      parameters:
+      - $ref: '#/components/parameters/TableName'
+      - $ref: '#/components/parameters/PreferReturn'
+      responses:
+        '200':
+          description: Rows deleted successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+components:
+  parameters:
+    RangeHeader:
+      name: Range
+      in: header
+      description: Request a specific range of rows using HTTP Range header (e.g. 0-24 for first 25 rows).
+      schema:
+        type: string
+    PreferCount:
+      name: Prefer
+      in: header
+      description: Request a total row count. Use count=exact for precise count, count=planned for estimated count, or count=estimated for a combination.
+      schema:
+        type: string
+        enum:
+        - count=exact
+        - count=planned
+        - count=estimated
+    Order:
+      name: order
+      in: query
+      description: Comma-separated list of columns to sort by. Append .desc for descending, .asc for ascending. Use .nullsfirst or .nullslast to control null ordering.
+      schema:
+        type: string
+    PreferReturn:
+      name: Prefer
+      in: header
+      description: Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.
+      schema:
+        type: string
+        enum:
+        - return=representation
+        - return=headers-only
+        - return=minimal
+    Offset:
+      name: offset
+      in: query
+      description: Number of rows to skip before starting to return rows
+      schema:
+        type: integer
+        minimum: 0
+    TableName:
+      name: table
+      in: path
+      required: true
+      description: Name of the database table or view
+      schema:
+        type: string
+    Select:
+      name: select
+      in: query
+      description: Comma-separated list of columns to return. Supports renaming (alias:column), casting (column::type), and embedding related resources via foreign keys (related_table(columns)).
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of rows to return
+      schema:
+        type: integer
+        minimum: 0
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token obtained from a successful authentication.
+externalDocs:
+  description: Supabase Auth Documentation
+  url: https://supabase.com/docs/guides/auth

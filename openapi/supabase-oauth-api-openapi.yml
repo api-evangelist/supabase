@@ -1,0 +1,111 @@
+openapi: 3.1.0
+info:
+  title: Supabase Auth Admin OAuth API
+  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
+  version: 2.0.0
+  contact:
+    name: Supabase Support
+    url: https://supabase.com/support
+  termsOfService: https://supabase.com/terms
+servers:
+- url: https://{project_ref}.supabase.co/auth/v1
+  description: Supabase Project Auth Server
+  variables:
+    project_ref:
+      description: Your Supabase project reference ID
+      default: your-project-ref
+security:
+- apiKeyAuth: []
+tags:
+- name: OAuth
+  description: OAuth social login provider endpoints.
+paths:
+  /authorize:
+    get:
+      operationId: authorizeOAuth
+      summary: Initiate OAuth login
+      description: Redirects the user to the specified OAuth provider's authorization page. After the user grants access, they are redirected back to the application with an authorization code or tokens.
+      tags:
+      - OAuth
+      parameters:
+      - name: provider
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - google
+          - github
+          - gitlab
+          - bitbucket
+          - azure
+          - facebook
+          - apple
+          - twitter
+          - discord
+          - twitch
+          - spotify
+          - slack
+          - linkedin
+          - notion
+          - zoom
+          - keycloak
+          - workos
+          - figma
+          - kakao
+          - fly
+        description: The OAuth provider to authenticate with
+      - name: redirect_to
+        in: query
+        schema:
+          type: string
+          format: uri
+        description: URL to redirect to after authentication
+      - name: scopes
+        in: query
+        schema:
+          type: string
+        description: Space-separated list of OAuth scopes to request
+      responses:
+        '302':
+          description: Redirect to OAuth provider
+        '400':
+          description: Bad request - invalid provider
+  /callback:
+    get:
+      operationId: oauthCallback
+      summary: OAuth callback
+      description: Receives the OAuth callback from the provider after user authorization. Exchanges the authorization code for tokens and creates or updates the user account.
+      tags:
+      - OAuth
+      parameters:
+      - name: code
+        in: query
+        schema:
+          type: string
+        description: Authorization code from the OAuth provider
+      - name: state
+        in: query
+        schema:
+          type: string
+        description: State parameter for CSRF protection
+      responses:
+        '303':
+          description: Redirect to application with session
+        '400':
+          description: Invalid callback parameters
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token obtained from a successful authentication.
+externalDocs:
+  description: Supabase Auth Documentation
+  url: https://supabase.com/docs/guides/auth

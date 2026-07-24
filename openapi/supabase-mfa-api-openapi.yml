@@ -1,0 +1,309 @@
+openapi: 3.1.0
+info:
+  title: Supabase Auth Admin MFA API
+  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
+  version: 2.0.0
+  contact:
+    name: Supabase Support
+    url: https://supabase.com/support
+  termsOfService: https://supabase.com/terms
+servers:
+- url: https://{project_ref}.supabase.co/auth/v1
+  description: Supabase Project Auth Server
+  variables:
+    project_ref:
+      description: Your Supabase project reference ID
+      default: your-project-ref
+security:
+- apiKeyAuth: []
+tags:
+- name: MFA
+  description: Multi-factor authentication enrollment and verification endpoints.
+paths:
+  /factors:
+    post:
+      operationId: enrollMfaFactor
+      summary: Enroll an MFA factor
+      description: Enrolls a new multi-factor authentication factor for the authenticated user. Supports TOTP (time-based one-time password) authenticator apps.
+      tags:
+      - MFA
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnrollMfaRequest'
+      responses:
+        '200':
+          description: MFA factor enrolled
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MfaFactor'
+        '401':
+          description: Unauthorized
+  /factors/{factorId}/challenge:
+    post:
+      operationId: challengeMfaFactor
+      summary: Create an MFA challenge
+      description: Creates a challenge for a specific MFA factor, prompting the user to provide verification from their authenticator device.
+      tags:
+      - MFA
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/FactorId'
+      responses:
+        '200':
+          description: Challenge created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MfaChallenge'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Factor not found
+  /factors/{factorId}/verify:
+    post:
+      operationId: verifyMfaFactor
+      summary: Verify an MFA challenge
+      description: Verifies an MFA challenge by providing the code from the authenticator device. On success, the session is upgraded to an authenticated assurance level.
+      tags:
+      - MFA
+      security:
+      - bearerAuth: []
+      parameters:
+      - $ref: '#/components/parameters/FactorId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - challenge_id
+              - code
+              properties:
+                challenge_id:
+                  type: string
+                  format: uuid
+                  description: ID of the challenge to verify
+                code:
+                  type: string
+                  description: TOTP code from the authenticator
+                  minLength: 6
+                  maxLength: 6
+      responses:
+        '200':
+          description: Verification successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          description: Invalid code
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique user identifier
+        aud:
+          type: string
+          description: Audience claim
+        role:
+          type: string
+          description: User role
+        email:
+          type: string
+          format: email
+          description: User email address
+        email_confirmed_at:
+          type: string
+          format: date-time
+          description: Timestamp when email was confirmed
+        phone:
+          type: string
+          description: User phone number
+        phone_confirmed_at:
+          type: string
+          format: date-time
+          description: Timestamp when phone was confirmed
+        confirmed_at:
+          type: string
+          format: date-time
+          description: Timestamp when user was confirmed
+        last_sign_in_at:
+          type: string
+          format: date-time
+          description: Timestamp of last sign-in
+        app_metadata:
+          type: object
+          properties:
+            provider:
+              type: string
+              description: Primary authentication provider
+            providers:
+              type: array
+              items:
+                type: string
+              description: List of linked authentication providers
+          description: Application-level metadata
+        user_metadata:
+          type: object
+          description: Custom user metadata
+        identities:
+          type: array
+          items:
+            $ref: '#/components/schemas/Identity'
+          description: Linked identity providers
+        factors:
+          type: array
+          items:
+            $ref: '#/components/schemas/MfaFactor'
+          description: Enrolled MFA factors
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when user was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when user was last updated
+    AuthResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: JWT access token for authenticating API requests
+        token_type:
+          type: string
+          description: Token type, always bearer
+          enum:
+          - bearer
+        expires_in:
+          type: integer
+          description: Number of seconds until the access token expires
+        expires_at:
+          type: integer
+          description: Unix timestamp when the access token expires
+        refresh_token:
+          type: string
+          description: Token used to obtain a new access token
+        user:
+          $ref: '#/components/schemas/User'
+    MfaChallenge:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique challenge identifier
+        expires_at:
+          type: string
+          format: date-time
+          description: Timestamp when the challenge expires
+    MfaFactor:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique factor identifier
+        friendly_name:
+          type: string
+          description: Human-readable name for the factor
+        factor_type:
+          type: string
+          description: Type of MFA factor
+          enum:
+          - totp
+        status:
+          type: string
+          description: Factor status
+          enum:
+          - verified
+          - unverified
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when factor was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when factor was last updated
+    Identity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identity identifier
+        user_id:
+          type: string
+          format: uuid
+          description: ID of the associated user
+        identity_data:
+          type: object
+          description: Data from the identity provider
+        provider:
+          type: string
+          description: Identity provider name
+        last_sign_in_at:
+          type: string
+          format: date-time
+          description: Timestamp of last sign-in with this identity
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when identity was linked
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when identity was last updated
+    EnrollMfaRequest:
+      type: object
+      required:
+      - factor_type
+      properties:
+        factor_type:
+          type: string
+          description: Type of MFA factor to enroll
+          enum:
+          - totp
+        friendly_name:
+          type: string
+          description: Human-readable name for the factor
+        issuer:
+          type: string
+          description: Issuer name displayed in authenticator apps
+  parameters:
+    FactorId:
+      name: factorId
+      in: path
+      required: true
+      description: UUID of the MFA factor
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token obtained from a successful authentication.
+externalDocs:
+  description: Supabase Auth Documentation
+  url: https://supabase.com/docs/guides/auth

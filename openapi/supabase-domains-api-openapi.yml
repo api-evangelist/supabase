@@ -1,0 +1,193 @@
+openapi: 3.1.0
+info:
+  title: Supabase Auth Admin Domains API
+  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
+  version: 2.0.0
+  contact:
+    name: Supabase Support
+    url: https://supabase.com/support
+  termsOfService: https://supabase.com/terms
+servers:
+- url: https://{project_ref}.supabase.co/auth/v1
+  description: Supabase Project Auth Server
+  variables:
+    project_ref:
+      description: Your Supabase project reference ID
+      default: your-project-ref
+security:
+- apiKeyAuth: []
+tags:
+- name: Domains
+  description: Configure custom domains and vanity subdomains for projects.
+paths:
+  /projects/{ref}/custom-hostname:
+    get:
+      operationId: getCustomHostname
+      summary: Get custom hostname configuration
+      description: Retrieves the custom hostname configuration for a project including its current status and verification records.
+      tags:
+      - Domains
+      parameters:
+      - $ref: '#/components/parameters/ProjectRef'
+      responses:
+        '200':
+          description: Successfully retrieved custom hostname configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomHostname'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Project not found
+    post:
+      operationId: activateCustomHostname
+      summary: Activate custom hostname
+      description: Activates a custom hostname for the project. The custom domain must have DNS records properly configured before activation.
+      tags:
+      - Domains
+      parameters:
+      - $ref: '#/components/parameters/ProjectRef'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateCustomHostnameRequest'
+      responses:
+        '201':
+          description: Custom hostname activated
+        '400':
+          description: Bad request - DNS not configured
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: removeCustomHostname
+      summary: Remove custom hostname
+      description: Removes the custom hostname configuration from a project, reverting to the default supabase.co subdomain.
+      tags:
+      - Domains
+      parameters:
+      - $ref: '#/components/parameters/ProjectRef'
+      responses:
+        '200':
+          description: Custom hostname removed
+        '401':
+          description: Unauthorized
+  /projects/{ref}/vanity-subdomain:
+    get:
+      operationId: getVanitySubdomain
+      summary: Get vanity subdomain
+      description: Retrieves the vanity subdomain configuration for a project.
+      tags:
+      - Domains
+      parameters:
+      - $ref: '#/components/parameters/ProjectRef'
+      responses:
+        '200':
+          description: Successfully retrieved vanity subdomain
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VanitySubdomain'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: activateVanitySubdomain
+      summary: Activate vanity subdomain
+      description: Activates a vanity subdomain on supabase.co for the project. Use of vanity subdomains and custom domains is mutually exclusive.
+      tags:
+      - Domains
+      parameters:
+      - $ref: '#/components/parameters/ProjectRef'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateVanitySubdomainRequest'
+      responses:
+        '201':
+          description: Vanity subdomain activated
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: removeVanitySubdomain
+      summary: Remove vanity subdomain
+      description: Removes the vanity subdomain from a project.
+      tags:
+      - Domains
+      parameters:
+      - $ref: '#/components/parameters/ProjectRef'
+      responses:
+        '200':
+          description: Vanity subdomain removed
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    ActivateVanitySubdomainRequest:
+      type: object
+      required:
+      - vanity_subdomain
+      properties:
+        vanity_subdomain:
+          type: string
+          description: Desired vanity subdomain
+    ActivateCustomHostnameRequest:
+      type: object
+      required:
+      - custom_hostname
+      properties:
+        custom_hostname:
+          type: string
+          description: The custom hostname to activate
+    VanitySubdomain:
+      type: object
+      properties:
+        custom_subdomain:
+          type: string
+          description: The vanity subdomain on supabase.co
+        status:
+          type: string
+          description: Status of the vanity subdomain
+          enum:
+          - active
+          - not_used
+    CustomHostname:
+      type: object
+      properties:
+        custom_hostname:
+          type: string
+          description: The custom hostname configured for the project
+        status:
+          type: string
+          description: Verification status of the custom hostname
+          enum:
+          - active
+          - pending
+          - not_started
+  parameters:
+    ProjectRef:
+      name: ref
+      in: path
+      required: true
+      description: The unique reference ID for the project, found in the project settings or URL.
+      schema:
+        type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token obtained from a successful authentication.
+externalDocs:
+  description: Supabase Auth Documentation
+  url: https://supabase.com/docs/guides/auth

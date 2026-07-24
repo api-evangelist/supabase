@@ -1,0 +1,433 @@
+openapi: 3.1.0
+info:
+  title: Supabase Auth Admin Objects API
+  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
+  version: 2.0.0
+  contact:
+    name: Supabase Support
+    url: https://supabase.com/support
+  termsOfService: https://supabase.com/terms
+servers:
+- url: https://{project_ref}.supabase.co/auth/v1
+  description: Supabase Project Auth Server
+  variables:
+    project_ref:
+      description: Your Supabase project reference ID
+      default: your-project-ref
+security:
+- apiKeyAuth: []
+tags:
+- name: Objects
+  description: Upload, download, move, copy, and delete files within storage buckets.
+paths:
+  /object/{bucketName}/{objectPath}:
+    post:
+      operationId: uploadObject
+      summary: Upload a file
+      description: Uploads a file to the specified path within a bucket. If a file already exists at the path, the upload will fail unless the upsert option is used. Supports standard uploads and multipart form data.
+      tags:
+      - Objects
+      parameters:
+      - $ref: '#/components/parameters/BucketName'
+      - $ref: '#/components/parameters/ObjectPath'
+      - name: x-upsert
+        in: header
+        schema:
+          type: boolean
+          default: false
+        description: Whether to overwrite an existing file at the same path
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The file to upload
+                cacheControl:
+                  type: string
+                  description: Cache-Control header value for the uploaded file
+                  default: '3600'
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectResponse'
+        '400':
+          description: Bad request - invalid file or path
+        '401':
+          description: Unauthorized
+        '409':
+          description: Conflict - file already exists (use upsert)
+    put:
+      operationId: updateObject
+      summary: Update (replace) a file
+      description: Replaces an existing file at the specified path with new content. The file must already exist.
+      tags:
+      - Objects
+      parameters:
+      - $ref: '#/components/parameters/BucketName'
+      - $ref: '#/components/parameters/ObjectPath'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The replacement file
+                cacheControl:
+                  type: string
+                  description: Cache-Control header value
+          application/octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: File updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: File not found
+    delete:
+      operationId: deleteObject
+      summary: Delete a file
+      description: Permanently deletes a file at the specified path within a bucket.
+      tags:
+      - Objects
+      parameters:
+      - $ref: '#/components/parameters/BucketName'
+      - $ref: '#/components/parameters/ObjectPath'
+      responses:
+        '200':
+          description: File deleted successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: File not found
+  /object/authenticated/{bucketName}/{objectPath}:
+    get:
+      operationId: downloadAuthenticatedObject
+      summary: Download a private file
+      description: Downloads a file from a private bucket. Requires authentication and appropriate Row Level Security permissions.
+      tags:
+      - Objects
+      parameters:
+      - $ref: '#/components/parameters/BucketName'
+      - $ref: '#/components/parameters/ObjectPath'
+      responses:
+        '200':
+          description: File content
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '401':
+          description: Unauthorized
+        '404':
+          description: File not found
+  /object/public/{bucketName}/{objectPath}:
+    get:
+      operationId: downloadPublicObject
+      summary: Download a public file
+      description: Downloads a file from a public bucket. Does not require authentication.
+      tags:
+      - Objects
+      security: []
+      parameters:
+      - $ref: '#/components/parameters/BucketName'
+      - $ref: '#/components/parameters/ObjectPath'
+      responses:
+        '200':
+          description: File content
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: File not found
+  /object/sign/{bucketName}/{objectPath}:
+    post:
+      operationId: createSignedUrl
+      summary: Create a signed URL
+      description: Generates a time-limited signed URL for accessing a private file without authentication. Useful for sharing temporary access to files.
+      tags:
+      - Objects
+      parameters:
+      - $ref: '#/components/parameters/BucketName'
+      - $ref: '#/components/parameters/ObjectPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - expiresIn
+              properties:
+                expiresIn:
+                  type: integer
+                  description: Number of seconds until the URL expires
+                  minimum: 1
+      responses:
+        '200':
+          description: Signed URL created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  signedURL:
+                    type: string
+                    format: uri
+                    description: The signed URL for file access
+        '401':
+          description: Unauthorized
+        '404':
+          description: File not found
+  /object/list/{bucketName}:
+    post:
+      operationId: listObjects
+      summary: List objects in a bucket
+      description: Returns a list of objects within a bucket, optionally filtered by prefix (folder path). Supports pagination with limit and offset.
+      tags:
+      - Objects
+      parameters:
+      - $ref: '#/components/parameters/BucketName'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prefix:
+                  type: string
+                  description: Filter objects by path prefix (folder)
+                  default: ''
+                limit:
+                  type: integer
+                  description: Maximum number of objects to return
+                  default: 100
+                  minimum: 1
+                offset:
+                  type: integer
+                  description: Number of objects to skip
+                  default: 0
+                  minimum: 0
+                sortBy:
+                  type: object
+                  properties:
+                    column:
+                      type: string
+                      description: Column to sort by
+                      enum:
+                      - name
+                      - updated_at
+                      - created_at
+                      - last_accessed_at
+                    order:
+                      type: string
+                      description: Sort direction
+                      enum:
+                      - asc
+                      - desc
+                search:
+                  type: string
+                  description: Search string to filter object names
+      responses:
+        '200':
+          description: Successfully retrieved objects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StorageObject'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Bucket not found
+  /object/move:
+    post:
+      operationId: moveObject
+      summary: Move a file
+      description: Moves a file from one location to another within the same bucket or across buckets. Can also be used to rename files.
+      tags:
+      - Objects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoveObjectRequest'
+      responses:
+        '200':
+          description: File moved successfully
+        '401':
+          description: Unauthorized
+        '404':
+          description: Source file not found
+  /object/copy:
+    post:
+      operationId: copyObject
+      summary: Copy a file
+      description: Creates a copy of a file at a new location within the same bucket or across buckets.
+      tags:
+      - Objects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CopyObjectRequest'
+      responses:
+        '200':
+          description: File copied successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  key:
+                    type: string
+                    description: Path of the copied file
+        '401':
+          description: Unauthorized
+        '404':
+          description: Source file not found
+components:
+  parameters:
+    BucketName:
+      name: bucketName
+      in: path
+      required: true
+      description: Name of the storage bucket
+      schema:
+        type: string
+    ObjectPath:
+      name: objectPath
+      in: path
+      required: true
+      description: Path to the object within the bucket, including folder hierarchy and filename.
+      schema:
+        type: string
+  schemas:
+    MoveObjectRequest:
+      type: object
+      required:
+      - bucketId
+      - sourceKey
+      - destinationKey
+      properties:
+        bucketId:
+          type: string
+          description: Source bucket ID
+        sourceKey:
+          type: string
+          description: Current path of the file
+        destinationBucket:
+          type: string
+          description: Destination bucket ID (defaults to source bucket)
+        destinationKey:
+          type: string
+          description: New path for the file
+    StorageObject:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the object
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the object
+        bucket_id:
+          type: string
+          description: ID of the bucket containing the object
+        owner:
+          type: string
+          format: uuid
+          description: UUID of the object owner
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the object was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the object was last updated
+        last_accessed_at:
+          type: string
+          format: date-time
+          description: Timestamp when the object was last accessed
+        metadata:
+          type: object
+          properties:
+            size:
+              type: integer
+              description: File size in bytes
+            mimetype:
+              type: string
+              description: MIME type of the file
+            cacheControl:
+              type: string
+              description: Cache-Control header value
+          description: File metadata
+    CopyObjectRequest:
+      type: object
+      required:
+      - bucketId
+      - sourceKey
+      - destinationKey
+      properties:
+        bucketId:
+          type: string
+          description: Source bucket ID
+        sourceKey:
+          type: string
+          description: Path of the file to copy
+        destinationBucket:
+          type: string
+          description: Destination bucket ID (defaults to source bucket)
+        destinationKey:
+          type: string
+          description: Path for the copy
+    ObjectResponse:
+      type: object
+      properties:
+        Key:
+          type: string
+          description: Full path of the uploaded object
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT access token obtained from a successful authentication.
+externalDocs:
+  description: Supabase Auth Documentation
+  url: https://supabase.com/docs/guides/auth
