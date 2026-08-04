@@ -1,0 +1,138 @@
+openapi: 3.1.0
+info:
+  title: Supabase Edge Functions API
+  description: >-
+    Supabase Edge Functions are globally distributed, server-side TypeScript
+    functions powered by the Deno runtime. They are invoked via HTTP requests
+    to a project-specific URL. Edge Functions can access the Supabase client
+    libraries for interacting with the database, auth, and storage services.
+    By default, they require a valid JWT in the authorization header, but this
+    can be disabled per function. This specification documents the HTTP
+    invocation interface for deployed Edge Functions.
+  version: '1.0.0'
+  contact:
+    name: Supabase Support
+    url: https://supabase.com/support
+  termsOfService: https://supabase.com/terms
+externalDocs:
+  description: Supabase Edge Functions Documentation
+  url: https://supabase.com/docs/guides/functions
+servers:
+  - url: https://{project_ref}.supabase.co/functions/v1
+    description: Supabase Project Edge Functions Server
+    variables:
+      project_ref:
+        description: Your Supabase project reference ID
+        default: your-project-ref
+tags:
+  - name: Invocation
+    description: >-
+      Invoke deployed Edge Functions via HTTP requests. Each function is
+      accessible at its own URL path based on its slug.
+security:
+  - apiKeyAuth: []
+    bearerAuth: []
+paths:
+  /{function_slug}:
+    get:
+      operationId: invokeEdgeFunctionGet
+      summary: Invoke an Edge Function via GET
+      description: >-
+        Invokes a deployed Edge Function using an HTTP GET request. The
+        function can read query parameters and headers from the request.
+        Authorization is required by default unless JWT verification is
+        disabled for the function.
+      tags:
+        - Invocation
+      parameters:
+        - $ref: '#/components/parameters/FunctionSlug'
+      responses:
+        '200':
+          description: Function executed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Response from the Edge Function
+            text/plain:
+              schema:
+                type: string
+                description: Text response from the Edge Function
+        '401':
+          description: Unauthorized - missing or invalid JWT
+        '404':
+          description: Function not found
+        '500':
+          description: Internal function error
+    post:
+      operationId: invokeEdgeFunctionPost
+      summary: Invoke an Edge Function via POST
+      description: >-
+        Invokes a deployed Edge Function using an HTTP POST request. The
+        function can read the request body, query parameters, and headers.
+        This is the most common invocation method for Edge Functions that
+        process data or trigger actions.
+      tags:
+        - Invocation
+      parameters:
+        - $ref: '#/components/parameters/FunctionSlug'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: >-
+                JSON payload to pass to the Edge Function. Structure depends
+                on the specific function implementation.
+          text/plain:
+            schema:
+              type: string
+              description: Plain text payload
+          multipart/form-data:
+            schema:
+              type: object
+              description: Form data payload
+      responses:
+        '200':
+          description: Function executed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Response from the Edge Function
+            text/plain:
+              schema:
+                type: string
+        '400':
+          description: Bad request - invalid input
+        '401':
+          description: Unauthorized - missing or invalid JWT
+        '404':
+          description: Function not found
+        '500':
+          description: Internal function error
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: apikey
+      description: >-
+        Supabase project anon API key. Required for all Edge Function
+        invocations.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        JWT access token. Required by default unless the function has JWT
+        verification disabled.
+  parameters:
+    FunctionSlug:
+      name: function_slug
+      in: path
+      required: true
+      description: >-
+        The URL-friendly slug of the deployed Edge Function to invoke.
+      schema:
+        type: string
