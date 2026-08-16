@@ -5,7 +5,7 @@
       "source": "https://supabase.com/feed.xml",
       "feed_url": "https://supabase.com/feed.xml",
       "title": "",
-      "saved": 0,
+      "saved": 1,
       "method": "feed"
     },
     {
@@ -13,9 +13,10 @@
       "feed_url": "https://supabase.com/pricing",
       "title": "",
       "saved": 0,
-      "method": "none"
+      "method": "none",
+      "error": "parse_failed"
     }
   ],
-  "post_count": 66,
-  "fetched": "2026-08-06T14:08:46Z"
+  "post_count": 67,
+  "fetched": "2026-08-15T12:11:08Z"
 }
