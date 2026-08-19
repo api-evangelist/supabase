@@ -34,7 +34,7 @@ tags:
 url: https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/apis.yml
 created: '2026-05-02'
 modified: '2026-05-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: supabase:realtime-api
   name: Supabase Realtime API
