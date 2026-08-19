@@ -1,0 +1,673 @@
+{
+  "item": [
+    {
+      "id": "2d25e4f2-fd21-4099-8ab4-c9440dd699a7",
+      "name": "Rendering",
+      "description": {
+        "content": "Serve and transform stored files including image resizing and format conversion.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "23be66e0-130a-4afa-b4be-87d0df47c310",
+          "name": "Render a transformed private image",
+          "request": {
+            "name": "Render a transformed private image",
+            "description": {
+              "content": "Downloads and optionally transforms a private image with resizing, format conversion, and quality adjustments applied on the fly.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "render",
+                "image",
+                "authenticated",
+                ":bucketName",
+                ":objectPath"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "width",
+                  "value": "<integer>",
+                  "description": "Target width in pixels for image transformation"
+                },
+                {
+                  "disabled": false,
+                  "key": "height",
+                  "value": "<integer>",
+                  "description": "Target height in pixels for image transformation"
+                },
+                {
+                  "disabled": false,
+                  "key": "resize",
+                  "value": "<string>",
+                  "description": "Resize mode for image transformation"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Output format for image transformation"
+                },
+                {
+                  "disabled": false,
+                  "key": "quality",
+                  "value": "<integer>",
+                  "description": "Output quality for image transformation (1-100)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bucketName",
+                  "description": "(Required) Name of the storage bucket"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "objectPath",
+                  "description": "(Required) Path to the object within the bucket, including folder hierarchy and filename."
+                },
+                {
+                  "description": "Your Supabase project reference ID",
+                  "type": "any",
+                  "value": "{{project_ref}}",
+                  "key": "project_ref"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "image/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7ba2d6c7-739f-4372-a1e0-9db5e9bd4db7",
+              "name": "Transformed image content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "render",
+                    "image",
+                    "authenticated",
+                    ":bucketName",
+                    ":objectPath"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "resize",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quality",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bucketName",
+                      "description": "(Required) Name of the storage bucket"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectPath",
+                      "description": "(Required) Path to the object within the bucket, including folder hierarchy and filename."
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "image/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "image/*"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f125e74e-f2c2-4cc6-af43-cfe246744011",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "render",
+                    "image",
+                    "authenticated",
+                    ":bucketName",
+                    ":objectPath"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "resize",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quality",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bucketName",
+                      "description": "(Required) Name of the storage bucket"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectPath",
+                      "description": "(Required) Path to the object within the bucket, including folder hierarchy and filename."
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8cd9048f-db63-41bb-b1b7-c4c1ea0e5a8c",
+              "name": "File not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "render",
+                    "image",
+                    "authenticated",
+                    ":bucketName",
+                    ":objectPath"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "resize",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quality",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bucketName",
+                      "description": "(Required) Name of the storage bucket"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectPath",
+                      "description": "(Required) Path to the object within the bucket, including folder hierarchy and filename."
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6b81816c-bac0-4714-81ca-d0680db978e7",
+          "name": "Render a transformed public image",
+          "request": {
+            "name": "Render a transformed public image",
+            "description": {
+              "content": "Downloads and optionally transforms a public image with resizing, format conversion, and quality adjustments applied on the fly.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "render",
+                "image",
+                "public",
+                ":bucketName",
+                ":objectPath"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "width",
+                  "value": "<integer>",
+                  "description": "Target width in pixels for image transformation"
+                },
+                {
+                  "disabled": false,
+                  "key": "height",
+                  "value": "<integer>",
+                  "description": "Target height in pixels for image transformation"
+                },
+                {
+                  "disabled": false,
+                  "key": "resize",
+                  "value": "<string>",
+                  "description": "Resize mode for image transformation"
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Output format for image transformation"
+                },
+                {
+                  "disabled": false,
+                  "key": "quality",
+                  "value": "<integer>",
+                  "description": "Output quality for image transformation (1-100)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "bucketName",
+                  "description": "(Required) Name of the storage bucket"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "objectPath",
+                  "description": "(Required) Path to the object within the bucket, including folder hierarchy and filename."
+                },
+                {
+                  "description": "Your Supabase project reference ID",
+                  "type": "any",
+                  "value": "{{project_ref}}",
+                  "key": "project_ref"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "image/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e0753a04-e718-4e29-8096-9f6316709277",
+              "name": "Transformed image content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "render",
+                    "image",
+                    "public",
+                    ":bucketName",
+                    ":objectPath"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "resize",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quality",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bucketName",
+                      "description": "(Required) Name of the storage bucket"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectPath",
+                      "description": "(Required) Path to the object within the bucket, including folder hierarchy and filename."
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "image/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "image/*"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cc6f464f-88c8-42c7-b3fe-8176380a52a0",
+              "name": "File not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "render",
+                    "image",
+                    "public",
+                    ":bucketName",
+                    ":objectPath"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "width",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "height",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "resize",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quality",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "bucketName",
+                      "description": "(Required) Name of the storage bucket"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "objectPath",
+                      "description": "(Required) Path to the object within the bucket, including folder hierarchy and filename."
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Supabase project reference ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-project-ref",
+      "key": "project_ref"
+    },
+    {
+      "type": "string",
+      "value": "https://{{project_ref}}.supabase.co/auth/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "28eb8740-1306-4d9d-88f3-f461751ab56b",
+    "name": "Supabase Auth Admin Rendering API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.\n\nContact Support:\n Name: Supabase Support",
+      "type": "text/plain"
+    }
+  }
+}

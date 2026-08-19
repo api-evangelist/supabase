@@ -1,0 +1,726 @@
+{
+  "item": [
+    {
+      "id": "a21bf8c2-af03-425d-8890-f8eed9235900",
+      "name": "MFA",
+      "description": {
+        "content": "Multi-factor authentication enrollment and verification endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e77b16a4-2cc8-485a-a770-9584d4b57673",
+          "name": "Enroll an MFA factor",
+          "request": {
+            "name": "Enroll an MFA factor",
+            "description": {
+              "content": "Enrolls a new multi-factor authentication factor for the authenticated user. Supports TOTP (time-based one-time password) authenticator apps.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "factors"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Supabase project reference ID",
+                  "type": "any",
+                  "value": "{{project_ref}}",
+                  "key": "project_ref"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"factor_type\": \"<string>\",\n  \"friendly_name\": \"<string>\",\n  \"issuer\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7434591f-384e-4296-8249-2703e2bd29bf",
+              "name": "MFA factor enrolled",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "factors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"factor_type\": \"<string>\",\n  \"friendly_name\": \"<string>\",\n  \"issuer\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"f1f98733-fece-8a5f-e4ed-5482b6ed7af8\",\n  \"friendly_name\": \"string\",\n  \"factor_type\": \"totp\",\n  \"status\": \"unverified\",\n  \"created_at\": \"1998-06-30T17:22:37.211Z\",\n  \"updated_at\": \"2002-06-22T07:03:55.504Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e89fe11c-d29a-49e8-978e-0d58f1cb9354",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "factors"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"factor_type\": \"<string>\",\n  \"friendly_name\": \"<string>\",\n  \"issuer\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99dec6ab-7ea1-4dab-812c-e9792459e6d6",
+          "name": "Create an MFA challenge",
+          "request": {
+            "name": "Create an MFA challenge",
+            "description": {
+              "content": "Creates a challenge for a specific MFA factor, prompting the user to provide verification from their authenticator device.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "factors",
+                ":factorId",
+                "challenge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "factorId",
+                  "description": "(Required) UUID of the MFA factor"
+                },
+                {
+                  "description": "Your Supabase project reference ID",
+                  "type": "any",
+                  "value": "{{project_ref}}",
+                  "key": "project_ref"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d0dcc55d-fca8-4562-ae22-1a0b849c928e",
+              "name": "Challenge created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "factors",
+                    ":factorId",
+                    "challenge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "factorId",
+                      "description": "(Required) UUID of the MFA factor"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"090a6c78-61d3-c4d8-d8a2-7fa216123ac9\",\n  \"expires_at\": \"2020-04-12T23:01:40.899Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c358ff7e-8087-453d-9254-0abe06681992",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "factors",
+                    ":factorId",
+                    "challenge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "factorId",
+                      "description": "(Required) UUID of the MFA factor"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "092e2180-1872-4448-a518-9da0232af794",
+              "name": "Factor not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "factors",
+                    ":factorId",
+                    "challenge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "factorId",
+                      "description": "(Required) UUID of the MFA factor"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b64745ce-3061-47ad-9aa2-2fdb87b019c2",
+          "name": "Verify an MFA challenge",
+          "request": {
+            "name": "Verify an MFA challenge",
+            "description": {
+              "content": "Verifies an MFA challenge by providing the code from the authenticator device. On success, the session is upgraded to an authenticated assurance level.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "factors",
+                ":factorId",
+                "verify"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "factorId",
+                  "description": "(Required) UUID of the MFA factor"
+                },
+                {
+                  "description": "Your Supabase project reference ID",
+                  "type": "any",
+                  "value": "{{project_ref}}",
+                  "key": "project_ref"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"challenge_id\": \"<uuid>\",\n  \"code\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "bd6d9169-0f23-4cdd-99ca-2d19ede3268f",
+              "name": "Verification successful",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "factors",
+                    ":factorId",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "factorId",
+                      "description": "(Required) UUID of the MFA factor"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"challenge_id\": \"<uuid>\",\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 7905,\n  \"expires_at\": 6382,\n  \"refresh_token\": \"string\",\n  \"user\": {\n    \"id\": \"36e315ae-db10-1d61-a310-854897f3c12c\",\n    \"aud\": \"string\",\n    \"role\": \"string\",\n    \"email\": \"LHwerp-25Zvib@NMxCFvrarRNCQJyHszSBzY.xq\",\n    \"email_confirmed_at\": \"1948-08-07T18:31:25.841Z\",\n    \"phone\": \"string\",\n    \"phone_confirmed_at\": \"1967-01-09T16:17:56.391Z\",\n    \"confirmed_at\": \"1981-03-12T16:49:05.659Z\",\n    \"last_sign_in_at\": \"2025-11-27T10:29:50.312Z\",\n    \"app_metadata\": {\n      \"provider\": \"string\",\n      \"providers\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    \"user_metadata\": {},\n    \"identities\": [\n      {\n        \"id\": \"string\",\n        \"user_id\": \"80a0c551-1428-42f6-0867-77c1ffeda973\",\n        \"identity_data\": {},\n        \"provider\": \"string\",\n        \"last_sign_in_at\": \"2006-04-14T23:29:50.319Z\",\n        \"created_at\": \"1968-09-28T16:51:22.814Z\",\n        \"updated_at\": \"2024-09-02T16:31:36.945Z\"\n      },\n      {\n        \"id\": \"string\",\n        \"user_id\": \"a1d054e3-5a68-23bc-37ea-5fbbc163e3b8\",\n        \"identity_data\": {},\n        \"provider\": \"string\",\n        \"last_sign_in_at\": \"1952-03-20T07:47:39.034Z\",\n        \"created_at\": \"1951-07-03T03:49:33.155Z\",\n        \"updated_at\": \"2026-05-11T15:20:34.262Z\"\n      }\n    ],\n    \"factors\": [\n      {\n        \"id\": \"5e055fbd-4c0c-f9e4-7fe7-1b58e0cfbe01\",\n        \"friendly_name\": \"string\",\n        \"factor_type\": \"totp\",\n        \"status\": \"unverified\",\n        \"created_at\": \"2008-05-08T18:54:24.277Z\",\n        \"updated_at\": \"1965-08-18T18:57:43.943Z\"\n      },\n      {\n        \"id\": \"d27909a8-935e-67ee-0048-998c801f3cb5\",\n        \"friendly_name\": \"string\",\n        \"factor_type\": \"totp\",\n        \"status\": \"verified\",\n        \"created_at\": \"1961-05-19T21:08:11.601Z\",\n        \"updated_at\": \"1983-03-19T20:29:37.064Z\"\n      }\n    ],\n    \"created_at\": \"2013-10-17T07:18:17.485Z\",\n    \"updated_at\": \"1982-08-04T05:16:46.325Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf5a91e7-c036-4fe4-a709-e1dda03ac62e",
+              "name": "Invalid code",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "factors",
+                    ":factorId",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "factorId",
+                      "description": "(Required) UUID of the MFA factor"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"challenge_id\": \"<uuid>\",\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "998bbfda-a69d-4455-a1e3-2e643658de0e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "factors",
+                    ":factorId",
+                    "verify"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "factorId",
+                      "description": "(Required) UUID of the MFA factor"
+                    },
+                    {
+                      "description": "Your Supabase project reference ID",
+                      "type": "any",
+                      "value": "{{project_ref}}",
+                      "key": "project_ref"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"challenge_id\": \"<uuid>\",\n  \"code\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Supabase project reference ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-project-ref",
+      "key": "project_ref"
+    },
+    {
+      "type": "string",
+      "value": "https://{{project_ref}}.supabase.co/auth/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "apikey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "64bfe551-0f3b-4007-800f-9a2e59c6ec8e",
+    "name": "Supabase Auth Admin MFA API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.\n\nContact Support:\n Name: Supabase Support",
+      "type": "text/plain"
+    }
+  }
+}

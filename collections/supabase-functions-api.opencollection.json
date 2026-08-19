@@ -1,0 +1,147 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supabase Auth Admin Functions API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Functions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Edge Functions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref/functions",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Returns a list of all Edge Functions deployed to a project including their status, slug, and creation date."
+        },
+        {
+          "info": {
+            "name": "Create an Edge Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref/functions",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deploys a new Edge Function to the project. The function will be globally distributed and accessible via HTTP requests."
+        },
+        {
+          "info": {
+            "name": "Get an Edge Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref/functions/:function_slug",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              },
+              {
+                "name": "function_slug",
+                "value": "",
+                "type": "path",
+                "description": "The URL-friendly slug identifier for the Edge Function."
+              }
+            ]
+          },
+          "docs": "Retrieves details about a specific Edge Function including its slug, status, version, and creation date."
+        },
+        {
+          "info": {
+            "name": "Update an Edge Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref/functions/:function_slug",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              },
+              {
+                "name": "function_slug",
+                "value": "",
+                "type": "path",
+                "description": "The URL-friendly slug identifier for the Edge Function."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing Edge Function with new code or configuration changes."
+        },
+        {
+          "info": {
+            "name": "Delete an Edge Function",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref/functions/:function_slug",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              },
+              {
+                "name": "function_slug",
+                "value": "",
+                "type": "path",
+                "description": "The URL-friendly slug identifier for the Edge Function."
+              }
+            ]
+          },
+          "docs": "Permanently removes an Edge Function from the project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

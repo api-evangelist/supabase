@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supabase Auth Admin Organizations API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/organizations"
+          },
+          "docs": "Returns a list of all organizations the authenticated user belongs to."
+        },
+        {
+          "info": {
+            "name": "Create an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/organizations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new organization that can contain Supabase projects and team members."
+        },
+        {
+          "info": {
+            "name": "List organization members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/organizations/:slug/members",
+            "params": [
+              {
+                "name": "slug",
+                "value": "",
+                "type": "path",
+                "description": "The URL-friendly slug identifier for the organization."
+              }
+            ]
+          },
+          "docs": "Returns a list of all members in an organization along with their roles and permissions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supabase Auth Admin Network API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Network",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List network bans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref/network-bans",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Returns a list of IP addresses that are currently banned from accessing the project due to abusive traffic patterns such as multiple failed authentication attempts."
+        },
+        {
+          "info": {
+            "name": "Remove network bans",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref/network-bans",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes specified IP addresses from the project's network ban list, allowing them to access the project again."
+        },
+        {
+          "info": {
+            "name": "Get network restrictions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref/network-restrictions",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Retrieves the network restriction configuration for a project, which controls which IP addresses or CIDR ranges are allowed to connect to the database."
+        },
+        {
+          "info": {
+            "name": "Update network restrictions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref/network-restrictions",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the allowed IP addresses or CIDR ranges that can connect to the project database."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

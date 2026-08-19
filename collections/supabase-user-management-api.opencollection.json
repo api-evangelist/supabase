@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supabase Auth Admin User Management API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Management",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/user",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the user object for the currently authenticated user based on the access token in the Authorization header."
+        },
+        {
+          "info": {
+            "name": "Update the current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{project_ref}.supabase.co/auth/v1/user",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the currently authenticated user's profile data including email, phone, password, and custom user metadata."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

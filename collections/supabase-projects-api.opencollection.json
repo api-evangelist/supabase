@@ -1,0 +1,166 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supabase Auth Admin Projects API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects"
+          },
+          "docs": "Returns a list of all projects belonging to the authenticated user across all organizations."
+        },
+        {
+          "info": {
+            "name": "Create a new project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Supabase project within a specified organization. The project will be provisioned with a PostgreSQL database, Auth, Storage, and other services."
+        },
+        {
+          "info": {
+            "name": "Get project details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Retrieves detailed information about a specific project including its current status, region, database host, and configuration."
+        },
+        {
+          "info": {
+            "name": "Delete a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a Supabase project and all associated data including the database, storage files, and Edge Functions."
+        },
+        {
+          "info": {
+            "name": "Get project API keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref/api-keys",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Retrieves the API keys (anon and service_role) for a specific project. These keys are used to authenticate requests to the project's APIs."
+        },
+        {
+          "info": {
+            "name": "Get project health status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref/health",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Returns the health status of all services in a project including the database, Auth, Storage, Realtime, and Edge Functions."
+        },
+        {
+          "info": {
+            "name": "Pause a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref/pause",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Pauses a Supabase project to stop incurring compute costs. The project database and services will become unavailable until restored."
+        },
+        {
+          "info": {
+            "name": "Restore a paused project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref/restore",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Restores a previously paused project, making its database and services available again."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

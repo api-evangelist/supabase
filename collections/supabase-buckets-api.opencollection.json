@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supabase Auth Admin Buckets API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Buckets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all buckets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/bucket"
+          },
+          "docs": "Returns a list of all storage buckets in the project. Requires authenticated access with appropriate permissions."
+        },
+        {
+          "info": {
+            "name": "Create a new bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/bucket",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new storage bucket with the specified configuration. Bucket names must be unique within a project and follow URL-safe naming conventions."
+        },
+        {
+          "info": {
+            "name": "Get bucket details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/bucket/:bucketId",
+            "params": [
+              {
+                "name": "bucketId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier or name of the storage bucket"
+              }
+            ]
+          },
+          "docs": "Retrieves details about a specific storage bucket including its configuration, visibility, and file size limits."
+        },
+        {
+          "info": {
+            "name": "Update a bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{project_ref}.supabase.co/auth/v1/bucket/:bucketId",
+            "params": [
+              {
+                "name": "bucketId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier or name of the storage bucket"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing storage bucket including its visibility, file size limits, and allowed MIME types."
+        },
+        {
+          "info": {
+            "name": "Delete a bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{project_ref}.supabase.co/auth/v1/bucket/:bucketId",
+            "params": [
+              {
+                "name": "bucketId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier or name of the storage bucket"
+              }
+            ]
+          },
+          "docs": "Deletes an empty storage bucket. The bucket must be emptied of all objects before deletion."
+        },
+        {
+          "info": {
+            "name": "Empty a bucket",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/bucket/:bucketId/empty",
+            "params": [
+              {
+                "name": "bucketId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier or name of the storage bucket"
+              }
+            ]
+          },
+          "docs": "Removes all objects from a storage bucket without deleting the bucket itself."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

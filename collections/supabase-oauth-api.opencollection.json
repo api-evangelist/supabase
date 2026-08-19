@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supabase Auth Admin OAuth API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "OAuth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Initiate OAuth login",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/authorize",
+            "params": [
+              {
+                "name": "provider",
+                "value": "",
+                "type": "query",
+                "description": "The OAuth provider to authenticate with"
+              },
+              {
+                "name": "redirect_to",
+                "value": "",
+                "type": "query",
+                "description": "URL to redirect to after authentication"
+              },
+              {
+                "name": "scopes",
+                "value": "",
+                "type": "query",
+                "description": "Space-separated list of OAuth scopes to request"
+              }
+            ]
+          },
+          "docs": "Redirects the user to the specified OAuth provider's authorization page. After the user grants access, they are redirected back to the application with an authorization code or tokens."
+        },
+        {
+          "info": {
+            "name": "OAuth callback",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/callback",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "Authorization code from the OAuth provider"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "State parameter for CSRF protection"
+              }
+            ]
+          },
+          "docs": "Receives the OAuth callback from the provider after user authorization. Exchanges the authorization code for tokens and creates or updates the user account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

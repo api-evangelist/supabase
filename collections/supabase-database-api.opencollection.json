@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supabase Auth Admin Database API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Database",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List database migrations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref/database/migrations",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ]
+          },
+          "docs": "Returns a list of all migrations that have been applied to the project database, stored in the supabase_migrations schema."
+        },
+        {
+          "info": {
+            "name": "Create a database migration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/projects/:ref/database/migrations",
+            "params": [
+              {
+                "name": "ref",
+                "value": "",
+                "type": "path",
+                "description": "The unique reference ID for the project, found in the project settings or URL."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates and runs a new SQL migration on the project database. The migration is recorded in the supabase_migrations schema."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

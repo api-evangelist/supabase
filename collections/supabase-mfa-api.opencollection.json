@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Supabase Auth Admin MFA API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "apikey",
+      "value": "{{apikey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "MFA",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Enroll an MFA factor",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/factors",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Enrolls a new multi-factor authentication factor for the authenticated user. Supports TOTP (time-based one-time password) authenticator apps."
+        },
+        {
+          "info": {
+            "name": "Create an MFA challenge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/factors/:factorId/challenge",
+            "params": [
+              {
+                "name": "factorId",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the MFA factor"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a challenge for a specific MFA factor, prompting the user to provide verification from their authenticator device."
+        },
+        {
+          "info": {
+            "name": "Verify an MFA challenge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{project_ref}.supabase.co/auth/v1/factors/:factorId/verify",
+            "params": [
+              {
+                "name": "factorId",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the MFA factor"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Verifies an MFA challenge by providing the code from the authenticator device. On success, the session is upgraded to an authenticated assurance level."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
