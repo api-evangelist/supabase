@@ -23,6 +23,15 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/supabase.png
 tags:
+- Backend-as-a-Service
+- PostgreSQL
+- Open-Source
+- Authentication
+- Real-Time
+- Storage
+- Edge Functions
+- Database
+tags_raw:
 - Backend As A Service
 - PostgreSQL
 - Open Source
@@ -46,6 +55,12 @@ apis:
     protocol.
   humanURL: https://supabase.com/docs/guides/realtime
   tags:
+  - Real-Time
+  - WebSocket
+  - Database
+  - Presence
+  - Broadcast
+  tags_raw:
   - Realtime
   - WebSocket
   - Database
@@ -276,6 +291,8 @@ apis:
   description: OAuth social login provider endpoints.
   humanURL: https://supabase.com/docs/reference/api/introduction
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
@@ -318,6 +335,8 @@ apis:
   description: Manage organizations including membership, billing, and settings.
   humanURL: https://supabase.com/docs/reference/api/introduction
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -340,6 +359,8 @@ apis:
     Manage Supabase projects including creation, configuration, pausing, restoring, and deletion.
   humanURL: https://supabase.com/docs/reference/api/introduction
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
