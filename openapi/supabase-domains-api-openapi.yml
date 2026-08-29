@@ -1,21 +1,17 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Supabase Auth Admin Domains API
-  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
-  version: 2.0.0
+  title: Supabase Management Domains API
+  description: The Supabase Management API provides programmatic access to manage Supabase projects and organizations. It supports operations for creating, updating, and deleting projects, managing database configurations, retrieving project API keys, controlling organization membership, deploying Edge Functions, managing secrets, configuring custom domains, and monitoring project health. Authentication is handled via personal access tokens or OAuth2 tokens.
+  version: 1.0.0
   contact:
     name: Supabase Support
     url: https://supabase.com/support
   termsOfService: https://supabase.com/terms
 servers:
-- url: https://{project_ref}.supabase.co/auth/v1
-  description: Supabase Project Auth Server
-  variables:
-    project_ref:
-      description: Your Supabase project reference ID
-      default: your-project-ref
+- url: https://api.supabase.com/v1
+  description: Production Server
 security:
-- apiKeyAuth: []
+- bearerAuth: []
 tags:
 - name: Domains
   description: Configure custom domains and vanity subdomains for projects.
@@ -128,34 +124,6 @@ paths:
           description: Unauthorized
 components:
   schemas:
-    ActivateVanitySubdomainRequest:
-      type: object
-      required:
-      - vanity_subdomain
-      properties:
-        vanity_subdomain:
-          type: string
-          description: Desired vanity subdomain
-    ActivateCustomHostnameRequest:
-      type: object
-      required:
-      - custom_hostname
-      properties:
-        custom_hostname:
-          type: string
-          description: The custom hostname to activate
-    VanitySubdomain:
-      type: object
-      properties:
-        custom_subdomain:
-          type: string
-          description: The vanity subdomain on supabase.co
-        status:
-          type: string
-          description: Status of the vanity subdomain
-          enum:
-          - active
-          - not_used
     CustomHostname:
       type: object
       properties:
@@ -169,6 +137,34 @@ components:
           - active
           - pending
           - not_started
+    VanitySubdomain:
+      type: object
+      properties:
+        custom_subdomain:
+          type: string
+          description: The vanity subdomain on supabase.co
+        status:
+          type: string
+          description: Status of the vanity subdomain
+          enum:
+          - active
+          - not_used
+    ActivateCustomHostnameRequest:
+      type: object
+      required:
+      - custom_hostname
+      properties:
+        custom_hostname:
+          type: string
+          description: The custom hostname to activate
+    ActivateVanitySubdomainRequest:
+      type: object
+      required:
+      - vanity_subdomain
+      properties:
+        vanity_subdomain:
+          type: string
+          description: Desired vanity subdomain
   parameters:
     ProjectRef:
       name: ref
@@ -178,16 +174,10 @@ components:
       schema:
         type: string
   securitySchemes:
-    apiKeyAuth:
-      type: apiKey
-      in: header
-      name: apikey
-      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
     bearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT
-      description: JWT access token obtained from a successful authentication.
+      description: Personal access token or OAuth2 token for authentication. Generate tokens from the Supabase Dashboard under Account > Access Tokens.
 externalDocs:
-  description: Supabase Auth Documentation
-  url: https://supabase.com/docs/guides/auth
+  description: Supabase Management API Documentation
+  url: https://supabase.com/docs/reference/api/introduction

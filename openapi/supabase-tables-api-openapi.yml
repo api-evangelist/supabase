@@ -1,21 +1,22 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Supabase Auth Admin Tables API
-  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
-  version: 2.0.0
+  title: Supabase Database REST Tables API
+  description: The Supabase Database REST API provides auto-generated RESTful endpoints for every table, view, and function in your PostgreSQL database. Powered by PostgREST, it supports full CRUD operations, complex filtering with horizontal and vertical filtering operators, pagination, sorting, and embedding of related resources via foreign key relationships. Row Level Security policies are enforced on all API requests. The schema is auto-generated from your database, so paths and schemas vary per project. This specification documents the common patterns and conventions.
+  version: 1.0.0
   contact:
     name: Supabase Support
     url: https://supabase.com/support
   termsOfService: https://supabase.com/terms
 servers:
-- url: https://{project_ref}.supabase.co/auth/v1
-  description: Supabase Project Auth Server
+- url: https://{project_ref}.supabase.co/rest/v1
+  description: Supabase Project PostgREST Server
   variables:
     project_ref:
       description: Your Supabase project reference ID
       default: your-project-ref
 security:
 - apiKeyAuth: []
+  bearerAuth: []
 tags:
 - name: Tables
   description: CRUD operations on database tables. Paths are auto-generated based on your database schema.
@@ -152,22 +153,13 @@ paths:
           description: Unauthorized
 components:
   parameters:
-    RangeHeader:
-      name: Range
-      in: header
-      description: Request a specific range of rows using HTTP Range header (e.g. 0-24 for first 25 rows).
+    Offset:
+      name: offset
+      in: query
+      description: Number of rows to skip before starting to return rows
       schema:
-        type: string
-    PreferCount:
-      name: Prefer
-      in: header
-      description: Request a total row count. Use count=exact for precise count, count=planned for estimated count, or count=estimated for a combination.
-      schema:
-        type: string
-        enum:
-        - count=exact
-        - count=planned
-        - count=estimated
+        type: integer
+        minimum: 0
     Order:
       name: order
       in: query
@@ -184,26 +176,6 @@ components:
         - return=representation
         - return=headers-only
         - return=minimal
-    Offset:
-      name: offset
-      in: query
-      description: Number of rows to skip before starting to return rows
-      schema:
-        type: integer
-        minimum: 0
-    TableName:
-      name: table
-      in: path
-      required: true
-      description: Name of the database table or view
-      schema:
-        type: string
-    Select:
-      name: select
-      in: query
-      description: Comma-separated list of columns to return. Supports renaming (alias:column), casting (column::type), and embedding related resources via foreign keys (related_table(columns)).
-      schema:
-        type: string
     Limit:
       name: limit
       in: query
@@ -211,17 +183,46 @@ components:
       schema:
         type: integer
         minimum: 0
+    PreferCount:
+      name: Prefer
+      in: header
+      description: Request a total row count. Use count=exact for precise count, count=planned for estimated count, or count=estimated for a combination.
+      schema:
+        type: string
+        enum:
+        - count=exact
+        - count=planned
+        - count=estimated
+    Select:
+      name: select
+      in: query
+      description: Comma-separated list of columns to return. Supports renaming (alias:column), casting (column::type), and embedding related resources via foreign keys (related_table(columns)).
+      schema:
+        type: string
+    TableName:
+      name: table
+      in: path
+      required: true
+      description: Name of the database table or view
+      schema:
+        type: string
+    RangeHeader:
+      name: Range
+      in: header
+      description: Request a specific range of rows using HTTP Range header (e.g. 0-24 for first 25 rows).
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey
       in: header
       name: apikey
-      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
+      description: Supabase project API key. Use the anon key for client-side access (subject to RLS) or service_role key for server-side access (bypasses RLS).
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: JWT access token obtained from a successful authentication.
+      description: JWT access token from Supabase Auth for user-context requests.
 externalDocs:
-  description: Supabase Auth Documentation
-  url: https://supabase.com/docs/guides/auth
+  description: Supabase Data REST API Documentation
+  url: https://supabase.com/docs/guides/api

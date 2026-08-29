@@ -1,21 +1,17 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Supabase Auth Admin Functions API
-  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
-  version: 2.0.0
+  title: Supabase Management Functions API
+  description: The Supabase Management API provides programmatic access to manage Supabase projects and organizations. It supports operations for creating, updating, and deleting projects, managing database configurations, retrieving project API keys, controlling organization membership, deploying Edge Functions, managing secrets, configuring custom domains, and monitoring project health. Authentication is handled via personal access tokens or OAuth2 tokens.
+  version: 1.0.0
   contact:
     name: Supabase Support
     url: https://supabase.com/support
   termsOfService: https://supabase.com/terms
 servers:
-- url: https://{project_ref}.supabase.co/auth/v1
-  description: Supabase Project Auth Server
-  variables:
-    project_ref:
-      description: Your Supabase project reference ID
-      default: your-project-ref
+- url: https://api.supabase.com/v1
+  description: Production Server
 security:
-- apiKeyAuth: []
+- bearerAuth: []
 tags:
 - name: Functions
   description: Deploy and manage Edge Functions for serverless compute at the edge.
@@ -132,26 +128,6 @@ paths:
           description: Function not found
 components:
   schemas:
-    CreateFunctionRequest:
-      type: object
-      required:
-      - slug
-      - name
-      - body
-      properties:
-        slug:
-          type: string
-          description: URL-friendly slug for the function
-        name:
-          type: string
-          description: Display name
-        body:
-          type: string
-          description: Function source code
-        verify_jwt:
-          type: boolean
-          description: Whether to require JWT verification
-          default: true
     EdgeFunction:
       type: object
       properties:
@@ -186,6 +162,26 @@ components:
         verify_jwt:
           type: boolean
           description: Whether JWT verification is required for invocations
+    CreateFunctionRequest:
+      type: object
+      required:
+      - slug
+      - name
+      - body
+      properties:
+        slug:
+          type: string
+          description: URL-friendly slug for the function
+        name:
+          type: string
+          description: Display name
+        body:
+          type: string
+          description: Function source code
+        verify_jwt:
+          type: boolean
+          description: Whether to require JWT verification
+          default: true
     UpdateFunctionRequest:
       type: object
       properties:
@@ -196,13 +192,6 @@ components:
           type: boolean
           description: Whether to require JWT verification
   parameters:
-    ProjectRef:
-      name: ref
-      in: path
-      required: true
-      description: The unique reference ID for the project, found in the project settings or URL.
-      schema:
-        type: string
     FunctionSlug:
       name: function_slug
       in: path
@@ -210,17 +199,18 @@ components:
       description: The URL-friendly slug identifier for the Edge Function.
       schema:
         type: string
+    ProjectRef:
+      name: ref
+      in: path
+      required: true
+      description: The unique reference ID for the project, found in the project settings or URL.
+      schema:
+        type: string
   securitySchemes:
-    apiKeyAuth:
-      type: apiKey
-      in: header
-      name: apikey
-      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
     bearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT
-      description: JWT access token obtained from a successful authentication.
+      description: Personal access token or OAuth2 token for authentication. Generate tokens from the Supabase Dashboard under Account > Access Tokens.
 externalDocs:
-  description: Supabase Auth Documentation
-  url: https://supabase.com/docs/guides/auth
+  description: Supabase Management API Documentation
+  url: https://supabase.com/docs/reference/api/introduction

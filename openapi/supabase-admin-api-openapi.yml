@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Supabase Auth Admin API
   description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
@@ -285,34 +285,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when factor was last updated
-    Identity:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identity identifier
-        user_id:
-          type: string
-          format: uuid
-          description: ID of the associated user
-        identity_data:
-          type: object
-          description: Data from the identity provider
-        provider:
-          type: string
-          description: Identity provider name
-        last_sign_in_at:
-          type: string
-          format: date-time
-          description: Timestamp of last sign-in with this identity
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when identity was linked
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when identity was last updated
     AdminUpdateUserRequest:
       type: object
       properties:
@@ -344,6 +316,34 @@ components:
         ban_duration:
           type: string
           description: Duration to ban user (e.g. 24h, none to unban)
+    Identity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identity identifier
+        user_id:
+          type: string
+          format: uuid
+          description: ID of the associated user
+        identity_data:
+          type: object
+          description: Data from the identity provider
+        provider:
+          type: string
+          description: Identity provider name
+        last_sign_in_at:
+          type: string
+          format: date-time
+          description: Timestamp of last sign-in with this identity
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when identity was linked
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when identity was last updated
     AdminCreateUserRequest:
       type: object
       required:

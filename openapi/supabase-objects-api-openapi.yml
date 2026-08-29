@@ -1,21 +1,22 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Supabase Auth Admin Objects API
-  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
-  version: 2.0.0
+  title: Supabase Storage Objects API
+  description: The Supabase Storage API enables developers to store, organize, and serve large files such as images, videos, and documents. It provides bucket-based organization with support for uploading, downloading, and transforming files including on-the-fly image resizing and optimization. Access control is managed through Row Level Security policies tied to the PostgreSQL database. The API supports both public and private storage buckets, resumable uploads via the TUS protocol, and S3-compatible access.
+  version: 1.0.0
   contact:
     name: Supabase Support
     url: https://supabase.com/support
   termsOfService: https://supabase.com/terms
 servers:
-- url: https://{project_ref}.supabase.co/auth/v1
-  description: Supabase Project Auth Server
+- url: https://{project_ref}.supabase.co/storage/v1
+  description: Supabase Project Storage Server
   variables:
     project_ref:
       description: Your Supabase project reference ID
       default: your-project-ref
 security:
 - apiKeyAuth: []
+  bearerAuth: []
 tags:
 - name: Objects
   description: Upload, download, move, copy, and delete files within storage buckets.
@@ -315,41 +316,7 @@ paths:
         '404':
           description: Source file not found
 components:
-  parameters:
-    BucketName:
-      name: bucketName
-      in: path
-      required: true
-      description: Name of the storage bucket
-      schema:
-        type: string
-    ObjectPath:
-      name: objectPath
-      in: path
-      required: true
-      description: Path to the object within the bucket, including folder hierarchy and filename.
-      schema:
-        type: string
   schemas:
-    MoveObjectRequest:
-      type: object
-      required:
-      - bucketId
-      - sourceKey
-      - destinationKey
-      properties:
-        bucketId:
-          type: string
-          description: Source bucket ID
-        sourceKey:
-          type: string
-          description: Current path of the file
-        destinationBucket:
-          type: string
-          description: Destination bucket ID (defaults to source bucket)
-        destinationKey:
-          type: string
-          description: New path for the file
     StorageObject:
       type: object
       properties:
@@ -417,17 +384,51 @@ components:
         Key:
           type: string
           description: Full path of the uploaded object
+    MoveObjectRequest:
+      type: object
+      required:
+      - bucketId
+      - sourceKey
+      - destinationKey
+      properties:
+        bucketId:
+          type: string
+          description: Source bucket ID
+        sourceKey:
+          type: string
+          description: Current path of the file
+        destinationBucket:
+          type: string
+          description: Destination bucket ID (defaults to source bucket)
+        destinationKey:
+          type: string
+          description: New path for the file
+  parameters:
+    BucketName:
+      name: bucketName
+      in: path
+      required: true
+      description: Name of the storage bucket
+      schema:
+        type: string
+    ObjectPath:
+      name: objectPath
+      in: path
+      required: true
+      description: Path to the object within the bucket, including folder hierarchy and filename.
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey
       in: header
       name: apikey
-      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
+      description: Supabase project API key for request authorization.
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: JWT access token obtained from a successful authentication.
+      description: JWT access token for authenticated operations.
 externalDocs:
-  description: Supabase Auth Documentation
-  url: https://supabase.com/docs/guides/auth
+  description: Supabase Storage Documentation
+  url: https://supabase.com/docs/guides/storage

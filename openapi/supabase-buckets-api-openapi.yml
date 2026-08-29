@@ -1,21 +1,22 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Supabase Auth Admin Buckets API
-  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
-  version: 2.0.0
+  title: Supabase Storage Buckets API
+  description: The Supabase Storage API enables developers to store, organize, and serve large files such as images, videos, and documents. It provides bucket-based organization with support for uploading, downloading, and transforming files including on-the-fly image resizing and optimization. Access control is managed through Row Level Security policies tied to the PostgreSQL database. The API supports both public and private storage buckets, resumable uploads via the TUS protocol, and S3-compatible access.
+  version: 1.0.0
   contact:
     name: Supabase Support
     url: https://supabase.com/support
   termsOfService: https://supabase.com/terms
 servers:
-- url: https://{project_ref}.supabase.co/auth/v1
-  description: Supabase Project Auth Server
+- url: https://{project_ref}.supabase.co/storage/v1
+  description: Supabase Project Storage Server
   variables:
     project_ref:
       description: Your Supabase project reference ID
       default: your-project-ref
 security:
 - apiKeyAuth: []
+  bearerAuth: []
 tags:
 - name: Buckets
   description: Manage storage buckets that organize files and folders. Buckets can be public or private and have configurable file size limits and allowed MIME types.
@@ -157,12 +158,21 @@ components:
       schema:
         type: string
   schemas:
-    UpdateBucketRequest:
+    CreateBucketRequest:
       type: object
+      required:
+      - name
       properties:
+        name:
+          type: string
+          description: Name for the new bucket
+        id:
+          type: string
+          description: Optional custom ID (defaults to name)
         public:
           type: boolean
           description: Whether the bucket should be publicly accessible
+          default: false
         file_size_limit:
           type: integer
           description: Maximum file size in bytes
@@ -203,21 +213,12 @@ components:
           type: string
           format: date-time
           description: Timestamp when the bucket was last updated
-    CreateBucketRequest:
+    UpdateBucketRequest:
       type: object
-      required:
-      - name
       properties:
-        name:
-          type: string
-          description: Name for the new bucket
-        id:
-          type: string
-          description: Optional custom ID (defaults to name)
         public:
           type: boolean
           description: Whether the bucket should be publicly accessible
-          default: false
         file_size_limit:
           type: integer
           description: Maximum file size in bytes
@@ -231,12 +232,12 @@ components:
       type: apiKey
       in: header
       name: apikey
-      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
+      description: Supabase project API key for request authorization.
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: JWT access token obtained from a successful authentication.
+      description: JWT access token for authenticated operations.
 externalDocs:
-  description: Supabase Auth Documentation
-  url: https://supabase.com/docs/guides/auth
+  description: Supabase Storage Documentation
+  url: https://supabase.com/docs/guides/storage

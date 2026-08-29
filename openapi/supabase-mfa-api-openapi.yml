@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Supabase Auth Admin MFA API
+  title: Supabase Auth MFA API
   description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
   version: 2.0.0
   contact:
@@ -178,28 +178,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when user was last updated
-    AuthResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-          description: JWT access token for authenticating API requests
-        token_type:
-          type: string
-          description: Token type, always bearer
-          enum:
-          - bearer
-        expires_in:
-          type: integer
-          description: Number of seconds until the access token expires
-        expires_at:
-          type: integer
-          description: Unix timestamp when the access token expires
-        refresh_token:
-          type: string
-          description: Token used to obtain a new access token
-        user:
-          $ref: '#/components/schemas/User'
     MfaChallenge:
       type: object
       properties:
@@ -211,6 +189,22 @@ components:
           type: string
           format: date-time
           description: Timestamp when the challenge expires
+    EnrollMfaRequest:
+      type: object
+      required:
+      - factor_type
+      properties:
+        factor_type:
+          type: string
+          description: Type of MFA factor to enroll
+          enum:
+          - totp
+        friendly_name:
+          type: string
+          description: Human-readable name for the factor
+        issuer:
+          type: string
+          description: Issuer name displayed in authenticator apps
     MfaFactor:
       type: object
       properties:
@@ -268,22 +262,28 @@ components:
           type: string
           format: date-time
           description: Timestamp when identity was last updated
-    EnrollMfaRequest:
+    AuthResponse:
       type: object
-      required:
-      - factor_type
       properties:
-        factor_type:
+        access_token:
           type: string
-          description: Type of MFA factor to enroll
+          description: JWT access token for authenticating API requests
+        token_type:
+          type: string
+          description: Token type, always bearer
           enum:
-          - totp
-        friendly_name:
+          - bearer
+        expires_in:
+          type: integer
+          description: Number of seconds until the access token expires
+        expires_at:
+          type: integer
+          description: Unix timestamp when the access token expires
+        refresh_token:
           type: string
-          description: Human-readable name for the factor
-        issuer:
-          type: string
-          description: Issuer name displayed in authenticator apps
+          description: Token used to obtain a new access token
+        user:
+          $ref: '#/components/schemas/User'
   parameters:
     FactorId:
       name: factorId

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Supabase Auth Admin User Management API
+  title: Supabase Auth User Management API
   description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
   version: 2.0.0
   contact:
@@ -136,35 +136,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when user was last updated
-    MfaFactor:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique factor identifier
-        friendly_name:
-          type: string
-          description: Human-readable name for the factor
-        factor_type:
-          type: string
-          description: Type of MFA factor
-          enum:
-          - totp
-        status:
-          type: string
-          description: Factor status
-          enum:
-          - verified
-          - unverified
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when factor was created
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when factor was last updated
     Identity:
       type: object
       properties:
@@ -213,6 +184,35 @@ components:
         nonce:
           type: string
           description: Nonce for reauthentication when changing password
+    MfaFactor:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique factor identifier
+        friendly_name:
+          type: string
+          description: Human-readable name for the factor
+        factor_type:
+          type: string
+          description: Type of MFA factor
+          enum:
+          - totp
+        status:
+          type: string
+          description: Factor status
+          enum:
+          - verified
+          - unverified
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when factor was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when factor was last updated
   securitySchemes:
     apiKeyAuth:
       type: apiKey

@@ -1,21 +1,22 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Supabase Auth Admin Rendering API
-  description: The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.
-  version: 2.0.0
+  title: Supabase Storage Rendering API
+  description: The Supabase Storage API enables developers to store, organize, and serve large files such as images, videos, and documents. It provides bucket-based organization with support for uploading, downloading, and transforming files including on-the-fly image resizing and optimization. Access control is managed through Row Level Security policies tied to the PostgreSQL database. The API supports both public and private storage buckets, resumable uploads via the TUS protocol, and S3-compatible access.
+  version: 1.0.0
   contact:
     name: Supabase Support
     url: https://supabase.com/support
   termsOfService: https://supabase.com/terms
 servers:
-- url: https://{project_ref}.supabase.co/auth/v1
-  description: Supabase Project Auth Server
+- url: https://{project_ref}.supabase.co/storage/v1
+  description: Supabase Project Storage Server
   variables:
     project_ref:
       description: Your Supabase project reference ID
       default: your-project-ref
 security:
 - apiKeyAuth: []
+  bearerAuth: []
 tags:
 - name: Rendering
   description: Serve and transform stored files including image resizing and format conversion.
@@ -75,38 +76,6 @@ paths:
           description: File not found
 components:
   parameters:
-    Resize:
-      name: resize
-      in: query
-      description: Resize mode for image transformation
-      schema:
-        type: string
-        enum:
-        - cover
-        - contain
-        - fill
-    BucketName:
-      name: bucketName
-      in: path
-      required: true
-      description: Name of the storage bucket
-      schema:
-        type: string
-    Height:
-      name: height
-      in: query
-      description: Target height in pixels for image transformation
-      schema:
-        type: integer
-        minimum: 1
-    Quality:
-      name: quality
-      in: query
-      description: Output quality for image transformation (1-100)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
     Width:
       name: width
       in: query
@@ -124,6 +93,38 @@ components:
         - origin
         - avif
         - webp
+    Quality:
+      name: quality
+      in: query
+      description: Output quality for image transformation (1-100)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    Resize:
+      name: resize
+      in: query
+      description: Resize mode for image transformation
+      schema:
+        type: string
+        enum:
+        - cover
+        - contain
+        - fill
+    Height:
+      name: height
+      in: query
+      description: Target height in pixels for image transformation
+      schema:
+        type: integer
+        minimum: 1
+    BucketName:
+      name: bucketName
+      in: path
+      required: true
+      description: Name of the storage bucket
+      schema:
+        type: string
     ObjectPath:
       name: objectPath
       in: path
@@ -136,12 +137,12 @@ components:
       type: apiKey
       in: header
       name: apikey
-      description: Supabase project API key (anon key for public operations, service_role key for admin operations).
+      description: Supabase project API key for request authorization.
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
-      description: JWT access token obtained from a successful authentication.
+      description: JWT access token for authenticated operations.
 externalDocs:
-  description: Supabase Auth Documentation
-  url: https://supabase.com/docs/guides/auth
+  description: Supabase Storage Documentation
+  url: https://supabase.com/docs/guides/storage
