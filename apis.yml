@@ -35,7 +35,7 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/supabase.png
 tags:
-- Backend As A Service
+- Backend-as-a-Service
 - PostgreSQL
 - Open-Source
 - Authentication
