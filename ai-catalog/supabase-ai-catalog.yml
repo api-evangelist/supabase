@@ -42,6 +42,7 @@ conformance:
       media type. ARD permits extension types without core registration.'
     - '[Supabase Agent Skills] Media type ''application/json'' is a valid application extension media
       type. ARD permits extension types without core registration.'
+  did_web: null
 catalog:
   host_display_name: Supabase
   host_identifier: https://supabase.com
