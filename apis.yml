@@ -61,11 +61,12 @@ specificationVersion: '0.23'
 apis:
 - aid: supabase:realtime-api
   name: Supabase Realtime API
-  description: 'The Supabase Realtime API provides WebSocket-based subscriptions for real-time data changes
-    from PostgreSQL databases. It supports three channel types: database change events (INSERT/UPDATE/DELETE
-    on tables via logical replication), presence (track and synchronize connected users'' state), and
-    broadcast (low-latency message passing between clients). Authentication uses JWT tokens. Implemented
-    using the Phoenix channels protocol.'
+  description: >-
+    The Supabase Realtime API provides WebSocket-based subscriptions for real-time data changes from PostgreSQL
+    databases. It supports three channel types: database change events (INSERT/UPDATE/DELETE on tables
+    via logical replication), presence (track and synchronize connected users' state), and broadcast (low-latency
+    message passing between clients). Authentication uses JWT tokens. Implemented using the Phoenix channels
+    protocol.
   humanURL: https://supabase.com/docs/guides/realtime
   tags:
   - Real-Time
@@ -83,7 +84,8 @@ apis:
   - type: Documentation
     url: https://supabase.com/docs/guides/realtime
   - type: AsyncAPI
-    url: https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/asyncapi/supabase-realtime-api-asyncapi.yml
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/asyncapi/supabase-realtime-api-asyncapi.yml
 - aid: supabase:supabase-admin-api
   name: Supabase Admin API
   description: Administrative endpoints for managing users. Requires service_role key.
@@ -128,8 +130,9 @@ apis:
     url: https://supabase.com/docs/guides/functions
 - aid: supabase:supabase-buckets-api
   name: Supabase Buckets API
-  description: Manage storage buckets that organize files and folders. Buckets can be public or private
-    and have configurable file size limits and allowed MIME types.
+  description: >-
+    Manage storage buckets that organize files and folders. Buckets can be public or private and have
+    configurable file size limits and allowed MIME types.
   humanURL: https://supabase.com/docs/reference/api/introduction
   tags:
   - Buckets
@@ -234,8 +237,9 @@ apis:
     url: https://supabase.com/docs/guides/functions
 - aid: supabase:supabase-invocation-api
   name: Supabase Invocation API
-  description: Invoke deployed Edge Functions via HTTP requests. Each function is accessible at its own
-    URL path based on its slug.
+  description: >-
+    Invoke deployed Edge Functions via HTTP requests. Each function is accessible at its own URL path
+    based on its slug.
   humanURL: https://supabase.com/docs/reference/api/introduction
   tags:
   - Invocation
@@ -296,29 +300,6 @@ apis:
     url: https://supabase.com/docs/guides/api
   - type: Documentation
     url: https://supabase.com/docs/guides/functions
-- aid: supabase:supabase-oauth-api
-  name: Supabase OAuth API
-  description: OAuth social login provider endpoints.
-  humanURL: https://supabase.com/docs/reference/api/introduction
-  tags:
-  - Authentication
-  tags_raw:
-  - OAuth
-  properties:
-  - type: OpenAPI
-    url: openapi/supabase-oauth-api-openapi.yml
-  - type: Documentation
-    url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
-  - type: Documentation
-    url: https://supabase.com/docs/guides/auth
-  - type: Documentation
-    url: https://supabase.com/docs/guides/storage
-  - type: Documentation
-    url: https://supabase.com/docs/guides/api
-  - type: Documentation
-    url: https://supabase.com/docs/guides/functions
 - aid: supabase:supabase-objects-api
   name: Supabase Objects API
   description: Upload, download, move, copy, and delete files within storage buckets.
@@ -365,7 +346,8 @@ apis:
     url: https://supabase.com/docs/guides/functions
 - aid: supabase:supabase-projects-api
   name: Supabase Projects API
-  description: Manage Supabase projects including creation, configuration, pausing, restoring, and deletion.
+  description: >-
+    Manage Supabase projects including creation, configuration, pausing, restoring, and deletion.
   humanURL: https://supabase.com/docs/reference/api/introduction
   tags:
   - Project
@@ -472,7 +454,8 @@ apis:
     url: https://supabase.com/docs/guides/functions
 - aid: supabase:supabase-tables-api
   name: Supabase Tables API
-  description: CRUD operations on database tables. Paths are auto-generated based on your database schema.
+  description: >-
+    CRUD operations on database tables. Paths are auto-generated based on your database schema.
   humanURL: https://supabase.com/docs/reference/api/introduction
   tags:
   - Tables
@@ -500,6 +483,27 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/supabase-user-management-api-openapi.yml
+  - type: Documentation
+    url: https://supabase.com/docs/reference/api/introduction
+  - type: GraphQL
+    url: graphql/supabase-graphql.md
+  - type: Documentation
+    url: https://supabase.com/docs/guides/auth
+  - type: Documentation
+    url: https://supabase.com/docs/guides/storage
+  - type: Documentation
+    url: https://supabase.com/docs/guides/api
+  - type: Documentation
+    url: https://supabase.com/docs/guides/functions
+- aid: supabase:supabase-o-auth-api
+  name: Supabase O Auth API
+  description: OAuth social login provider endpoints.
+  humanURL: https://supabase.com/docs/guides/realtime
+  tags:
+  - O Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/supabase-o-auth-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
   - type: GraphQL
