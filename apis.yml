@@ -1,12 +1,11 @@
 aid: supabase
 name: Supabase
-description: >-
-  Supabase is an open-source Firebase alternative that provides a suite of backend services built on top of PostgreSQL.
-  It offers a managed PostgreSQL database with auto-generated REST and GraphQL APIs via PostgREST, real-time data
-  subscriptions via WebSockets, user authentication with JWT (GoTrue), file storage with S3-compatible object storage,
-  edge compute via globally distributed TypeScript functions on the Deno runtime, and a management API for programmatic
-  control of projects and organizations. Supabase is available as a fully managed cloud service (app.supabase.com) and
-  as a self-hosted open-source deployment.
+description: Supabase is an open-source Firebase alternative that provides a suite of backend services
+  built on top of PostgreSQL. It offers a managed PostgreSQL database with auto-generated REST and GraphQL
+  APIs via PostgREST, real-time data subscriptions via WebSockets, user authentication with JWT (GoTrue),
+  file storage with S3-compatible object storage, edge compute via globally distributed TypeScript functions
+  on the Deno runtime, and a management API for programmatic control of projects and organizations. Supabase
+  is available as a fully managed cloud service (app.supabase.com) and as a self-hosted open-source deployment.
 type: Index
 deliveryModel:
   model: saas
@@ -44,6 +43,7 @@ tags:
 - Storage
 - Edge Functions
 - Database
+- Identity Federation
 tags_raw:
 - Backend As A Service
 - PostgreSQL
@@ -53,19 +53,19 @@ tags_raw:
 - Storage
 - Edge Functions
 - Database
+- Identity Federation
 url: https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/apis.yml
 created: '2026-05-02'
-modified: '2026-05-19'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 apis:
 - aid: supabase:realtime-api
   name: Supabase Realtime API
-  description: >-
-    The Supabase Realtime API provides WebSocket-based subscriptions for real-time data changes from PostgreSQL
-    databases. It supports three channel types: database change events (INSERT/UPDATE/DELETE on tables
-    via logical replication), presence (track and synchronize connected users' state), and broadcast (low-latency
-    message passing between clients). Authentication uses JWT tokens. Implemented using the Phoenix channels
-    protocol.
+  description: 'The Supabase Realtime API provides WebSocket-based subscriptions for real-time data changes
+    from PostgreSQL databases. It supports three channel types: database change events (INSERT/UPDATE/DELETE
+    on tables via logical replication), presence (track and synchronize connected users'' state), and
+    broadcast (low-latency message passing between clients). Authentication uses JWT tokens. Implemented
+    using the Phoenix channels protocol.'
   humanURL: https://supabase.com/docs/guides/realtime
   tags:
   - Real-Time
@@ -83,8 +83,7 @@ apis:
   - type: Documentation
     url: https://supabase.com/docs/guides/realtime
   - type: AsyncAPI
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/asyncapi/supabase-realtime-api-asyncapi.yml
+    url: https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/asyncapi/supabase-realtime-api-asyncapi.yml
 - aid: supabase:supabase-admin-api
   name: Supabase Admin API
   description: Administrative endpoints for managing users. Requires service_role key.
@@ -129,9 +128,8 @@ apis:
     url: https://supabase.com/docs/guides/functions
 - aid: supabase:supabase-buckets-api
   name: Supabase Buckets API
-  description: >-
-    Manage storage buckets that organize files and folders. Buckets can be public or private and have
-    configurable file size limits and allowed MIME types.
+  description: Manage storage buckets that organize files and folders. Buckets can be public or private
+    and have configurable file size limits and allowed MIME types.
   humanURL: https://supabase.com/docs/reference/api/introduction
   tags:
   - Buckets
@@ -236,9 +234,8 @@ apis:
     url: https://supabase.com/docs/guides/functions
 - aid: supabase:supabase-invocation-api
   name: Supabase Invocation API
-  description: >-
-    Invoke deployed Edge Functions via HTTP requests. Each function is accessible at its own URL path
-    based on its slug.
+  description: Invoke deployed Edge Functions via HTTP requests. Each function is accessible at its own
+    URL path based on its slug.
   humanURL: https://supabase.com/docs/reference/api/introduction
   tags:
   - Invocation
@@ -368,8 +365,7 @@ apis:
     url: https://supabase.com/docs/guides/functions
 - aid: supabase:supabase-projects-api
   name: Supabase Projects API
-  description: >-
-    Manage Supabase projects including creation, configuration, pausing, restoring, and deletion.
+  description: Manage Supabase projects including creation, configuration, pausing, restoring, and deletion.
   humanURL: https://supabase.com/docs/reference/api/introduction
   tags:
   - Project
@@ -476,8 +472,7 @@ apis:
     url: https://supabase.com/docs/guides/functions
 - aid: supabase:supabase-tables-api
   name: Supabase Tables API
-  description: >-
-    CRUD operations on database tables. Paths are auto-generated based on your database schema.
+  description: CRUD operations on database tables. Paths are auto-generated based on your database schema.
   humanURL: https://supabase.com/docs/reference/api/introduction
   tags:
   - Tables
