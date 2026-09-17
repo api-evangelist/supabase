@@ -495,15 +495,15 @@ apis:
     url: https://supabase.com/docs/guides/api
   - type: Documentation
     url: https://supabase.com/docs/guides/functions
-- aid: supabase:supabase-o-auth-api
+- aid: supabase:supabase-oauth-api
   name: Supabase O Auth API
   description: OAuth social login provider endpoints.
   humanURL: https://supabase.com/docs/guides/realtime
   tags:
-  - O Auth
+  - OAuth
   properties:
   - type: OpenAPI
-    url: openapi/supabase-o-auth-api-openapi.yml
+    url: openapi/supabase-oauth-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
   - type: GraphQL
