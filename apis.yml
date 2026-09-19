@@ -284,6 +284,8 @@ apis:
   description: Manage network restrictions, bans, and SSL enforcement.
   humanURL: https://supabase.com/docs/reference/api/introduction
   tags:
+  - Networks
+  tags_raw:
   - Network
   properties:
   - type: OpenAPI
@@ -500,6 +502,8 @@ apis:
   description: OAuth social login provider endpoints.
   humanURL: https://supabase.com/docs/guides/realtime
   tags:
+  - Authentication
+  tags_raw:
   - OAuth
   properties:
   - type: OpenAPI
