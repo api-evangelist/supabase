@@ -76,13 +76,6 @@ paths:
           description: File not found
 components:
   parameters:
-    Width:
-      name: width
-      in: query
-      description: Target width in pixels for image transformation
-      schema:
-        type: integer
-        minimum: 1
     Format:
       name: format
       in: query
@@ -93,24 +86,6 @@ components:
         - origin
         - avif
         - webp
-    Quality:
-      name: quality
-      in: query
-      description: Output quality for image transformation (1-100)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-    Resize:
-      name: resize
-      in: query
-      description: Resize mode for image transformation
-      schema:
-        type: string
-        enum:
-        - cover
-        - contain
-        - fill
     Height:
       name: height
       in: query
@@ -125,6 +100,31 @@ components:
       description: Name of the storage bucket
       schema:
         type: string
+    Resize:
+      name: resize
+      in: query
+      description: Resize mode for image transformation
+      schema:
+        type: string
+        enum:
+        - cover
+        - contain
+        - fill
+    Quality:
+      name: quality
+      in: query
+      description: Output quality for image transformation (1-100)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    Width:
+      name: width
+      in: query
+      description: Target width in pixels for image transformation
+      schema:
+        type: integer
+        minimum: 1
     ObjectPath:
       name: objectPath
       in: path

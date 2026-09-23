@@ -124,19 +124,6 @@ paths:
           description: Unauthorized
 components:
   schemas:
-    CustomHostname:
-      type: object
-      properties:
-        custom_hostname:
-          type: string
-          description: The custom hostname configured for the project
-        status:
-          type: string
-          description: Verification status of the custom hostname
-          enum:
-          - active
-          - pending
-          - not_started
     VanitySubdomain:
       type: object
       properties:
@@ -157,6 +144,19 @@ components:
         custom_hostname:
           type: string
           description: The custom hostname to activate
+    CustomHostname:
+      type: object
+      properties:
+        custom_hostname:
+          type: string
+          description: The custom hostname configured for the project
+        status:
+          type: string
+          description: Verification status of the custom hostname
+          enum:
+          - active
+          - pending
+          - not_started
     ActivateVanitySubdomainRequest:
       type: object
       required:

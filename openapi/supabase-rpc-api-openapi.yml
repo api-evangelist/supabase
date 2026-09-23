@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Supabase Database REST RPC API
-  description: The Supabase Database REST API provides auto-generated RESTful endpoints for every table, view, and function in your PostgreSQL database. Powered by PostgREST, it supports full CRUD operations, complex filtering with horizontal and vertical filtering operators, pagination, sorting, and embedding of related resources via foreign key relationships. Row Level Security policies are enforced on all API requests. The schema is auto-generated from your database, so paths and schemas vary per project. This specification documents the common patterns and conventions.
+  description: The Supabase Database REST API provides auto-generated RESTful endpoints for every table, view, and function in your PostgreSQL database.
   version: 1.0.0
   contact:
     name: Supabase Support

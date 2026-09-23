@@ -359,6 +359,12 @@ components:
               type: string
               description: Cache-Control header value
           description: File metadata
+    ObjectResponse:
+      type: object
+      properties:
+        Key:
+          type: string
+          description: Full path of the uploaded object
     CopyObjectRequest:
       type: object
       required:
@@ -378,12 +384,6 @@ components:
         destinationKey:
           type: string
           description: Path for the copy
-    ObjectResponse:
-      type: object
-      properties:
-        Key:
-          type: string
-          description: Full path of the uploaded object
     MoveObjectRequest:
       type: object
       required:

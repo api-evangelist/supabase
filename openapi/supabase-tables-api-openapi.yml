@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Supabase Database REST Tables API
-  description: The Supabase Database REST API provides auto-generated RESTful endpoints for every table, view, and function in your PostgreSQL database. Powered by PostgREST, it supports full CRUD operations, complex filtering with horizontal and vertical filtering operators, pagination, sorting, and embedding of related resources via foreign key relationships. Row Level Security policies are enforced on all API requests. The schema is auto-generated from your database, so paths and schemas vary per project. This specification documents the common patterns and conventions.
+  description: The Supabase Database REST API provides auto-generated RESTful endpoints for every table, view, and function in your PostgreSQL database.
   version: 1.0.0
   contact:
     name: Supabase Support
@@ -160,10 +160,40 @@ components:
       schema:
         type: integer
         minimum: 0
+    PreferCount:
+      name: Prefer
+      in: header
+      description: Request a total row count. Use count=exact for precise count, count=planned for estimated count, or count=estimated for a combination.
+      schema:
+        type: string
+        enum:
+        - count=exact
+        - count=planned
+        - count=estimated
     Order:
       name: order
       in: query
       description: Comma-separated list of columns to sort by. Append .desc for descending, .asc for ascending. Use .nullsfirst or .nullslast to control null ordering.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of rows to return
+      schema:
+        type: integer
+        minimum: 0
+    TableName:
+      name: table
+      in: path
+      required: true
+      description: Name of the database table or view
+      schema:
+        type: string
+    RangeHeader:
+      name: Range
+      in: header
+      description: Request a specific range of rows using HTTP Range header (e.g. 0-24 for first 25 rows).
       schema:
         type: string
     PreferReturn:
@@ -176,40 +206,10 @@ components:
         - return=representation
         - return=headers-only
         - return=minimal
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of rows to return
-      schema:
-        type: integer
-        minimum: 0
-    PreferCount:
-      name: Prefer
-      in: header
-      description: Request a total row count. Use count=exact for precise count, count=planned for estimated count, or count=estimated for a combination.
-      schema:
-        type: string
-        enum:
-        - count=exact
-        - count=planned
-        - count=estimated
     Select:
       name: select
       in: query
       description: Comma-separated list of columns to return. Supports renaming (alias:column), casting (column::type), and embedding related resources via foreign keys (related_table(columns)).
-      schema:
-        type: string
-    TableName:
-      name: table
-      in: path
-      required: true
-      description: Name of the database table or view
-      schema:
-        type: string
-    RangeHeader:
-      name: Range
-      in: header
-      description: Request a specific range of rows using HTTP Range header (e.g. 0-24 for first 25 rows).
       schema:
         type: string
   securitySchemes:

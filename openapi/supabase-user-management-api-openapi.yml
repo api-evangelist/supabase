@@ -67,6 +67,35 @@ paths:
           description: Unprocessable entity
 components:
   schemas:
+    MfaFactor:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique factor identifier
+        friendly_name:
+          type: string
+          description: Human-readable name for the factor
+        factor_type:
+          type: string
+          description: Type of MFA factor
+          enum:
+          - totp
+        status:
+          type: string
+          description: Factor status
+          enum:
+          - verified
+          - unverified
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when factor was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when factor was last updated
     User:
       type: object
       properties:
@@ -136,6 +165,26 @@ components:
           type: string
           format: date-time
           description: Timestamp when user was last updated
+    UpdateUserRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: New email address
+        phone:
+          type: string
+          description: New phone number
+        password:
+          type: string
+          description: New password
+          minLength: 6
+        data:
+          type: object
+          description: Custom user metadata to update
+        nonce:
+          type: string
+          description: Nonce for reauthentication when changing password
     Identity:
       type: object
       properties:
@@ -164,55 +213,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when identity was last updated
-    UpdateUserRequest:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-          description: New email address
-        phone:
-          type: string
-          description: New phone number
-        password:
-          type: string
-          description: New password
-          minLength: 6
-        data:
-          type: object
-          description: Custom user metadata to update
-        nonce:
-          type: string
-          description: Nonce for reauthentication when changing password
-    MfaFactor:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique factor identifier
-        friendly_name:
-          type: string
-          description: Human-readable name for the factor
-        factor_type:
-          type: string
-          description: Type of MFA factor
-          enum:
-          - totp
-        status:
-          type: string
-          description: Factor status
-          enum:
-          - verified
-          - unverified
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when factor was created
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when factor was last updated
   securitySchemes:
     apiKeyAuth:
       type: apiKey

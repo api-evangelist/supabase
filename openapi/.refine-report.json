@@ -29,7 +29,9 @@
     "supabase-objects-api-openapi.yml",
     "supabase-rendering-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -38,7 +40,9 @@
     "supabase-database-rest-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "supabase-edge-functions-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "supabase-management-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "supabase-storage-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0"
+    "supabase-storage-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "superseded outputs removed: supabase-o-auth-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 21 total)"
   ],
   "skipped": [
     "supabase-admin-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -51,7 +55,7 @@
     "supabase-invocation-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "supabase-mfa-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "supabase-network-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "supabase-oauth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "supabase-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "supabase-objects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "supabase-organizations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "supabase-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",

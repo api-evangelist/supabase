@@ -149,14 +149,6 @@ paths:
         '404':
           description: Bucket not found
 components:
-  parameters:
-    BucketId:
-      name: bucketId
-      in: path
-      required: true
-      description: Unique identifier or name of the storage bucket
-      schema:
-        type: string
   schemas:
     CreateBucketRequest:
       type: object
@@ -227,6 +219,14 @@ components:
           items:
             type: string
           description: Allowed MIME types for uploads
+  parameters:
+    BucketId:
+      name: bucketId
+      in: path
+      required: true
+      description: Unique identifier or name of the storage bucket
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey
