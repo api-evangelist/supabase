@@ -37,7 +37,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/supabase.p
 tags:
 - Backend-as-a-Service
 - PostgreSQL
-- Open-Source
+- Open Source
 - Authentication
 - Real-Time
 - Storage
@@ -54,6 +54,7 @@ tags_raw:
 - Edge Functions
 - Database
 - Identity Federation
+- Open-Source
 url: https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/apis.yml
 created: '2026-05-02'
 modified: '2026-09-16'
@@ -97,8 +98,6 @@ apis:
     url: openapi/supabase-admin-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -118,8 +117,6 @@ apis:
     url: openapi/supabase-authentication-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -141,8 +138,6 @@ apis:
     url: openapi/supabase-buckets-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -162,8 +157,6 @@ apis:
     url: openapi/supabase-configuration-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -183,8 +176,6 @@ apis:
     url: openapi/supabase-database-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -204,8 +195,6 @@ apis:
     url: openapi/supabase-domains-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -225,8 +214,6 @@ apis:
     url: openapi/supabase-functions-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -248,8 +235,6 @@ apis:
     url: openapi/supabase-invocation-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -269,8 +254,6 @@ apis:
     url: openapi/supabase-mfa-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -292,8 +275,6 @@ apis:
     url: openapi/supabase-network-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -313,8 +294,6 @@ apis:
     url: openapi/supabase-objects-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -336,8 +315,6 @@ apis:
     url: openapi/supabase-organizations-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -360,8 +337,6 @@ apis:
     url: openapi/supabase-projects-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -381,8 +356,6 @@ apis:
     url: openapi/supabase-rendering-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -402,8 +375,6 @@ apis:
     url: openapi/supabase-rpc-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -423,8 +394,6 @@ apis:
     url: openapi/supabase-secrets-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -444,8 +413,6 @@ apis:
     url: openapi/supabase-sso-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -466,8 +433,6 @@ apis:
     url: openapi/supabase-tables-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -487,8 +452,6 @@ apis:
     url: openapi/supabase-user-management-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
@@ -510,8 +473,6 @@ apis:
     url: openapi/supabase-oauth-api-openapi.yml
   - type: Documentation
     url: https://supabase.com/docs/reference/api/introduction
-  - type: GraphQL
-    url: graphql/supabase-graphql.md
   - type: Documentation
     url: https://supabase.com/docs/guides/auth
   - type: Documentation
