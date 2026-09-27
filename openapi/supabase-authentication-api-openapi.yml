@@ -241,80 +241,6 @@ paths:
           description: Unauthorized - invalid or missing token
 components:
   schemas:
-    MfaFactor:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique factor identifier
-        friendly_name:
-          type: string
-          description: Human-readable name for the factor
-        factor_type:
-          type: string
-          description: Type of MFA factor
-          enum:
-          - totp
-        status:
-          type: string
-          description: Factor status
-          enum:
-          - verified
-          - unverified
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when factor was created
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when factor was last updated
-    SignUpRequest:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-          description: User email address
-        phone:
-          type: string
-          description: User phone number in E.164 format
-        password:
-          type: string
-          description: User password
-          minLength: 6
-        data:
-          type: object
-          description: Custom user metadata
-        gotrue_meta_security:
-          type: object
-          properties:
-            captcha_token:
-              type: string
-              description: Captcha verification token
-    AuthResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-          description: JWT access token for authenticating API requests
-        token_type:
-          type: string
-          description: Token type, always bearer
-          enum:
-          - bearer
-        expires_in:
-          type: integer
-          description: Number of seconds until the access token expires
-        expires_at:
-          type: integer
-          description: Unix timestamp when the access token expires
-        refresh_token:
-          type: string
-          description: Token used to obtain a new access token
-        user:
-          $ref: '#/components/schemas/User'
     RefreshTokenGrantRequest:
       type: object
       required:
@@ -323,6 +249,34 @@ components:
         refresh_token:
           type: string
           description: Refresh token from a previous authentication
+    Identity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identity identifier
+        user_id:
+          type: string
+          format: uuid
+          description: ID of the associated user
+        identity_data:
+          type: object
+          description: Data from the identity provider
+        provider:
+          type: string
+          description: Identity provider name
+        last_sign_in_at:
+          type: string
+          format: date-time
+          description: Timestamp of last sign-in with this identity
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when identity was linked
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when identity was last updated
     User:
       type: object
       properties:
@@ -392,6 +346,63 @@ components:
           type: string
           format: date-time
           description: Timestamp when user was last updated
+    IdTokenGrantRequest:
+      type: object
+      required:
+      - provider
+      - id_token
+      properties:
+        provider:
+          type: string
+          description: OAuth provider that issued the ID token
+          enum:
+          - google
+          - apple
+          - azure
+          - facebook
+        id_token:
+          type: string
+          description: ID token from the OAuth provider
+        nonce:
+          type: string
+          description: Nonce used during token generation
+    SignUpRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: User email address
+        phone:
+          type: string
+          description: User phone number in E.164 format
+        password:
+          type: string
+          description: User password
+          minLength: 6
+        data:
+          type: object
+          description: Custom user metadata
+        gotrue_meta_security:
+          type: object
+          properties:
+            captcha_token:
+              type: string
+              description: Captcha verification token
+    OtpRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email address to send OTP to
+        phone:
+          type: string
+          description: Phone number to send OTP to
+        create_user:
+          type: boolean
+          description: Whether to create a new user if one does not exist
+          default: true
     VerifyOtpRequest:
       type: object
       required:
@@ -426,68 +437,6 @@ components:
           type: string
           format: uri
           description: URL to redirect to after verification
-    Identity:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identity identifier
-        user_id:
-          type: string
-          format: uuid
-          description: ID of the associated user
-        identity_data:
-          type: object
-          description: Data from the identity provider
-        provider:
-          type: string
-          description: Identity provider name
-        last_sign_in_at:
-          type: string
-          format: date-time
-          description: Timestamp of last sign-in with this identity
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when identity was linked
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when identity was last updated
-    IdTokenGrantRequest:
-      type: object
-      required:
-      - provider
-      - id_token
-      properties:
-        provider:
-          type: string
-          description: OAuth provider that issued the ID token
-          enum:
-          - google
-          - apple
-          - azure
-          - facebook
-        id_token:
-          type: string
-          description: ID token from the OAuth provider
-        nonce:
-          type: string
-          description: Nonce used during token generation
-    OtpRequest:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-          description: Email address to send OTP to
-        phone:
-          type: string
-          description: Phone number to send OTP to
-        create_user:
-          type: boolean
-          description: Whether to create a new user if one does not exist
-          default: true
     PasswordGrantRequest:
       type: object
       required:
@@ -503,6 +452,57 @@ components:
         password:
           type: string
           description: User password
+    MfaFactor:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique factor identifier
+        friendly_name:
+          type: string
+          description: Human-readable name for the factor
+        factor_type:
+          type: string
+          description: Type of MFA factor
+          enum:
+          - totp
+        status:
+          type: string
+          description: Factor status
+          enum:
+          - verified
+          - unverified
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when factor was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when factor was last updated
+    AuthResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: JWT access token for authenticating API requests
+        token_type:
+          type: string
+          description: Token type, always bearer
+          enum:
+          - bearer
+        expires_in:
+          type: integer
+          description: Number of seconds until the access token expires
+        expires_at:
+          type: integer
+          description: Unix timestamp when the access token expires
+        refresh_token:
+          type: string
+          description: Token used to obtain a new access token
+        user:
+          $ref: '#/components/schemas/User'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

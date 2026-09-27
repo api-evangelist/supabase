@@ -76,6 +76,35 @@ paths:
           description: File not found
 components:
   parameters:
+    BucketName:
+      name: bucketName
+      in: path
+      required: true
+      description: Name of the storage bucket
+      schema:
+        type: string
+    Height:
+      name: height
+      in: query
+      description: Target height in pixels for image transformation
+      schema:
+        type: integer
+        minimum: 1
+    Quality:
+      name: quality
+      in: query
+      description: Output quality for image transformation (1-100)
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+    ObjectPath:
+      name: objectPath
+      in: path
+      required: true
+      description: Path to the object within the bucket, including folder hierarchy and filename.
+      schema:
+        type: string
     Format:
       name: format
       in: query
@@ -86,20 +115,6 @@ components:
         - origin
         - avif
         - webp
-    Height:
-      name: height
-      in: query
-      description: Target height in pixels for image transformation
-      schema:
-        type: integer
-        minimum: 1
-    BucketName:
-      name: bucketName
-      in: path
-      required: true
-      description: Name of the storage bucket
-      schema:
-        type: string
     Resize:
       name: resize
       in: query
@@ -110,14 +125,6 @@ components:
         - cover
         - contain
         - fill
-    Quality:
-      name: quality
-      in: query
-      description: Output quality for image transformation (1-100)
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
     Width:
       name: width
       in: query
@@ -125,13 +132,6 @@ components:
       schema:
         type: integer
         minimum: 1
-    ObjectPath:
-      name: objectPath
-      in: path
-      required: true
-      description: Path to the object within the bucket, including folder hierarchy and filename.
-      schema:
-        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

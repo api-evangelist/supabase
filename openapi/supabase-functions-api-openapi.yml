@@ -127,22 +127,16 @@ paths:
         '404':
           description: Function not found
 components:
-  parameters:
-    FunctionSlug:
-      name: function_slug
-      in: path
-      required: true
-      description: The URL-friendly slug identifier for the Edge Function.
-      schema:
-        type: string
-    ProjectRef:
-      name: ref
-      in: path
-      required: true
-      description: The unique reference ID for the project, found in the project settings or URL.
-      schema:
-        type: string
   schemas:
+    UpdateFunctionRequest:
+      type: object
+      properties:
+        body:
+          type: string
+          description: Updated function source code
+        verify_jwt:
+          type: boolean
+          description: Whether to require JWT verification
     EdgeFunction:
       type: object
       properties:
@@ -197,15 +191,21 @@ components:
           type: boolean
           description: Whether to require JWT verification
           default: true
-    UpdateFunctionRequest:
-      type: object
-      properties:
-        body:
-          type: string
-          description: Updated function source code
-        verify_jwt:
-          type: boolean
-          description: Whether to require JWT verification
+  parameters:
+    FunctionSlug:
+      name: function_slug
+      in: path
+      required: true
+      description: The URL-friendly slug identifier for the Edge Function.
+      schema:
+        type: string
+    ProjectRef:
+      name: ref
+      in: path
+      required: true
+      description: The unique reference ID for the project, found in the project settings or URL.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

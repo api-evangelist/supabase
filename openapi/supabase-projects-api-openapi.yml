@@ -170,6 +170,45 @@ paths:
           description: Project not found
 components:
   schemas:
+    DatabaseConfig:
+      type: object
+      properties:
+        host:
+          type: string
+          description: Database host address
+        version:
+          type: string
+          description: PostgreSQL version
+    ServiceHealth:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the service
+          enum:
+          - database
+          - auth
+          - storage
+          - realtime
+          - functions
+        healthy:
+          type: boolean
+          description: Whether the service is healthy
+        status:
+          type: string
+          description: Detailed status message
+    ApiKey:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Key name (anon or service_role)
+          enum:
+          - anon
+          - service_role
+        api_key:
+          type: string
+          description: The API key value
     Project:
       type: object
       properties:
@@ -217,33 +256,6 @@ components:
           - UPGRADING
           - PAUSING
           - COMING_UP
-    DatabaseConfig:
-      type: object
-      properties:
-        host:
-          type: string
-          description: Database host address
-        version:
-          type: string
-          description: PostgreSQL version
-    ServiceHealth:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the service
-          enum:
-          - database
-          - auth
-          - storage
-          - realtime
-          - functions
-        healthy:
-          type: boolean
-          description: Whether the service is healthy
-        status:
-          type: string
-          description: Detailed status message
     CreateProjectRequest:
       type: object
       required:
@@ -274,18 +286,6 @@ components:
           type: string
           description: Password for the project database
           minLength: 6
-    ApiKey:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Key name (anon or service_role)
-          enum:
-          - anon
-          - service_role
-        api_key:
-          type: string
-          description: The API key value
   parameters:
     ProjectRef:
       name: ref

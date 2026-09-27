@@ -44,6 +44,7 @@ tags:
 - Edge Functions
 - Database
 - Identity Federation
+- Serverless
 tags_raw:
 - Backend As A Service
 - PostgreSQL
@@ -55,6 +56,7 @@ tags_raw:
 - Database
 - Identity Federation
 - Open-Source
+- Serverless
 url: https://raw.githubusercontent.com/api-evangelist/supabase/refs/heads/main/apis.yml
 created: '2026-05-02'
 modified: '2026-09-16'

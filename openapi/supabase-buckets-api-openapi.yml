@@ -173,6 +173,20 @@ components:
           items:
             type: string
           description: Allowed MIME types for uploads
+    UpdateBucketRequest:
+      type: object
+      properties:
+        public:
+          type: boolean
+          description: Whether the bucket should be publicly accessible
+        file_size_limit:
+          type: integer
+          description: Maximum file size in bytes
+        allowed_mime_types:
+          type: array
+          items:
+            type: string
+          description: Allowed MIME types for uploads
     Bucket:
       type: object
       properties:
@@ -205,20 +219,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the bucket was last updated
-    UpdateBucketRequest:
-      type: object
-      properties:
-        public:
-          type: boolean
-          description: Whether the bucket should be publicly accessible
-        file_size_limit:
-          type: integer
-          description: Maximum file size in bytes
-        allowed_mime_types:
-          type: array
-          items:
-            type: string
-          description: Allowed MIME types for uploads
   parameters:
     BucketId:
       name: bucketId

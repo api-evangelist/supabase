@@ -124,6 +124,14 @@ paths:
           description: Unauthorized
 components:
   schemas:
+    ActivateCustomHostnameRequest:
+      type: object
+      required:
+      - custom_hostname
+      properties:
+        custom_hostname:
+          type: string
+          description: The custom hostname to activate
     VanitySubdomain:
       type: object
       properties:
@@ -136,14 +144,6 @@ components:
           enum:
           - active
           - not_used
-    ActivateCustomHostnameRequest:
-      type: object
-      required:
-      - custom_hostname
-      properties:
-        custom_hostname:
-          type: string
-          description: The custom hostname to activate
     CustomHostname:
       type: object
       properties:

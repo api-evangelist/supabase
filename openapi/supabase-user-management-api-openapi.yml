@@ -67,35 +67,34 @@ paths:
           description: Unprocessable entity
 components:
   schemas:
-    MfaFactor:
+    Identity:
       type: object
       properties:
         id:
           type: string
+          description: Unique identity identifier
+        user_id:
+          type: string
           format: uuid
-          description: Unique factor identifier
-        friendly_name:
+          description: ID of the associated user
+        identity_data:
+          type: object
+          description: Data from the identity provider
+        provider:
           type: string
-          description: Human-readable name for the factor
-        factor_type:
+          description: Identity provider name
+        last_sign_in_at:
           type: string
-          description: Type of MFA factor
-          enum:
-          - totp
-        status:
-          type: string
-          description: Factor status
-          enum:
-          - verified
-          - unverified
+          format: date-time
+          description: Timestamp of last sign-in with this identity
         created_at:
           type: string
           format: date-time
-          description: Timestamp when factor was created
+          description: Timestamp when identity was linked
         updated_at:
           type: string
           format: date-time
-          description: Timestamp when factor was last updated
+          description: Timestamp when identity was last updated
     User:
       type: object
       properties:
@@ -165,6 +164,35 @@ components:
           type: string
           format: date-time
           description: Timestamp when user was last updated
+    MfaFactor:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique factor identifier
+        friendly_name:
+          type: string
+          description: Human-readable name for the factor
+        factor_type:
+          type: string
+          description: Type of MFA factor
+          enum:
+          - totp
+        status:
+          type: string
+          description: Factor status
+          enum:
+          - verified
+          - unverified
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when factor was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when factor was last updated
     UpdateUserRequest:
       type: object
       properties:
@@ -185,34 +213,6 @@ components:
         nonce:
           type: string
           description: Nonce for reauthentication when changing password
-    Identity:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identity identifier
-        user_id:
-          type: string
-          format: uuid
-          description: ID of the associated user
-        identity_data:
-          type: object
-          description: Data from the identity provider
-        provider:
-          type: string
-          description: Identity provider name
-        last_sign_in_at:
-          type: string
-          format: date-time
-          description: Timestamp of last sign-in with this identity
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when identity was linked
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when identity was last updated
   securitySchemes:
     apiKeyAuth:
       type: apiKey

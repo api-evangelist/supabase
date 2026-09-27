@@ -317,6 +317,25 @@ paths:
           description: Source file not found
 components:
   schemas:
+    MoveObjectRequest:
+      type: object
+      required:
+      - bucketId
+      - sourceKey
+      - destinationKey
+      properties:
+        bucketId:
+          type: string
+          description: Source bucket ID
+        sourceKey:
+          type: string
+          description: Current path of the file
+        destinationBucket:
+          type: string
+          description: Destination bucket ID (defaults to source bucket)
+        destinationKey:
+          type: string
+          description: New path for the file
     StorageObject:
       type: object
       properties:
@@ -359,12 +378,6 @@ components:
               type: string
               description: Cache-Control header value
           description: File metadata
-    ObjectResponse:
-      type: object
-      properties:
-        Key:
-          type: string
-          description: Full path of the uploaded object
     CopyObjectRequest:
       type: object
       required:
@@ -384,25 +397,12 @@ components:
         destinationKey:
           type: string
           description: Path for the copy
-    MoveObjectRequest:
+    ObjectResponse:
       type: object
-      required:
-      - bucketId
-      - sourceKey
-      - destinationKey
       properties:
-        bucketId:
+        Key:
           type: string
-          description: Source bucket ID
-        sourceKey:
-          type: string
-          description: Current path of the file
-        destinationBucket:
-          type: string
-          description: Destination bucket ID (defaults to source bucket)
-        destinationKey:
-          type: string
-          description: New path for the file
+          description: Full path of the uploaded object
   parameters:
     BucketName:
       name: bucketName

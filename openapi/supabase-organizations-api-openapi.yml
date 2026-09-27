@@ -81,14 +81,6 @@ paths:
           description: Organization not found
 components:
   schemas:
-    CreateOrganizationRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the organization
     OrganizationMember:
       type: object
       properties:
@@ -132,6 +124,14 @@ components:
           type: string
           format: date-time
           description: Timestamp when the organization was created
+    CreateOrganizationRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the organization
   parameters:
     OrganizationSlug:
       name: slug
