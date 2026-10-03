@@ -60,15 +60,15 @@ paths:
         '401':
           description: Unauthorized
 components:
+  parameters:
+    ProjectRef:
+      name: ref
+      in: path
+      required: true
+      description: The unique reference ID for the project, found in the project settings or URL.
+      schema:
+        type: string
   schemas:
-    CreateMigrationRequest:
-      type: object
-      required:
-      - query
-      properties:
-        query:
-          type: string
-          description: SQL statements to execute in the migration
     DatabaseMigration:
       type: object
       properties:
@@ -83,14 +83,14 @@ components:
           items:
             type: string
           description: SQL statements in the migration
-  parameters:
-    ProjectRef:
-      name: ref
-      in: path
-      required: true
-      description: The unique reference ID for the project, found in the project settings or URL.
-      schema:
-        type: string
+    CreateMigrationRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: SQL statements to execute in the migration
   securitySchemes:
     bearerAuth:
       type: http

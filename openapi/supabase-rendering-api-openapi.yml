@@ -83,13 +83,6 @@ components:
       description: Name of the storage bucket
       schema:
         type: string
-    Height:
-      name: height
-      in: query
-      description: Target height in pixels for image transformation
-      schema:
-        type: integer
-        minimum: 1
     Quality:
       name: quality
       in: query
@@ -98,23 +91,13 @@ components:
         type: integer
         minimum: 1
         maximum: 100
-    ObjectPath:
-      name: objectPath
-      in: path
-      required: true
-      description: Path to the object within the bucket, including folder hierarchy and filename.
-      schema:
-        type: string
-    Format:
-      name: format
+    Height:
+      name: height
       in: query
-      description: Output format for image transformation
+      description: Target height in pixels for image transformation
       schema:
-        type: string
-        enum:
-        - origin
-        - avif
-        - webp
+        type: integer
+        minimum: 1
     Resize:
       name: resize
       in: query
@@ -132,6 +115,23 @@ components:
       schema:
         type: integer
         minimum: 1
+    Format:
+      name: format
+      in: query
+      description: Output format for image transformation
+      schema:
+        type: string
+        enum:
+        - origin
+        - avif
+        - webp
+    ObjectPath:
+      name: objectPath
+      in: path
+      required: true
+      description: Path to the object within the bucket, including folder hierarchy and filename.
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

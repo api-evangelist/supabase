@@ -106,6 +106,14 @@ paths:
         '401':
           description: Unauthorized
 components:
+  parameters:
+    ProjectRef:
+      name: ref
+      in: path
+      required: true
+      description: The unique reference ID for the project, found in the project settings or URL.
+      schema:
+        type: string
   schemas:
     NetworkRestrictions:
       type: object
@@ -115,14 +123,6 @@ components:
           items:
             type: string
           description: List of CIDR ranges allowed to connect to the database
-  parameters:
-    ProjectRef:
-      name: ref
-      in: path
-      required: true
-      description: The unique reference ID for the project, found in the project settings or URL.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

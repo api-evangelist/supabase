@@ -81,6 +81,27 @@ paths:
           description: Organization not found
 components:
   schemas:
+    Organization:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the organization
+        name:
+          type: string
+          description: Display name of the organization
+        slug:
+          type: string
+          description: URL-friendly slug
+        billing_email:
+          type: string
+          format: email
+          description: Billing contact email
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the organization was created
     OrganizationMember:
       type: object
       properties:
@@ -103,27 +124,6 @@ components:
         username:
           type: string
           description: Display name of the member
-    Organization:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier for the organization
-        name:
-          type: string
-          description: Display name of the organization
-        slug:
-          type: string
-          description: URL-friendly slug
-        billing_email:
-          type: string
-          format: email
-          description: Billing contact email
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the organization was created
     CreateOrganizationRequest:
       type: object
       required:

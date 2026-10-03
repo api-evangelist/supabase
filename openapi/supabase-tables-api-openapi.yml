@@ -153,48 +153,10 @@ paths:
           description: Unauthorized
 components:
   parameters:
-    PreferReturn:
-      name: Prefer
-      in: header
-      description: Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.
-      schema:
-        type: string
-        enum:
-        - return=representation
-        - return=headers-only
-        - return=minimal
-    PreferCount:
-      name: Prefer
-      in: header
-      description: Request a total row count. Use count=exact for precise count, count=planned for estimated count, or count=estimated for a combination.
-      schema:
-        type: string
-        enum:
-        - count=exact
-        - count=planned
-        - count=estimated
-    RangeHeader:
-      name: Range
-      in: header
-      description: Request a specific range of rows using HTTP Range header (e.g. 0-24 for first 25 rows).
-      schema:
-        type: string
-    Order:
-      name: order
+    Offset:
+      name: offset
       in: query
-      description: Comma-separated list of columns to sort by. Append .desc for descending, .asc for ascending. Use .nullsfirst or .nullslast to control null ordering.
-      schema:
-        type: string
-    Select:
-      name: select
-      in: query
-      description: Comma-separated list of columns to return. Supports renaming (alias:column), casting (column::type), and embedding related resources via foreign keys (related_table(columns)).
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of rows to return
+      description: Number of rows to skip before starting to return rows
       schema:
         type: integer
         minimum: 0
@@ -205,13 +167,51 @@ components:
       description: Name of the database table or view
       schema:
         type: string
-    Offset:
-      name: offset
+    Limit:
+      name: limit
       in: query
-      description: Number of rows to skip before starting to return rows
+      description: Maximum number of rows to return
       schema:
         type: integer
         minimum: 0
+    Select:
+      name: select
+      in: query
+      description: Comma-separated list of columns to return. Supports renaming (alias:column), casting (column::type), and embedding related resources via foreign keys (related_table(columns)).
+      schema:
+        type: string
+    PreferReturn:
+      name: Prefer
+      in: header
+      description: Control what is returned after a mutation. Use return=representation to get the affected rows, return=headers-only for just headers, or return=minimal for no body.
+      schema:
+        type: string
+        enum:
+        - return=representation
+        - return=headers-only
+        - return=minimal
+    RangeHeader:
+      name: Range
+      in: header
+      description: Request a specific range of rows using HTTP Range header (e.g. 0-24 for first 25 rows).
+      schema:
+        type: string
+    PreferCount:
+      name: Prefer
+      in: header
+      description: Request a total row count. Use count=exact for precise count, count=planned for estimated count, or count=estimated for a combination.
+      schema:
+        type: string
+        enum:
+        - count=exact
+        - count=planned
+        - count=estimated
+    Order:
+      name: order
+      in: query
+      description: Comma-separated list of columns to sort by. Append .desc for descending, .asc for ascending. Use .nullsfirst or .nullslast to control null ordering.
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey
