@@ -169,15 +169,64 @@ paths:
         '404':
           description: Project not found
 components:
-  parameters:
-    ProjectRef:
-      name: ref
-      in: path
-      required: true
-      description: The unique reference ID for the project, found in the project settings or URL.
-      schema:
-        type: string
   schemas:
+    DatabaseConfig:
+      type: object
+      properties:
+        host:
+          type: string
+          description: Database host address
+        version:
+          type: string
+          description: PostgreSQL version
+    CreateProjectRequest:
+      type: object
+      required:
+      - name
+      - organization_id
+      - plan
+      - region
+      - db_pass
+      properties:
+        name:
+          type: string
+          description: Display name for the new project
+        organization_id:
+          type: string
+          description: ID of the organization to create the project in
+        plan:
+          type: string
+          description: Billing plan for the project
+          enum:
+          - free
+          - pro
+          - team
+          - enterprise
+        region:
+          type: string
+          description: Cloud region for the project
+        db_pass:
+          type: string
+          description: Password for the project database
+          minLength: 6
+    ServiceHealth:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the service
+          enum:
+          - database
+          - auth
+          - storage
+          - realtime
+          - functions
+        healthy:
+          type: boolean
+          description: Whether the service is healthy
+        status:
+          type: string
+          description: Detailed status message
     Project:
       type: object
       properties:
@@ -237,63 +286,14 @@ components:
         api_key:
           type: string
           description: The API key value
-    DatabaseConfig:
-      type: object
-      properties:
-        host:
-          type: string
-          description: Database host address
-        version:
-          type: string
-          description: PostgreSQL version
-    CreateProjectRequest:
-      type: object
-      required:
-      - name
-      - organization_id
-      - plan
-      - region
-      - db_pass
-      properties:
-        name:
-          type: string
-          description: Display name for the new project
-        organization_id:
-          type: string
-          description: ID of the organization to create the project in
-        plan:
-          type: string
-          description: Billing plan for the project
-          enum:
-          - free
-          - pro
-          - team
-          - enterprise
-        region:
-          type: string
-          description: Cloud region for the project
-        db_pass:
-          type: string
-          description: Password for the project database
-          minLength: 6
-    ServiceHealth:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the service
-          enum:
-          - database
-          - auth
-          - storage
-          - realtime
-          - functions
-        healthy:
-          type: boolean
-          description: Whether the service is healthy
-        status:
-          type: string
-          description: Detailed status message
+  parameters:
+    ProjectRef:
+      name: ref
+      in: path
+      required: true
+      description: The unique reference ID for the project, found in the project settings or URL.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

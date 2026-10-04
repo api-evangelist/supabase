@@ -149,6 +149,14 @@ paths:
         '404':
           description: Bucket not found
 components:
+  parameters:
+    BucketId:
+      name: bucketId
+      in: path
+      required: true
+      description: Unique identifier or name of the storage bucket
+      schema:
+        type: string
   schemas:
     UpdateBucketRequest:
       type: object
@@ -156,29 +164,6 @@ components:
         public:
           type: boolean
           description: Whether the bucket should be publicly accessible
-        file_size_limit:
-          type: integer
-          description: Maximum file size in bytes
-        allowed_mime_types:
-          type: array
-          items:
-            type: string
-          description: Allowed MIME types for uploads
-    CreateBucketRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Name for the new bucket
-        id:
-          type: string
-          description: Optional custom ID (defaults to name)
-        public:
-          type: boolean
-          description: Whether the bucket should be publicly accessible
-          default: false
         file_size_limit:
           type: integer
           description: Maximum file size in bytes
@@ -219,14 +204,29 @@ components:
           type: string
           format: date-time
           description: Timestamp when the bucket was last updated
-  parameters:
-    BucketId:
-      name: bucketId
-      in: path
-      required: true
-      description: Unique identifier or name of the storage bucket
-      schema:
-        type: string
+    CreateBucketRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Name for the new bucket
+        id:
+          type: string
+          description: Optional custom ID (defaults to name)
+        public:
+          type: boolean
+          description: Whether the bucket should be publicly accessible
+          default: false
+        file_size_limit:
+          type: integer
+          description: Maximum file size in bytes
+        allowed_mime_types:
+          type: array
+          items:
+            type: string
+          description: Allowed MIME types for uploads
   securitySchemes:
     apiKeyAuth:
       type: apiKey

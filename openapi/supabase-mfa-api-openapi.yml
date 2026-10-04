@@ -108,85 +108,16 @@ paths:
         '401':
           description: Unauthorized
 components:
+  parameters:
+    FactorId:
+      name: factorId
+      in: path
+      required: true
+      description: UUID of the MFA factor
+      schema:
+        type: string
+        format: uuid
   schemas:
-    AuthResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-          description: JWT access token for authenticating API requests
-        token_type:
-          type: string
-          description: Token type, always bearer
-          enum:
-          - bearer
-        expires_in:
-          type: integer
-          description: Number of seconds until the access token expires
-        expires_at:
-          type: integer
-          description: Unix timestamp when the access token expires
-        refresh_token:
-          type: string
-          description: Token used to obtain a new access token
-        user:
-          $ref: '#/components/schemas/User'
-    MfaFactor:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique factor identifier
-        friendly_name:
-          type: string
-          description: Human-readable name for the factor
-        factor_type:
-          type: string
-          description: Type of MFA factor
-          enum:
-          - totp
-        status:
-          type: string
-          description: Factor status
-          enum:
-          - verified
-          - unverified
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when factor was created
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when factor was last updated
-    MfaChallenge:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique challenge identifier
-        expires_at:
-          type: string
-          format: date-time
-          description: Timestamp when the challenge expires
-    EnrollMfaRequest:
-      type: object
-      required:
-      - factor_type
-      properties:
-        factor_type:
-          type: string
-          description: Type of MFA factor to enroll
-          enum:
-          - totp
-        friendly_name:
-          type: string
-          description: Human-readable name for the factor
-        issuer:
-          type: string
-          description: Issuer name displayed in authenticator apps
     User:
       type: object
       properties:
@@ -256,6 +187,44 @@ components:
           type: string
           format: date-time
           description: Timestamp when user was last updated
+    AuthResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: JWT access token for authenticating API requests
+        token_type:
+          type: string
+          description: Token type, always bearer
+          enum:
+          - bearer
+        expires_in:
+          type: integer
+          description: Number of seconds until the access token expires
+        expires_at:
+          type: integer
+          description: Unix timestamp when the access token expires
+        refresh_token:
+          type: string
+          description: Token used to obtain a new access token
+        user:
+          $ref: '#/components/schemas/User'
+    EnrollMfaRequest:
+      type: object
+      required:
+      - factor_type
+      properties:
+        factor_type:
+          type: string
+          description: Type of MFA factor to enroll
+          enum:
+          - totp
+        friendly_name:
+          type: string
+          description: Human-readable name for the factor
+        issuer:
+          type: string
+          description: Issuer name displayed in authenticator apps
     Identity:
       type: object
       properties:
@@ -284,15 +253,46 @@ components:
           type: string
           format: date-time
           description: Timestamp when identity was last updated
-  parameters:
-    FactorId:
-      name: factorId
-      in: path
-      required: true
-      description: UUID of the MFA factor
-      schema:
-        type: string
-        format: uuid
+    MfaFactor:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique factor identifier
+        friendly_name:
+          type: string
+          description: Human-readable name for the factor
+        factor_type:
+          type: string
+          description: Type of MFA factor
+          enum:
+          - totp
+        status:
+          type: string
+          description: Factor status
+          enum:
+          - verified
+          - unverified
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when factor was created
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when factor was last updated
+    MfaChallenge:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique challenge identifier
+        expires_at:
+          type: string
+          format: date-time
+          description: Timestamp when the challenge expires
   securitySchemes:
     apiKeyAuth:
       type: apiKey

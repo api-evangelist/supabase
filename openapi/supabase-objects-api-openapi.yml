@@ -316,41 +316,13 @@ paths:
         '404':
           description: Source file not found
 components:
-  parameters:
-    BucketName:
-      name: bucketName
-      in: path
-      required: true
-      description: Name of the storage bucket
-      schema:
-        type: string
-    ObjectPath:
-      name: objectPath
-      in: path
-      required: true
-      description: Path to the object within the bucket, including folder hierarchy and filename.
-      schema:
-        type: string
   schemas:
-    CopyObjectRequest:
+    ObjectResponse:
       type: object
-      required:
-      - bucketId
-      - sourceKey
-      - destinationKey
       properties:
-        bucketId:
+        Key:
           type: string
-          description: Source bucket ID
-        sourceKey:
-          type: string
-          description: Path of the file to copy
-        destinationBucket:
-          type: string
-          description: Destination bucket ID (defaults to source bucket)
-        destinationKey:
-          type: string
-          description: Path for the copy
+          description: Full path of the uploaded object
     MoveObjectRequest:
       type: object
       required:
@@ -412,12 +384,40 @@ components:
               type: string
               description: Cache-Control header value
           description: File metadata
-    ObjectResponse:
+    CopyObjectRequest:
       type: object
+      required:
+      - bucketId
+      - sourceKey
+      - destinationKey
       properties:
-        Key:
+        bucketId:
           type: string
-          description: Full path of the uploaded object
+          description: Source bucket ID
+        sourceKey:
+          type: string
+          description: Path of the file to copy
+        destinationBucket:
+          type: string
+          description: Destination bucket ID (defaults to source bucket)
+        destinationKey:
+          type: string
+          description: Path for the copy
+  parameters:
+    BucketName:
+      name: bucketName
+      in: path
+      required: true
+      description: Name of the storage bucket
+      schema:
+        type: string
+    ObjectPath:
+      name: objectPath
+      in: path
+      required: true
+      description: Path to the object within the bucket, including folder hierarchy and filename.
+      schema:
+        type: string
   securitySchemes:
     apiKeyAuth:
       type: apiKey

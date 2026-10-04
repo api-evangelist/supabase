@@ -123,7 +123,35 @@ paths:
         '401':
           description: Unauthorized
 components:
+  parameters:
+    ProjectRef:
+      name: ref
+      in: path
+      required: true
+      description: The unique reference ID for the project, found in the project settings or URL.
+      schema:
+        type: string
   schemas:
+    ActivateCustomHostnameRequest:
+      type: object
+      required:
+      - custom_hostname
+      properties:
+        custom_hostname:
+          type: string
+          description: The custom hostname to activate
+    VanitySubdomain:
+      type: object
+      properties:
+        custom_subdomain:
+          type: string
+          description: The vanity subdomain on supabase.co
+        status:
+          type: string
+          description: Status of the vanity subdomain
+          enum:
+          - active
+          - not_used
     CustomHostname:
       type: object
       properties:
@@ -145,34 +173,6 @@ components:
         vanity_subdomain:
           type: string
           description: Desired vanity subdomain
-    VanitySubdomain:
-      type: object
-      properties:
-        custom_subdomain:
-          type: string
-          description: The vanity subdomain on supabase.co
-        status:
-          type: string
-          description: Status of the vanity subdomain
-          enum:
-          - active
-          - not_used
-    ActivateCustomHostnameRequest:
-      type: object
-      required:
-      - custom_hostname
-      properties:
-        custom_hostname:
-          type: string
-          description: The custom hostname to activate
-  parameters:
-    ProjectRef:
-      name: ref
-      in: path
-      required: true
-      description: The unique reference ID for the project, found in the project settings or URL.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

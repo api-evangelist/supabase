@@ -67,26 +67,6 @@ paths:
           description: Unprocessable entity
 components:
   schemas:
-    UpdateUserRequest:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-          description: New email address
-        phone:
-          type: string
-          description: New phone number
-        password:
-          type: string
-          description: New password
-          minLength: 6
-        data:
-          type: object
-          description: Custom user metadata to update
-        nonce:
-          type: string
-          description: Nonce for reauthentication when changing password
     MfaFactor:
       type: object
       properties:
@@ -213,6 +193,26 @@ components:
           type: string
           format: date-time
           description: Timestamp when identity was last updated
+    UpdateUserRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: New email address
+        phone:
+          type: string
+          description: New phone number
+        password:
+          type: string
+          description: New password
+          minLength: 6
+        data:
+          type: object
+          description: Custom user metadata to update
+        nonce:
+          type: string
+          description: Nonce for reauthentication when changing password
   securitySchemes:
     apiKeyAuth:
       type: apiKey
