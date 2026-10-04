@@ -1,0 +1,74 @@
+slug: supabase
+provider: Supabase
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Admin
+  spec_file: supabase-admin-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: GET /admin/users  adminListUsers  List all users (admin); POST /invite  inviteUser  Invite
+    a user by email
+  reason: Administrative user lifecycle management (create, update, delete, invite users) within an auth
+    service — identity and access administration.
+- tag: Authentication
+  spec_file: supabase-authentication-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: POST /token  signIn  Sign in with credentials; POST /magiclink  sendMagicLink
+  reason: Signup, sign-in, OTP, magic link, password recovery and sign-out — authentication and credential
+    handling, i.e. Identity & Access Management.
+- tag: MFA
+  spec_file: supabase-mfa-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.85
+  evidence: POST /factors  enrollMfaFactor  Enroll an MFA factor; POST /factors/{factorId}/verify  verifyMfaFactor
+  reason: Enrolment, challenge and verification of multi-factor authentication factors is squarely identity
+    and access management.
+- tag: OAuth
+  spec_file: supabase-oauth-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.8
+  evidence: GET /authorize  authorizeOAuth  Initiate OAuth login; GET /callback  oauthCallback
+  reason: OAuth authorisation and callback endpoints of the GoTrue auth service implement federated login
+    — identity and access management.
+- tag: Secrets
+  spec_file: supabase-secrets-api-openapi.yml
+  capability_id: BC-4210.60
+  capability_id_l1: BC-4210
+  capability_name: Configuration & Secrets Management
+  confidence: 0.78
+  evidence: GET/POST/DELETE /projects/{ref}/secrets  "List project secrets", "Create project secrets";
+    schema CreateSecretRequest
+  reason: Operations manage runtime secret values for a project (consumed by Edge Functions etc.), which
+    matches Configuration & Secrets Management under Software Release & Deployment. No business-domain
+    reading fits.
+- tag: SSO
+  spec_file: supabase-sso-api-openapi.yml
+  capability_id: BC-620.20
+  capability_id_l1: BC-620
+  capability_name: Identity & Access Management
+  confidence: 0.72
+  evidence: POST /sso/saml/acs  samlAcs  SAML Assertion Consumer Service; "SAML-based single sign-on"
+  reason: The single operation implements the SAML assertion consumer service for single sign-on, i.e.
+    identity federation / access management plumbing exposed as a product capability. Identity & Access
+    Management is the honest mapping; tenant identity federation was considered but the spec is a general-purpose
+    auth service, not a tenant-admin surface.

@@ -484,6 +484,9 @@ apis:
   - type: Documentation
     url: https://supabase.com/docs/guides/functions
 common:
+- type: CapabilityMap
+  url: capabilities/supabase-capability-edges.yml
+  name: Supabase Business Capability Map
 - type: AgenticAccess
   url: agentic-access/supabase-agentic-access.yml
 - type: TrustCenter
