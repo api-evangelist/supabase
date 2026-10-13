@@ -1,0 +1,12 @@
+fetched: '2026-10-13'
+method: fetched
+source: https://supabase.com/docs/guides/storage/s3/compatibility
+page: https://supabase.com/docs/guides/storage/s3/compatibility
+file: supabase-aws-s3-1.md
+bytes: 10996
+sha256: b303a266498f13c0293faa89b95059106f06af6149caa642b573e8576e93d603
+anchor: amazon-web-services
+shape: aws-s3
+classification: declares-compatibility
+quote: S3 Compatibility | Supabase Docs
+note: text extracted from the provider's own page (tags stripped), saved for evidence
