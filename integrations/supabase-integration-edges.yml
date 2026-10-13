@@ -11,7 +11,8 @@ edges:
   evidence: https://supabase.com/docs/guides/storage/s3/compatibility
   evidence_kind: own-docs
   evidence_file: https://github.com/api-evangelist/supabase/blob/main/evidence/compatibility/supabase-aws-s3-1.md
-  quote: S3 Compatibility | Supabase Docs
+  quote: Supabase Storage is compatible with the S3 protocol. You can use almost any S3 client to interact with
+    your Storage objects (such as Cyberduck ).
   supported_operations:
   - AbortMultipartUpload
   - CompleteMultipartUpload
