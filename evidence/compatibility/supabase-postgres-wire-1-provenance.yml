@@ -1,0 +1,14 @@
+fetched: '2026-10-13'
+method: fetched
+source: https://supabase.com/docs/guides/database/overview
+page: https://supabase.com/docs/guides/database/overview
+file: supabase-postgres-wire-1.md
+bytes: 6210
+sha256: 6d676460877770f752cc958d36b2351e26cd417eedea7826dc668c4d44872eec
+anchor: postgresql
+shape: postgres-wire
+classification: declares-compatibility
+quote: Every Supabase project gets a full Postgres database, not a Postgres abstraction. This database is the foundation
+  that Auth, Storage, Realtime, and Edge Functions are built on, and Supabase manages daily database backups and
+  offers point-in-time recovery on paid plans.
+note: text extracted from the provider's own page (tags stripped), saved for evidence

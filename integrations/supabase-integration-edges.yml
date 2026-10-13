@@ -43,5 +43,32 @@ edges:
   supported_share: 0.299
   detected_by: sweep-shape-compat.py
   first_seen: '2026-10-13'
+- partner_name: PostgreSQL
+  partner: postgresql
+  partner_match: shape-anchor
+  channel: provider-built
+  relationship: compatible
+  direction: provider-built
+  shape: postgres-wire
+  type: docs
+  degree: declared-subset
+  evidence: https://supabase.com/docs/guides/database/overview
+  evidence_kind: own-docs
+  evidence_file: https://github.com/api-evangelist/supabase/blob/main/evidence/compatibility/supabase-postgres-wire-1.md
+  quote: Every Supabase project gets a full Postgres database, not a Postgres abstraction. This database is the
+    foundation that Auth, Storage, Realtime, and Edge Functions are built on, and Supabase manages daily database
+    backups and offers point-in
+  supported_operations:
+  - Extensions
+  - Foreign
+  - Partitioning
+  - Replication
+  - Triggers
+  - Views
+  unsupported_operations:
+  - Superuser
+  supported_share: 0.222
+  detected_by: sweep-shape-compat.py
+  first_seen: '2026-10-13'
 generated: '2026-10-13'
 method: searched
