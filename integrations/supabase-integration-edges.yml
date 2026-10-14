@@ -71,5 +71,48 @@ edges:
   supported_share: 0.222
   detected_by: sweep-shape-compat.py
   first_seen: '2026-10-13'
+- partner_name: GitHub Marketplace (actions)
+  partner: github-actions
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-actions
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/actions/supabase-cli-action
+  listing_count: 1
+  apps:
+  - Supabase CLI Action
+  publisher_name: Supabase
+  badges:
+  - Verified creator
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+- partner_name: Visual Studio Code Marketplace
+  partner: vs-code-marketplace
+  partner_match: aggregator
+  type: marketplace
+  marketplace: vscode
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://marketplace.visualstudio.com/publishers/Supabase
+  listing_count: 2
+  apps:
+  - Supabase
+  - postgres-language-server
+  publisher_name: Supabase
+  badges:
+  - Verified publisher
+  - Verified domain
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
 generated: '2026-10-13'
 method: searched
+checked:
+- https://github.com/marketplace?type=actions
+- https://marketplace.visualstudio.com/vscode
+marketplace_apps: []
+source:
+- https://github.com/marketplace?type=actions
+- https://marketplace.visualstudio.com/vscode
