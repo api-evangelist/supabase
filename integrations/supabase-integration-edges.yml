@@ -1,4 +1,40 @@
 edges:
+- partner_name: GitHub Marketplace (actions)
+  partner: github-actions
+  partner_match: aggregator
+  type: marketplace
+  marketplace: github-actions
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://github.com/marketplace/actions/supabase-cli-action
+  listing_count: 1
+  apps:
+  - Supabase CLI Action
+  publisher_name: Supabase
+  badges:
+  - Verified creator
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
+- partner_name: Visual Studio Code Marketplace
+  partner: vs-code-marketplace
+  partner_match: aggregator
+  type: marketplace
+  marketplace: vscode
+  channel: partner-built
+  relationship: platform-app
+  direction: third-party
+  evidence: https://marketplace.visualstudio.com/publishers/Supabase
+  listing_count: 2
+  apps:
+  - Supabase
+  - postgres-language-server
+  publisher_name: Supabase
+  badges:
+  - Verified publisher
+  - Verified domain
+  detected_by: sweep-devtools.py
+  detected: '2026-10-14'
 - partner_name: Amazon Web Services
   partner: amazon-web-services
   partner_match: shape-anchor
@@ -44,6 +80,24 @@ edges:
   supported_share: 0.299
   detected_by: sweep-shape-compat.py
   first_seen: '2026-10-13'
+- partner_name: Stripe (own)
+  partner: stripe
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.stripe.com/apps/supabase
+  mirror_of: stripe/integrations/stripe-integration-edges.yml
+  apps:
+  - Supabase
+  - Supabase Atlas Perks
+  listing_count: 2
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: developer_tools
 - partner_name: PostgreSQL
   partner: postgresql
   partner_match: shape-anchor
@@ -71,42 +125,6 @@ edges:
   supported_share: 0.222
   detected_by: sweep-shape-compat.py
   first_seen: '2026-10-13'
-- partner_name: GitHub Marketplace (actions)
-  partner: github-actions
-  partner_match: aggregator
-  type: marketplace
-  marketplace: github-actions
-  channel: partner-built
-  relationship: platform-app
-  direction: third-party
-  evidence: https://github.com/marketplace/actions/supabase-cli-action
-  listing_count: 1
-  apps:
-  - Supabase CLI Action
-  publisher_name: Supabase
-  badges:
-  - Verified creator
-  detected_by: sweep-devtools.py
-  detected: '2026-10-14'
-- partner_name: Visual Studio Code Marketplace
-  partner: vs-code-marketplace
-  partner_match: aggregator
-  type: marketplace
-  marketplace: vscode
-  channel: partner-built
-  relationship: platform-app
-  direction: third-party
-  evidence: https://marketplace.visualstudio.com/publishers/Supabase
-  listing_count: 2
-  apps:
-  - Supabase
-  - postgres-language-server
-  publisher_name: Supabase
-  badges:
-  - Verified publisher
-  - Verified domain
-  detected_by: sweep-devtools.py
-  detected: '2026-10-14'
 - partner_name: MCP Registry
   partner: mcp
   partner_match: register
@@ -122,7 +140,7 @@ edges:
     registered_name: com.supabase/mcp
     register_id: com.supabase/mcp
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-14'
+    detected: '2026-10-15'
   mcp_registry:
     servers:
     - com.supabase/mcp
@@ -165,6 +183,7 @@ checked:
 - https://github.com/run-llama/llama_index/tree/main/llama-index-integrations
 - https://marketplace.visualstudio.com/vscode
 - https://registry.modelcontextprotocol.io/v0/servers
+- stripe/integrations/stripe-integration-edges.yml
 marketplace_apps: []
 source:
 - https://github.com/marketplace?type=actions
