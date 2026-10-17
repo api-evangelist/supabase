@@ -169,16 +169,15 @@ paths:
         '404':
           description: Project not found
 components:
+  parameters:
+    ProjectRef:
+      name: ref
+      in: path
+      required: true
+      description: The unique reference ID for the project, found in the project settings or URL.
+      schema:
+        type: string
   schemas:
-    DatabaseConfig:
-      type: object
-      properties:
-        host:
-          type: string
-          description: Database host address
-        version:
-          type: string
-          description: PostgreSQL version
     CreateProjectRequest:
       type: object
       required:
@@ -209,24 +208,6 @@ components:
           type: string
           description: Password for the project database
           minLength: 6
-    ServiceHealth:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the service
-          enum:
-          - database
-          - auth
-          - storage
-          - realtime
-          - functions
-        healthy:
-          type: boolean
-          description: Whether the service is healthy
-        status:
-          type: string
-          description: Detailed status message
     Project:
       type: object
       properties:
@@ -286,14 +267,33 @@ components:
         api_key:
           type: string
           description: The API key value
-  parameters:
-    ProjectRef:
-      name: ref
-      in: path
-      required: true
-      description: The unique reference ID for the project, found in the project settings or URL.
-      schema:
-        type: string
+    ServiceHealth:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the service
+          enum:
+          - database
+          - auth
+          - storage
+          - realtime
+          - functions
+        healthy:
+          type: boolean
+          description: Whether the service is healthy
+        status:
+          type: string
+          description: Detailed status message
+    DatabaseConfig:
+      type: object
+      properties:
+        host:
+          type: string
+          description: Database host address
+        version:
+          type: string
+          description: PostgreSQL version
   securitySchemes:
     bearerAuth:
       type: http

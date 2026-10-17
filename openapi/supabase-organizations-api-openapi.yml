@@ -81,14 +81,6 @@ paths:
           description: Organization not found
 components:
   schemas:
-    CreateOrganizationRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the organization
     OrganizationMember:
       type: object
       properties:
@@ -111,6 +103,14 @@ components:
         username:
           type: string
           description: Display name of the member
+    CreateOrganizationRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the organization
     Organization:
       type: object
       properties:

@@ -108,16 +108,18 @@ paths:
         '401':
           description: Unauthorized
 components:
-  parameters:
-    FactorId:
-      name: factorId
-      in: path
-      required: true
-      description: UUID of the MFA factor
-      schema:
-        type: string
-        format: uuid
   schemas:
+    MfaChallenge:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique challenge identifier
+        expires_at:
+          type: string
+          format: date-time
+          description: Timestamp when the challenge expires
     User:
       type: object
       properties:
@@ -187,44 +189,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when user was last updated
-    AuthResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-          description: JWT access token for authenticating API requests
-        token_type:
-          type: string
-          description: Token type, always bearer
-          enum:
-          - bearer
-        expires_in:
-          type: integer
-          description: Number of seconds until the access token expires
-        expires_at:
-          type: integer
-          description: Unix timestamp when the access token expires
-        refresh_token:
-          type: string
-          description: Token used to obtain a new access token
-        user:
-          $ref: '#/components/schemas/User'
-    EnrollMfaRequest:
-      type: object
-      required:
-      - factor_type
-      properties:
-        factor_type:
-          type: string
-          description: Type of MFA factor to enroll
-          enum:
-          - totp
-        friendly_name:
-          type: string
-          description: Human-readable name for the factor
-        issuer:
-          type: string
-          description: Issuer name displayed in authenticator apps
     Identity:
       type: object
       properties:
@@ -253,6 +217,28 @@ components:
           type: string
           format: date-time
           description: Timestamp when identity was last updated
+    AuthResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: JWT access token for authenticating API requests
+        token_type:
+          type: string
+          description: Token type, always bearer
+          enum:
+          - bearer
+        expires_in:
+          type: integer
+          description: Number of seconds until the access token expires
+        expires_at:
+          type: integer
+          description: Unix timestamp when the access token expires
+        refresh_token:
+          type: string
+          description: Token used to obtain a new access token
+        user:
+          $ref: '#/components/schemas/User'
     MfaFactor:
       type: object
       properties:
@@ -282,17 +268,31 @@ components:
           type: string
           format: date-time
           description: Timestamp when factor was last updated
-    MfaChallenge:
+    EnrollMfaRequest:
       type: object
+      required:
+      - factor_type
       properties:
-        id:
+        factor_type:
           type: string
-          format: uuid
-          description: Unique challenge identifier
-        expires_at:
+          description: Type of MFA factor to enroll
+          enum:
+          - totp
+        friendly_name:
           type: string
-          format: date-time
-          description: Timestamp when the challenge expires
+          description: Human-readable name for the factor
+        issuer:
+          type: string
+          description: Issuer name displayed in authenticator apps
+  parameters:
+    FactorId:
+      name: factorId
+      in: path
+      required: true
+      description: UUID of the MFA factor
+      schema:
+        type: string
+        format: uuid
   securitySchemes:
     apiKeyAuth:
       type: apiKey

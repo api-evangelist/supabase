@@ -132,6 +132,14 @@ components:
       schema:
         type: string
   schemas:
+    ActivateVanitySubdomainRequest:
+      type: object
+      required:
+      - vanity_subdomain
+      properties:
+        vanity_subdomain:
+          type: string
+          description: Desired vanity subdomain
     ActivateCustomHostnameRequest:
       type: object
       required:
@@ -140,18 +148,6 @@ components:
         custom_hostname:
           type: string
           description: The custom hostname to activate
-    VanitySubdomain:
-      type: object
-      properties:
-        custom_subdomain:
-          type: string
-          description: The vanity subdomain on supabase.co
-        status:
-          type: string
-          description: Status of the vanity subdomain
-          enum:
-          - active
-          - not_used
     CustomHostname:
       type: object
       properties:
@@ -165,14 +161,18 @@ components:
           - active
           - pending
           - not_started
-    ActivateVanitySubdomainRequest:
+    VanitySubdomain:
       type: object
-      required:
-      - vanity_subdomain
       properties:
-        vanity_subdomain:
+        custom_subdomain:
           type: string
-          description: Desired vanity subdomain
+          description: The vanity subdomain on supabase.co
+        status:
+          type: string
+          description: Status of the vanity subdomain
+          enum:
+          - active
+          - not_used
   securitySchemes:
     bearerAuth:
       type: http

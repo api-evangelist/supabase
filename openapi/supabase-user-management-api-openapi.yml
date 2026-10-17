@@ -67,6 +67,54 @@ paths:
           description: Unprocessable entity
 components:
   schemas:
+    UpdateUserRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: New email address
+        phone:
+          type: string
+          description: New phone number
+        password:
+          type: string
+          description: New password
+          minLength: 6
+        data:
+          type: object
+          description: Custom user metadata to update
+        nonce:
+          type: string
+          description: Nonce for reauthentication when changing password
+    Identity:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identity identifier
+        user_id:
+          type: string
+          format: uuid
+          description: ID of the associated user
+        identity_data:
+          type: object
+          description: Data from the identity provider
+        provider:
+          type: string
+          description: Identity provider name
+        last_sign_in_at:
+          type: string
+          format: date-time
+          description: Timestamp of last sign-in with this identity
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when identity was linked
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when identity was last updated
     MfaFactor:
       type: object
       properties:
@@ -165,54 +213,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when user was last updated
-    Identity:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique identity identifier
-        user_id:
-          type: string
-          format: uuid
-          description: ID of the associated user
-        identity_data:
-          type: object
-          description: Data from the identity provider
-        provider:
-          type: string
-          description: Identity provider name
-        last_sign_in_at:
-          type: string
-          format: date-time
-          description: Timestamp of last sign-in with this identity
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when identity was linked
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when identity was last updated
-    UpdateUserRequest:
-      type: object
-      properties:
-        email:
-          type: string
-          format: email
-          description: New email address
-        phone:
-          type: string
-          description: New phone number
-        password:
-          type: string
-          description: New password
-          minLength: 6
-        data:
-          type: object
-          description: Custom user metadata to update
-        nonce:
-          type: string
-          description: Nonce for reauthentication when changing password
   securitySchemes:
     apiKeyAuth:
       type: apiKey

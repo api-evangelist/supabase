@@ -316,13 +316,22 @@ paths:
         '404':
           description: Source file not found
 components:
+  parameters:
+    ObjectPath:
+      name: objectPath
+      in: path
+      required: true
+      description: Path to the object within the bucket, including folder hierarchy and filename.
+      schema:
+        type: string
+    BucketName:
+      name: bucketName
+      in: path
+      required: true
+      description: Name of the storage bucket
+      schema:
+        type: string
   schemas:
-    ObjectResponse:
-      type: object
-      properties:
-        Key:
-          type: string
-          description: Full path of the uploaded object
     MoveObjectRequest:
       type: object
       required:
@@ -342,6 +351,25 @@ components:
         destinationKey:
           type: string
           description: New path for the file
+    CopyObjectRequest:
+      type: object
+      required:
+      - bucketId
+      - sourceKey
+      - destinationKey
+      properties:
+        bucketId:
+          type: string
+          description: Source bucket ID
+        sourceKey:
+          type: string
+          description: Path of the file to copy
+        destinationBucket:
+          type: string
+          description: Destination bucket ID (defaults to source bucket)
+        destinationKey:
+          type: string
+          description: Path for the copy
     StorageObject:
       type: object
       properties:
@@ -384,40 +412,12 @@ components:
               type: string
               description: Cache-Control header value
           description: File metadata
-    CopyObjectRequest:
+    ObjectResponse:
       type: object
-      required:
-      - bucketId
-      - sourceKey
-      - destinationKey
       properties:
-        bucketId:
+        Key:
           type: string
-          description: Source bucket ID
-        sourceKey:
-          type: string
-          description: Path of the file to copy
-        destinationBucket:
-          type: string
-          description: Destination bucket ID (defaults to source bucket)
-        destinationKey:
-          type: string
-          description: Path for the copy
-  parameters:
-    BucketName:
-      name: bucketName
-      in: path
-      required: true
-      description: Name of the storage bucket
-      schema:
-        type: string
-    ObjectPath:
-      name: objectPath
-      in: path
-      required: true
-      description: Path to the object within the bucket, including folder hierarchy and filename.
-      schema:
-        type: string
+          description: Full path of the uploaded object
   securitySchemes:
     apiKeyAuth:
       type: apiKey
