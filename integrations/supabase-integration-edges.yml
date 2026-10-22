@@ -606,6 +606,66 @@ edges:
   detected_by: mirror-platform-listings.py
   category: Storage Authentication
   partner_tier: native
+- partner_name: Raycast (raycast-store)
+  partner: raycast
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: raycast-store
+  evidence: https://www.raycast.com/supabase/supabase-docs
+  mirror_of: raycast/integrations/raycast-integration-edges.yml
+  apps:
+  - Supabase Documentation
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: Raycast Store extension (first-party)
+- partner_name: Obsidian
+  partner: obsidian
+  partner_match: aggregator
+  type: marketplace
+  marketplace: obsidian-community-plugins
+  channel: community-plugin
+  relationship: connector-listing
+  direction: third-party
+  evidence: https://github.com/jaliriogbarrios19/SupSync
+  app: SupSync
+  listing_count: 4
+  category: Obsidian community plugin
+  partner_url: https://obsidian.md/plugins
+  contract_reference:
+    register: Obsidian community-plugins.json (obsidianmd/obsidian-releases@793b5211) + plugin repo README / manifest
+      / source
+    spec_file: null
+    role: obsidian-community-plugin:community
+    registered_name: Jesús García
+    register_id: https://github.com/jaliriogbarrios19/SupSync
+    matched_domain: supabase.com
+    matched_by: domain+name-in-listing
+    matched_where: README
+    matched_host: supabase.com
+    builder: community
+    plugins:
+    - supsync
+    - supabase-vault-sync
+    - telegram-bridge
+    - supabase-image-uploader
+    downloads_context: 964
+    signal_note: 'ONE edge per provider: a community plugin names the provider in its name/description AND carries
+      the provider''s domain or API host in its README or source. Builder is a named community author (not the provider).
+      Plugin and download counts are context, never counted.'
+    detected_by: sweep-obsidian-community-plugins.py
+    detected: '2026-10-22'
+  detected_by: sweep-obsidian-community-plugins.py
+  first_seen: '2026-10-22'
+  apps:
+  - SupSync
+  - Supabase Vault Sync
+  - Telegram Bridge
+  - Supabase Image Uploader
 generated: '2026-10-13'
 method: searched
 checked:
@@ -645,6 +705,11 @@ checked:
 - https://github.com/partners/technology-partners
 - https://partner.github.com/
 - vercel/integrations/vercel-integration-edges.yml
+- raycast/integrations/raycast-integration-edges.yml
+- https://raw.githubusercontent.com/<repo>/HEAD/README.md
+- https://raw.githubusercontent.com/<repo>/HEAD/manifest.json
+- https://raw.githubusercontent.com/obsidianmd/obsidian-releases/793b52114f54b055b760ef47761ec5c93d689804/community-plugin-stats.json
+- https://raw.githubusercontent.com/obsidianmd/obsidian-releases/793b52114f54b055b760ef47761ec5c93d689804/community-plugins.json
 marketplace_apps: []
 source:
 - https://github.com/marketplace?type=actions
