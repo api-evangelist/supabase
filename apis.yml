@@ -484,6 +484,8 @@ apis:
   - type: Documentation
     url: https://supabase.com/docs/guides/functions
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/supabase/overview
 - type: Plans
   url: plans/supabase-plans-pricing.yml
 - type: RateLimits
