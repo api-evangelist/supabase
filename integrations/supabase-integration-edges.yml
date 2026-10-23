@@ -666,6 +666,37 @@ edges:
   - Supabase Vault Sync
   - Telegram Bridge
   - Supabase Image Uploader
+- partner_name: JSR
+  partner: null
+  partner_match: null
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript, JSR)
+  evidence: https://jsr.io/@supabase/supabase-js
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: JSR (jsr.io public API JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@supabase/supabase-js'
+      version: 2.118.0
+      released: '2026-10-15'
+      released_field: versions.createdAt
+      lapsed: false
+      page: https://jsr.io/@supabase/supabase-js
+      github_repository: https://github.com/supabase/supabase-js
+      repo_leg: github-org:supabase
+      publisher_leg: org:supabase
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months or archived'
+    detected_by: sweep-jsr-javascript-registry.py
+    detected: '2026-10-23'
+  detected_by: sweep-jsr-javascript-registry.py
+  first_seen: '2026-10-23'
 generated: '2026-10-13'
 method: searched
 checked:
@@ -710,6 +741,8 @@ checked:
 - https://raw.githubusercontent.com/<repo>/HEAD/manifest.json
 - https://raw.githubusercontent.com/obsidianmd/obsidian-releases/793b52114f54b055b760ef47761ec5c93d689804/community-plugin-stats.json
 - https://raw.githubusercontent.com/obsidianmd/obsidian-releases/793b52114f54b055b760ef47761ec5c93d689804/community-plugins.json
+- https://jsr.io/api/packages
+- https://jsr.io/api/scopes
 marketplace_apps: []
 source:
 - https://github.com/marketplace?type=actions
