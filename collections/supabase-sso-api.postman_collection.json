@@ -1,166 +1,139 @@
 {
+  "info": {
+    "_postman_id": "52028faa-63cc-4b95-a90a-7a600c24baea",
+    "name": "Supabase Auth SSO API",
+    "description": "The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.\n\nContact Support:\n Name: Supabase Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:49:11.000Z",
+    "updatedAt": "2026-10-21T20:49:11.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-52028faa-63cc-4b95-a90a-7a600c24baea"
+  },
   "item": [
     {
-      "id": "39d42202-06db-43b8-b3d9-05601e2f8576",
-      "name": "SSO",
-      "description": {
-        "content": "SAML-based single sign-on endpoints.",
-        "type": "text/plain"
-      },
+      "name": "sso",
       "item": [
         {
-          "id": "19ea1b94-b4b4-4881-ab31-c89c45360401",
-          "name": "SAML Assertion Consumer Service",
-          "request": {
-            "name": "SAML Assertion Consumer Service",
-            "description": {
-              "content": "Receives the SAML assertion from an identity provider after successful authentication. This endpoint processes the assertion and creates or updates the user session.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "sso",
-                "saml",
-                "acs"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
+          "name": "saml",
+          "item": [
             {
-              "id": "d903fc83-c09f-4343-ba74-5e7b4cd3b67e",
-              "name": "Redirect to application with session",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sso",
-                    "saml",
-                    "acs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "See Other",
-              "code": 303,
-              "header": [
+              "name": "acs",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "name": "SAML Assertion Consumer Service",
+                  "id": "2a30ac50-27f2-4258-bdab-ddd53a532460",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/sso/saml/acs",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sso",
+                        "saml",
+                        "acs"
+                      ]
+                    },
+                    "description": "Receives the SAML assertion from an identity provider after successful authentication. This endpoint processes the assertion and creates or updates the user session."
+                  },
+                  "response": [
+                    {
+                      "id": "f155a06b-cf92-4b62-80ed-467d669ac27d",
+                      "name": "Redirect to application with session",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "apikey",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sso/saml/acs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sso",
+                            "saml",
+                            "acs"
+                          ]
+                        }
+                      },
+                      "status": "See Other",
+                      "code": 303,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:49:11.000Z",
+                      "updatedAt": "2026-10-21T20:49:11.000Z",
+                      "uid": "35240-f155a06b-cf92-4b62-80ed-467d669ac27d"
+                    },
+                    {
+                      "id": "4045d42d-234c-40b3-ab99-f58ba61b6d56",
+                      "name": "Invalid SAML assertion",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "apikey",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sso/saml/acs",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sso",
+                            "saml",
+                            "acs"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:49:11.000Z",
+                      "updatedAt": "2026-10-21T20:49:11.000Z",
+                      "uid": "35240-4045d42d-234c-40b3-ab99-f58ba61b6d56"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:49:11.000Z",
+                  "updatedAt": "2026-10-21T20:49:11.000Z",
+                  "uid": "35240-2a30ac50-27f2-4258-bdab-ddd53a532460"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "a98d1cd4-d0e8-4770-86a1-c6b65e9c2e46",
-              "name": "Invalid SAML assertion",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "sso",
-                    "saml",
-                    "acs"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "7485902d-8167-4c59-9732-beda75e1d3c8",
+              "createdAt": "2026-10-21T20:49:11.000Z",
+              "updatedAt": "2026-10-21T20:49:11.000Z",
+              "uid": "35240-7485902d-8167-4c59-9732-beda75e1d3c8"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "2318303c-f7ef-4421-b418-ff9ab007f6e8",
+          "createdAt": "2026-10-21T20:49:11.000Z",
+          "updatedAt": "2026-10-21T20:49:11.000Z",
+          "uid": "35240-2318303c-f7ef-4421-b418-ff9ab007f6e8"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Your Supabase project reference ID",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "your-project-ref",
-      "key": "project_ref"
-    },
-    {
-      "type": "string",
-      "value": "https://{{project_ref}}.supabase.co/auth/v1",
-      "key": "baseUrl"
+      "id": "7d10a825-2e56-4106-9cc8-ed528984efa6",
+      "createdAt": "2026-10-21T20:49:11.000Z",
+      "updatedAt": "2026-10-21T20:49:11.000Z",
+      "uid": "35240-7d10a825-2e56-4106-9cc8-ed528984efa6"
     }
   ],
   "auth": {
@@ -168,25 +141,29 @@
     "apikey": [
       {
         "key": "key",
-        "value": "apikey"
+        "value": "apikey",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "9b6d2c9f-4a20-4f9c-9b7b-2a34c1e31009",
-    "name": "Supabase Auth Admin SSO API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.\n\nContact Support:\n Name: Supabase Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "project_ref",
+      "value": "your-project-ref"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{project_ref}}.supabase.co/auth/v1"
     }
-  }
+  ]
 }

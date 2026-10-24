@@ -1,177 +1,1147 @@
 {
+  "info": {
+    "_postman_id": "eece2b53-7083-41c7-a925-c37769c2dc7d",
+    "name": "Supabase Management Projects API",
+    "description": "The Supabase Management API provides programmatic access to manage Supabase projects and organizations. It supports operations for creating, updating, and deleting projects, managing database configurations, retrieving project API keys, controlling organization membership, deploying Edge Functions, managing secrets, configuring custom domains, and monitoring project health. Authentication is handled via personal access tokens or OAuth2 tokens.\n\nContact Support:\n Name: Supabase Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:48:46.000Z",
+    "updatedAt": "2026-10-21T20:48:46.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-eece2b53-7083-41c7-a925-c37769c2dc7d"
+  },
   "item": [
     {
-      "id": "a69a78eb-878e-40a1-acbd-8cfacd218e6b",
-      "name": "Projects",
-      "description": {
-        "content": "Manage Supabase projects including creation, configuration, pausing, restoring, and deletion.",
-        "type": "text/plain"
-      },
+      "name": "projects",
       "item": [
         {
-          "id": "b44eabb3-f929-4b36-9f76-6b45874b40d2",
-          "name": "List all projects",
-          "request": {
-            "name": "List all projects",
-            "description": {
-              "content": "Returns a list of all projects belonging to the authenticated user across all organizations.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "projects"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
+          "name": "{ref}",
+          "item": [
+            {
+              "name": "api-keys",
+              "item": [
                 {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
+                  "name": "Get project API keys",
+                  "id": "3dc1bb4f-cd6d-405b-a4cf-062df11375fb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:ref/api-keys",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":ref",
+                        "api-keys"
+                      ],
+                      "variable": [
+                        {
+                          "id": "66b81525-6fa0-4a64-b11c-42fbfdc4e59a",
+                          "key": "ref",
+                          "value": "<string>",
+                          "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the API keys (anon and service_role) for a specific project. These keys are used to authenticate requests to the project's APIs."
+                  },
+                  "response": [
+                    {
+                      "id": "da40fd07-280e-4ab0-bc2e-2d635abfe078",
+                      "name": "Successfully retrieved API keys",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:ref/api-keys",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":ref",
+                            "api-keys"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ref"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"name\": \"anon\",\n    \"api_key\": \"<string>\"\n  },\n  {\n    \"name\": \"service_role\",\n    \"api_key\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-10-21T20:48:47.000Z",
+                      "updatedAt": "2026-10-21T20:48:47.000Z",
+                      "uid": "35240-da40fd07-280e-4ab0-bc2e-2d635abfe078"
+                    },
+                    {
+                      "id": "9db0076a-27c2-478c-825f-b181beefcefb",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:ref/api-keys",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":ref",
+                            "api-keys"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ref"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:48:47.000Z",
+                      "updatedAt": "2026-10-21T20:48:47.000Z",
+                      "uid": "35240-9db0076a-27c2-478c-825f-b181beefcefb"
+                    },
+                    {
+                      "id": "e3967cc7-958a-4be4-be9b-05db8dc3153a",
+                      "name": "Project not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:ref/api-keys",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":ref",
+                            "api-keys"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ref"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:48:47.000Z",
+                      "updatedAt": "2026-10-21T20:48:47.000Z",
+                      "uid": "35240-e3967cc7-958a-4be4-be9b-05db8dc3153a"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:48:47.000Z",
+                  "updatedAt": "2026-10-21T20:48:47.000Z",
+                  "uid": "35240-3dc1bb4f-cd6d-405b-a4cf-062df11375fb"
                 }
-              ]
+              ],
+              "id": "df48ca5b-bc29-4dc1-888e-51e511786c88",
+              "createdAt": "2026-10-21T20:48:46.000Z",
+              "updatedAt": "2026-10-21T20:48:46.000Z",
+              "uid": "35240-df48ca5b-bc29-4dc1-888e-51e511786c88"
             },
+            {
+              "name": "health",
+              "item": [
+                {
+                  "name": "Get project health status",
+                  "id": "44556500-3362-4732-ae0a-04330d500a3d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:ref/health",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":ref",
+                        "health"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ef1334bc-2120-4f8d-a629-7f4483d2edb1",
+                          "key": "ref",
+                          "value": "<string>",
+                          "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
+                        }
+                      ]
+                    },
+                    "description": "Returns the health status of all services in a project including the database, Auth, Storage, Realtime, and Edge Functions."
+                  },
+                  "response": [
+                    {
+                      "id": "f67a22e3-db40-473d-93d8-00a347aa923c",
+                      "name": "Successfully retrieved health status",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:ref/health",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":ref",
+                            "health"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ref"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"name\": \"realtime\",\n    \"healthy\": \"<boolean>\",\n    \"status\": \"<string>\"\n  },\n  {\n    \"name\": \"database\",\n    \"healthy\": \"<boolean>\",\n    \"status\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-10-21T20:48:47.000Z",
+                      "updatedAt": "2026-10-21T20:48:47.000Z",
+                      "uid": "35240-f67a22e3-db40-473d-93d8-00a347aa923c"
+                    },
+                    {
+                      "id": "1e6a1571-0488-41f6-ba89-0dd4c2be72a0",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:ref/health",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":ref",
+                            "health"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ref"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:48:47.000Z",
+                      "updatedAt": "2026-10-21T20:48:47.000Z",
+                      "uid": "35240-1e6a1571-0488-41f6-ba89-0dd4c2be72a0"
+                    },
+                    {
+                      "id": "61672f08-0681-463a-bcd4-4cf71295c200",
+                      "name": "Project not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:ref/health",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":ref",
+                            "health"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ref"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:48:47.000Z",
+                      "updatedAt": "2026-10-21T20:48:47.000Z",
+                      "uid": "35240-61672f08-0681-463a-bcd4-4cf71295c200"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:48:47.000Z",
+                  "updatedAt": "2026-10-21T20:48:47.000Z",
+                  "uid": "35240-44556500-3362-4732-ae0a-04330d500a3d"
+                }
+              ],
+              "id": "877b2c36-a096-4e35-93fd-5cbd8995ab44",
+              "createdAt": "2026-10-21T20:48:46.000Z",
+              "updatedAt": "2026-10-21T20:48:46.000Z",
+              "uid": "35240-877b2c36-a096-4e35-93fd-5cbd8995ab44"
+            },
+            {
+              "name": "pause",
+              "item": [
+                {
+                  "name": "Pause a project",
+                  "id": "8f6fe918-5acc-46ed-9f11-f92fad17f6d6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:ref/pause",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":ref",
+                        "pause"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b696f8bb-8627-4831-9349-bb0e595739c5",
+                          "key": "ref",
+                          "value": "<string>",
+                          "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
+                        }
+                      ]
+                    },
+                    "description": "Pauses a Supabase project to stop incurring compute costs. The project database and services will become unavailable until restored."
+                  },
+                  "response": [
+                    {
+                      "id": "0d69445e-3c17-4b20-bc26-06570d2753ca",
+                      "name": "Project paused successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:ref/pause",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":ref",
+                            "pause"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ref"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:48:47.000Z",
+                      "updatedAt": "2026-10-21T20:48:47.000Z",
+                      "uid": "35240-0d69445e-3c17-4b20-bc26-06570d2753ca"
+                    },
+                    {
+                      "id": "c22ce968-f6e5-4331-9813-ebe8f3f54532",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:ref/pause",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":ref",
+                            "pause"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ref"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:48:47.000Z",
+                      "updatedAt": "2026-10-21T20:48:47.000Z",
+                      "uid": "35240-c22ce968-f6e5-4331-9813-ebe8f3f54532"
+                    },
+                    {
+                      "id": "3fb1fd2b-f9be-4f94-bc07-cba69748c610",
+                      "name": "Project not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:ref/pause",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":ref",
+                            "pause"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ref"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:48:47.000Z",
+                      "updatedAt": "2026-10-21T20:48:47.000Z",
+                      "uid": "35240-3fb1fd2b-f9be-4f94-bc07-cba69748c610"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:48:47.000Z",
+                  "updatedAt": "2026-10-21T20:48:47.000Z",
+                  "uid": "35240-8f6fe918-5acc-46ed-9f11-f92fad17f6d6"
+                }
+              ],
+              "id": "3a4dcaf6-fbbc-4ff1-ac85-8b86ffadde0b",
+              "createdAt": "2026-10-21T20:48:46.000Z",
+              "updatedAt": "2026-10-21T20:48:46.000Z",
+              "uid": "35240-3a4dcaf6-fbbc-4ff1-ac85-8b86ffadde0b"
+            },
+            {
+              "name": "restore",
+              "item": [
+                {
+                  "name": "Restore a paused project",
+                  "id": "3c2c9b40-87d1-418e-8397-0b13a079743b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:ref/restore",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":ref",
+                        "restore"
+                      ],
+                      "variable": [
+                        {
+                          "id": "61782189-abfb-44f8-bc7a-57e3e8a60ac9",
+                          "key": "ref",
+                          "value": "<string>",
+                          "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
+                        }
+                      ]
+                    },
+                    "description": "Restores a previously paused project, making its database and services available again."
+                  },
+                  "response": [
+                    {
+                      "id": "f91756b9-b535-46be-9401-5709154cc70b",
+                      "name": "Project restored successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:ref/restore",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":ref",
+                            "restore"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ref"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:48:47.000Z",
+                      "updatedAt": "2026-10-21T20:48:47.000Z",
+                      "uid": "35240-f91756b9-b535-46be-9401-5709154cc70b"
+                    },
+                    {
+                      "id": "20fa40b0-72f0-4e31-8089-2933b0826eb4",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:ref/restore",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":ref",
+                            "restore"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ref"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:48:47.000Z",
+                      "updatedAt": "2026-10-21T20:48:47.000Z",
+                      "uid": "35240-20fa40b0-72f0-4e31-8089-2933b0826eb4"
+                    },
+                    {
+                      "id": "cba17f6c-1699-44d1-ae19-b800aaae2252",
+                      "name": "Project not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:ref/restore",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":ref",
+                            "restore"
+                          ],
+                          "variable": [
+                            {
+                              "key": "ref"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:48:47.000Z",
+                      "updatedAt": "2026-10-21T20:48:47.000Z",
+                      "uid": "35240-cba17f6c-1699-44d1-ae19-b800aaae2252"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:48:47.000Z",
+                  "updatedAt": "2026-10-21T20:48:47.000Z",
+                  "uid": "35240-3c2c9b40-87d1-418e-8397-0b13a079743b"
+                }
+              ],
+              "id": "44c92c31-1b8c-4d46-8e52-495960cf0071",
+              "createdAt": "2026-10-21T20:48:46.000Z",
+              "updatedAt": "2026-10-21T20:48:46.000Z",
+              "uid": "35240-44c92c31-1b8c-4d46-8e52-495960cf0071"
+            },
+            {
+              "name": "Get project details",
+              "id": "19346fda-4a85-4857-8957-71aa769269e5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/projects/:ref",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects",
+                    ":ref"
+                  ],
+                  "variable": [
+                    {
+                      "id": "161c971b-c89a-46bd-8035-1f069b929068",
+                      "key": "ref",
+                      "value": "<string>",
+                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
+                    }
+                  ]
+                },
+                "description": "Retrieves detailed information about a specific project including its current status, region, database host, and configuration."
+              },
+              "response": [
+                {
+                  "id": "d7bac00c-8f9b-48f8-9817-a064f6d912f6",
+                  "name": "Successfully retrieved project details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:ref",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":ref"
+                      ],
+                      "variable": [
+                        {
+                          "key": "ref"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"organization_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"region\": \"eu-west-2\",\n  \"created_at\": \"<dateTime>\",\n  \"database\": {\n    \"host\": \"<string>\",\n    \"version\": \"<string>\"\n  },\n  \"status\": \"ACTIVE_HEALTHY\"\n}",
+                  "createdAt": "2026-10-21T20:48:47.000Z",
+                  "updatedAt": "2026-10-21T20:48:47.000Z",
+                  "uid": "35240-d7bac00c-8f9b-48f8-9817-a064f6d912f6"
+                },
+                {
+                  "id": "ee9f911f-543d-4638-90ac-59de03a7468c",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:ref",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":ref"
+                      ],
+                      "variable": [
+                        {
+                          "key": "ref"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:48:47.000Z",
+                  "updatedAt": "2026-10-21T20:48:47.000Z",
+                  "uid": "35240-ee9f911f-543d-4638-90ac-59de03a7468c"
+                },
+                {
+                  "id": "babb28b7-1012-4dbb-8500-fc47fa139cd6",
+                  "name": "Project not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:ref",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":ref"
+                      ],
+                      "variable": [
+                        {
+                          "key": "ref"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:48:47.000Z",
+                  "updatedAt": "2026-10-21T20:48:47.000Z",
+                  "uid": "35240-babb28b7-1012-4dbb-8500-fc47fa139cd6"
+                }
+              ],
+              "createdAt": "2026-10-21T20:48:47.000Z",
+              "updatedAt": "2026-10-21T20:48:47.000Z",
+              "uid": "35240-19346fda-4a85-4857-8957-71aa769269e5"
+            },
+            {
+              "name": "Delete a project",
+              "id": "713b3745-361b-4ad9-b20e-d88b67d7c892",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/projects/:ref",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects",
+                    ":ref"
+                  ],
+                  "variable": [
+                    {
+                      "id": "910f593c-7082-410f-ae28-916e29a42f18",
+                      "key": "ref",
+                      "value": "<string>",
+                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
+                    }
+                  ]
+                },
+                "description": "Permanently deletes a Supabase project and all associated data including the database, storage files, and Edge Functions."
+              },
+              "response": [
+                {
+                  "id": "30d960a8-e368-4d77-95bc-62dd798bbbaf",
+                  "name": "Project deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:ref",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":ref"
+                      ],
+                      "variable": [
+                        {
+                          "key": "ref"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:48:47.000Z",
+                  "updatedAt": "2026-10-21T20:48:47.000Z",
+                  "uid": "35240-30d960a8-e368-4d77-95bc-62dd798bbbaf"
+                },
+                {
+                  "id": "1e3d5249-a59d-4170-9524-837913ecc9c7",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:ref",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":ref"
+                      ],
+                      "variable": [
+                        {
+                          "key": "ref"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:48:47.000Z",
+                  "updatedAt": "2026-10-21T20:48:47.000Z",
+                  "uid": "35240-1e3d5249-a59d-4170-9524-837913ecc9c7"
+                },
+                {
+                  "id": "6de1cea8-13c4-4b90-8305-b22e9a23307f",
+                  "name": "Project not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:ref",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":ref"
+                      ],
+                      "variable": [
+                        {
+                          "key": "ref"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:48:47.000Z",
+                  "updatedAt": "2026-10-21T20:48:47.000Z",
+                  "uid": "35240-6de1cea8-13c4-4b90-8305-b22e9a23307f"
+                }
+              ],
+              "createdAt": "2026-10-21T20:48:47.000Z",
+              "updatedAt": "2026-10-21T20:48:47.000Z",
+              "uid": "35240-713b3745-361b-4ad9-b20e-d88b67d7c892"
+            }
+          ],
+          "id": "f1f8efc9-2234-43ea-8508-8425d908b710",
+          "createdAt": "2026-10-21T20:48:46.000Z",
+          "updatedAt": "2026-10-21T20:48:46.000Z",
+          "uid": "35240-f1f8efc9-2234-43ea-8508-8425d908b710"
+        },
+        {
+          "name": "List all projects",
+          "id": "939b9cc9-144a-4080-87db-6f87b63ea1de",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/projects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects"
+              ]
+            },
+            "description": "Returns a list of all projects belonging to the authenticated user across all organizations."
           },
           "response": [
             {
-              "id": "9973d38d-1aa2-4a71-8fec-b7ae6e203fa1",
+              "id": "d501d077-a52e-447a-af4b-106eefa4dd76",
               "name": "Successfully retrieved list of projects",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/projects",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "[\n  {\n    \"id\": \"53be18d3-1085-80be-519d-76bc02e2ceca\",\n    \"organization_id\": \"87c9cafd-258e-b693-0c33-13982227f54b\",\n    \"name\": \"string\",\n    \"region\": \"ap-south-1\",\n    \"created_at\": \"2001-08-26T22:06:12.369Z\",\n    \"database\": {\n      \"host\": \"string\",\n      \"version\": \"string\"\n    },\n    \"status\": \"REMOVED\"\n  },\n  {\n    \"id\": \"f4068fbf-b34f-2ee6-fa86-12d0820e67dd\",\n    \"organization_id\": \"8e0f0a93-bd69-5565-57bb-404dcea0241e\",\n    \"name\": \"string\",\n    \"region\": \"sa-east-1\",\n    \"created_at\": \"1980-08-02T03:42:22.964Z\",\n    \"database\": {\n      \"host\": \"string\",\n      \"version\": \"string\"\n    },\n    \"status\": \"ACTIVE_HEALTHY\"\n  }\n]",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<uuid>\",\n    \"organization_id\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"region\": \"ap-northeast-1\",\n    \"created_at\": \"<dateTime>\",\n    \"database\": {\n      \"host\": \"<string>\",\n      \"version\": \"<string>\"\n    },\n    \"status\": \"PAUSING\"\n  },\n  {\n    \"id\": \"<uuid>\",\n    \"organization_id\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"region\": \"ap-south-1\",\n    \"created_at\": \"<dateTime>\",\n    \"database\": {\n      \"host\": \"<string>\",\n      \"version\": \"<string>\"\n    },\n    \"status\": \"ACTIVE_HEALTHY\"\n  }\n]",
+              "createdAt": "2026-10-21T20:48:47.000Z",
+              "updatedAt": "2026-10-21T20:48:47.000Z",
+              "uid": "35240-d501d077-a52e-447a-af4b-106eefa4dd76"
             },
             {
-              "id": "00c4eb96-877e-4f43-9d96-5a891deb2bc7",
+              "id": "279793e9-0a3a-4184-ad9e-53f374343cb4",
               "name": "Unauthorized - invalid or missing access token",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "projects"
-                  ],
+                  "raw": "{{baseUrl}}/projects",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
+                  "path": [
+                    "projects"
                   ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:48:47.000Z",
+              "updatedAt": "2026-10-21T20:48:47.000Z",
+              "uid": "35240-279793e9-0a3a-4184-ad9e-53f374343cb4"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:48:47.000Z",
+          "updatedAt": "2026-10-21T20:48:47.000Z",
+          "uid": "35240-939b9cc9-144a-4080-87db-6f87b63ea1de"
         },
         {
-          "id": "0cf7bb0a-7753-4dbd-9cbe-6d50faffe14c",
           "name": "Create a new project",
+          "id": "97545585-3f8e-4f0a-9839-33782ef11637",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Create a new project",
-            "description": {
-              "content": "Creates a new Supabase project within a specified organization. The project will be provisioned with a PostgreSQL database, Auth, Storage, and other services.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "projects"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -182,1518 +1152,204 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"region\": \"<string>\",\n  \"db_pass\": \"<string>\"\n}",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"plan\": \"pro\",\n  \"region\": \"<string>\",\n  \"db_pass\": \"<string>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/projects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects"
+              ]
+            },
+            "description": "Creates a new Supabase project within a specified organization. The project will be provisioned with a PostgreSQL database, Auth, Storage, and other services."
           },
           "response": [
             {
-              "id": "0190e18c-ad55-4da9-ba67-6fcc9ff98678",
+              "id": "e26d25a1-8fd5-4210-b454-b20d1770f74f",
               "name": "Project created successfully",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"region\": \"<string>\",\n  \"db_pass\": \"<string>\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"plan\": \"pro\",\n  \"region\": \"<string>\",\n  \"db_pass\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/projects",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"e1b0f9e2-f51d-0478-fb38-093900df626e\",\n  \"organization_id\": \"1d6a842c-afcd-cf1f-14de-be4425a1290d\",\n  \"name\": \"string\",\n  \"region\": \"eu-west-2\",\n  \"created_at\": \"1985-04-17T06:38:09.761Z\",\n  \"database\": {\n    \"host\": \"string\",\n    \"version\": \"string\"\n  },\n  \"status\": \"REMOVED\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<uuid>\",\n  \"organization_id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"region\": \"eu-west-2\",\n  \"created_at\": \"<dateTime>\",\n  \"database\": {\n    \"host\": \"<string>\",\n    \"version\": \"<string>\"\n  },\n  \"status\": \"ACTIVE_HEALTHY\"\n}",
+              "createdAt": "2026-10-21T20:48:47.000Z",
+              "updatedAt": "2026-10-21T20:48:47.000Z",
+              "uid": "35240-e26d25a1-8fd5-4210-b454-b20d1770f74f"
             },
             {
-              "id": "a25a05af-50bb-4c2f-95a5-1e36591c13fb",
+              "id": "ec7def78-b5ca-4049-be2a-7f42e595cde4",
               "name": "Bad request - invalid parameters",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"region\": \"<string>\",\n  \"db_pass\": \"<string>\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"plan\": \"pro\",\n  \"region\": \"<string>\",\n  \"db_pass\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/projects",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:48:47.000Z",
+              "updatedAt": "2026-10-21T20:48:47.000Z",
+              "uid": "35240-ec7def78-b5ca-4049-be2a-7f42e595cde4"
             },
             {
-              "id": "c30d6a87-3fc2-41b2-b9c6-387123cae1ef",
+              "id": "9bae35b0-2073-45fa-86f9-f49e7d8d0db4",
               "name": "Unauthorized",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"name\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"plan\": \"<string>\",\n  \"region\": \"<string>\",\n  \"db_pass\": \"<string>\"\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"organization_id\": \"<string>\",\n  \"plan\": \"pro\",\n  \"region\": \"<string>\",\n  \"db_pass\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/projects",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:48:47.000Z",
+              "updatedAt": "2026-10-21T20:48:47.000Z",
+              "uid": "35240-9bae35b0-2073-45fa-86f9-f49e7d8d0db4"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "16838d51-30f9-4401-ad7a-8c8531aeee62",
-          "name": "Get project details",
-          "request": {
-            "name": "Get project details",
-            "description": {
-              "content": "Retrieves detailed information about a specific project including its current status, region, database host, and configuration.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "projects",
-                ":ref"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ref",
-                  "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "6def6a5e-d74b-4bfc-a451-ce0550790cfa",
-              "name": "Successfully retrieved project details",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"e1b0f9e2-f51d-0478-fb38-093900df626e\",\n  \"organization_id\": \"1d6a842c-afcd-cf1f-14de-be4425a1290d\",\n  \"name\": \"string\",\n  \"region\": \"eu-west-2\",\n  \"created_at\": \"1985-04-17T06:38:09.761Z\",\n  \"database\": {\n    \"host\": \"string\",\n    \"version\": \"string\"\n  },\n  \"status\": \"REMOVED\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c0688560-d567-4baf-b889-567301f4bef1",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "b8591d41-9a5f-4d3f-b913-57f650fda6a8",
-              "name": "Project not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b3ffaed3-7619-44b6-ab1c-cf480c82e5d0",
-          "name": "Delete a project",
-          "request": {
-            "name": "Delete a project",
-            "description": {
-              "content": "Permanently deletes a Supabase project and all associated data including the database, storage files, and Edge Functions.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "projects",
-                ":ref"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ref",
-                  "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "9c08ba4a-d43c-49bc-afdc-b8497b30bc90",
-              "name": "Project deleted successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "c8cbc79a-0bd0-4bff-8065-1f15cedbe2ce",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "cde32c75-2a31-4eb6-9520-5f631510551e",
-              "name": "Project not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "861290ea-833f-4902-8ab3-322f8228867a",
-          "name": "Get project API keys",
-          "request": {
-            "name": "Get project API keys",
-            "description": {
-              "content": "Retrieves the API keys (anon and service_role) for a specific project. These keys are used to authenticate requests to the project's APIs.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "projects",
-                ":ref",
-                "api-keys"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ref",
-                  "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "3e36194d-9b67-46c6-9276-1fcd3793e787",
-              "name": "Successfully retrieved API keys",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "api-keys"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"name\": \"service_role\",\n    \"api_key\": \"string\"\n  },\n  {\n    \"name\": \"anon\",\n    \"api_key\": \"string\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "54ebce96-c25f-42cb-997a-320d43c099ca",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "api-keys"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "68d4e049-3928-4cab-9204-cb1336dfb674",
-              "name": "Project not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "api-keys"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "57489fd6-83bc-4cd1-9328-9dec13a38202",
-          "name": "Get project health status",
-          "request": {
-            "name": "Get project health status",
-            "description": {
-              "content": "Returns the health status of all services in a project including the database, Auth, Storage, Realtime, and Edge Functions.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "projects",
-                ":ref",
-                "health"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ref",
-                  "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "5f5f35a7-e706-4bd4-a45e-7d4ed6ef57e0",
-              "name": "Successfully retrieved health status",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "health"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"name\": \"realtime\",\n    \"healthy\": false,\n    \"status\": \"string\"\n  },\n  {\n    \"name\": \"functions\",\n    \"healthy\": true,\n    \"status\": \"string\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "5966af48-1a62-4068-bb7b-9a5ac726f8ce",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "health"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "ded504fb-59d0-4b8b-baf6-c394d663253b",
-              "name": "Project not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "health"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "850d4dae-bf2c-417f-b167-2904ce364760",
-          "name": "Pause a project",
-          "request": {
-            "name": "Pause a project",
-            "description": {
-              "content": "Pauses a Supabase project to stop incurring compute costs. The project database and services will become unavailable until restored.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "projects",
-                ":ref",
-                "pause"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ref",
-                  "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "15df6a47-2104-40ec-8c0d-c198ea0f36ed",
-              "name": "Project paused successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "pause"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "49db428a-6b2b-49b7-b59d-81957e8637d2",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "pause"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "9697b503-c243-44d7-9230-2a4bfeae8a42",
-              "name": "Project not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "pause"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "fd04cd8f-45a4-4cd3-bd73-ca857d95ef54",
-          "name": "Restore a paused project",
-          "request": {
-            "name": "Restore a paused project",
-            "description": {
-              "content": "Restores a previously paused project, making its database and services available again.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "projects",
-                ":ref",
-                "restore"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ref",
-                  "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "9d260c6e-047e-4a19-82a3-9a08a6f07b02",
-              "name": "Project restored successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "restore"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "3f1cb45f-79f4-4c55-86ee-208cdd4fb8c5",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "restore"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "2ce750ea-2f86-4002-81cc-76bc29cd8c1d",
-              "name": "Project not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "restore"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:48:47.000Z",
+          "updatedAt": "2026-10-21T20:48:47.000Z",
+          "uid": "35240-97545585-3f8e-4f0a-9839-33782ef11637"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Your Supabase project reference ID",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "your-project-ref",
-      "key": "project_ref"
-    },
-    {
-      "type": "string",
-      "value": "https://{{project_ref}}.supabase.co/auth/v1",
-      "key": "baseUrl"
+      "id": "0e1d6574-e3c5-4ad7-8e23-c39c7aba019a",
+      "createdAt": "2026-10-21T20:48:46.000Z",
+      "updatedAt": "2026-10-21T20:48:46.000Z",
+      "uid": "35240-0e1d6574-e3c5-4ad7-8e23-c39c7aba019a"
     }
   ],
   "auth": {
-    "type": "apikey",
-    "apikey": [
+    "type": "bearer",
+    "bearer": [
       {
-        "key": "key",
-        "value": "apikey"
-      },
-      {
-        "key": "value",
-        "value": "{{apiKey}}"
-      },
-      {
-        "key": "in",
-        "value": "header"
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "56022282-8eae-4ddc-99a0-de87782863b5",
-    "name": "Supabase Auth Admin Projects API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.\n\nContact Support:\n Name: Supabase Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.supabase.com/v1"
     }
-  }
+  ]
 }

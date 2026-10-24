@@ -1,124 +1,96 @@
 {
+  "info": {
+    "_postman_id": "95e8e569-bde0-415b-b3e1-4b304141e71b",
+    "name": "Supabase Auth Configuration API",
+    "description": "The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.\n\nContact Support:\n Name: Supabase Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:47:57.000Z",
+    "updatedAt": "2026-10-21T20:47:57.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-95e8e569-bde0-415b-b3e1-4b304141e71b"
+  },
   "item": [
     {
-      "id": "39efa977-6b5b-4fc4-b7fa-e389557d545b",
-      "name": "Configuration",
-      "description": {
-        "content": "Server configuration and settings endpoints.",
-        "type": "text/plain"
-      },
+      "name": "settings",
       "item": [
         {
-          "id": "e9b70a4b-d74f-4fc0-8a0d-da8b86f062b0",
           "name": "Get auth settings",
+          "id": "b1f06e3e-296e-49ec-b745-7dc910107c74",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Get auth settings",
-            "description": {
-              "content": "Returns the publicly available auth server settings including enabled providers, auto-confirm settings, and external provider configurations. This endpoint does not require authentication.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "settings"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/settings",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "settings"
+              ]
+            },
+            "description": "Returns the publicly available auth server settings including enabled providers, auto-confirm settings, and external provider configurations. This endpoint does not require authentication."
           },
           "response": [
             {
-              "id": "f41ff67c-ecde-453b-9e5d-813d917faf2d",
+              "id": "537dafcb-e515-490e-9173-7964a528579b",
               "name": "Successfully retrieved settings",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "settings"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/settings",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "settings"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"external\": {\n    \"key_0\": true,\n    \"key_1\": false\n  },\n  \"disable_signup\": true,\n  \"mailer_autoconfirm\": true,\n  \"phone_autoconfirm\": false,\n  \"sms_provider\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"external\": {\n    \"ut_5\": \"<boolean>\"\n  },\n  \"disable_signup\": \"<boolean>\",\n  \"mailer_autoconfirm\": \"<boolean>\",\n  \"phone_autoconfirm\": \"<boolean>\",\n  \"sms_provider\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:47:57.000Z",
+              "updatedAt": "2026-10-21T20:47:57.000Z",
+              "uid": "35240-537dafcb-e515-490e-9173-7964a528579b"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:47:57.000Z",
+          "updatedAt": "2026-10-21T20:47:57.000Z",
+          "uid": "35240-b1f06e3e-296e-49ec-b745-7dc910107c74"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Your Supabase project reference ID",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "your-project-ref",
-      "key": "project_ref"
-    },
-    {
-      "type": "string",
-      "value": "https://{{project_ref}}.supabase.co/auth/v1",
-      "key": "baseUrl"
+      "id": "fecc5f8c-dedb-43ad-9e01-7b094fdb6df2",
+      "createdAt": "2026-10-21T20:47:57.000Z",
+      "updatedAt": "2026-10-21T20:47:57.000Z",
+      "uid": "35240-fecc5f8c-dedb-43ad-9e01-7b094fdb6df2"
     }
   ],
   "auth": {
@@ -126,25 +98,29 @@
     "apikey": [
       {
         "key": "key",
-        "value": "apikey"
+        "value": "apikey",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "e4a15a8f-80e1-47c6-be1b-9a2144127135",
-    "name": "Supabase Auth Admin Configuration API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.\n\nContact Support:\n Name: Supabase Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "project_ref",
+      "value": "your-project-ref"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{project_ref}}.supabase.co/auth/v1"
     }
-  }
+  ]
 }

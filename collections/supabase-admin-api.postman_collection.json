@@ -1,1431 +1,1235 @@
 {
+  "info": {
+    "_postman_id": "5e9c6a32-f997-4048-a054-c4b78000f236",
+    "name": "Supabase Auth Admin API",
+    "description": "The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.\n\nContact Support:\n Name: Supabase Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:47:34.000Z",
+    "updatedAt": "2026-10-21T20:47:35.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5e9c6a32-f997-4048-a054-c4b78000f236"
+  },
   "item": [
     {
-      "id": "86d47c40-b1cd-429a-856b-ecfcc7f92194",
-      "name": "Admin",
-      "description": {
-        "content": "Administrative endpoints for managing users. Requires service_role key.",
-        "type": "text/plain"
-      },
+      "name": "admin",
       "item": [
         {
-          "id": "7d083d4a-4b02-4943-aa9e-6c2dcbada05b",
-          "name": "List all users (admin)",
-          "request": {
-            "name": "List all users (admin)",
-            "description": {
-              "content": "Returns a paginated list of all users in the project. Requires service_role key authentication.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "admin",
-                "users"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
+          "name": "users",
+          "item": [
+            {
+              "name": "{user_id}",
+              "item": [
                 {
-                  "disabled": false,
-                  "key": "page",
-                  "value": "<integer>",
-                  "description": "Page number for pagination"
+                  "name": "Get a user by ID (admin)",
+                  "id": "d6316e5e-73ca-4bbf-be65-2d858c2c090e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/users/:user_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "users",
+                        ":user_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "88327a0a-6a5d-4ca8-8609-d0a92cb1feaa",
+                          "key": "user_id",
+                          "value": "<uuid>",
+                          "description": "(Required) UUID of the user"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves a specific user by their UUID. Requires service_role key authentication."
+                  },
+                  "response": [
+                    {
+                      "id": "942f85a9-fc24-4834-adee-a524afaf7e8a",
+                      "name": "Successfully retrieved user",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/users/:user_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "users",
+                            ":user_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"aud\": \"<string>\",\n  \"role\": \"<string>\",\n  \"email\": \"<email>\",\n  \"email_confirmed_at\": \"<dateTime>\",\n  \"phone\": \"<string>\",\n  \"phone_confirmed_at\": \"<dateTime>\",\n  \"confirmed_at\": \"<dateTime>\",\n  \"last_sign_in_at\": \"<dateTime>\",\n  \"app_metadata\": {\n    \"provider\": \"<string>\",\n    \"providers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"user_metadata\": {},\n  \"identities\": [\n    {\n      \"id\": \"<string>\",\n      \"user_id\": \"<uuid>\",\n      \"identity_data\": {},\n      \"provider\": \"<string>\",\n      \"last_sign_in_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"user_id\": \"<uuid>\",\n      \"identity_data\": {},\n      \"provider\": \"<string>\",\n      \"last_sign_in_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"factors\": [\n    {\n      \"id\": \"<uuid>\",\n      \"friendly_name\": \"<string>\",\n      \"factor_type\": \"totp\",\n      \"status\": \"verified\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"friendly_name\": \"<string>\",\n      \"factor_type\": \"totp\",\n      \"status\": \"verified\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-10-21T20:47:35.000Z",
+                      "updatedAt": "2026-10-21T20:47:35.000Z",
+                      "uid": "35240-942f85a9-fc24-4834-adee-a524afaf7e8a"
+                    },
+                    {
+                      "id": "fd7a412c-1274-449b-85ea-7e13603ca9b7",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/users/:user_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "users",
+                            ":user_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:47:35.000Z",
+                      "updatedAt": "2026-10-21T20:47:35.000Z",
+                      "uid": "35240-fd7a412c-1274-449b-85ea-7e13603ca9b7"
+                    },
+                    {
+                      "id": "52d85d52-417c-4e3e-98f0-5f6f6db01674",
+                      "name": "User not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/users/:user_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "users",
+                            ":user_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:47:35.000Z",
+                      "updatedAt": "2026-10-21T20:47:35.000Z",
+                      "uid": "35240-52d85d52-417c-4e3e-98f0-5f6f6db01674"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:47:35.000Z",
+                  "updatedAt": "2026-10-21T20:47:35.000Z",
+                  "uid": "35240-d6316e5e-73ca-4bbf-be65-2d858c2c090e"
                 },
                 {
-                  "disabled": false,
-                  "key": "per_page",
-                  "value": "<integer>",
-                  "description": "Number of users per page"
+                  "name": "Update a user (admin)",
+                  "id": "18a3af8f-8196-43c8-b39f-67245f636900",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": \"<boolean>\",\n  \"phone_confirm\": \"<boolean>\",\n  \"user_metadata\": {},\n  \"app_metadata\": {},\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/users/:user_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "users",
+                        ":user_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "aeec4fa5-7733-4409-965e-0216d58bfde3",
+                          "key": "user_id",
+                          "value": "<uuid>",
+                          "description": "(Required) UUID of the user"
+                        }
+                      ]
+                    },
+                    "description": "Updates a user's profile, role, or confirmation status. Requires service_role key authentication."
+                  },
+                  "response": [
+                    {
+                      "id": "05866069-103b-47c5-b088-f157fcefeac6",
+                      "name": "User updated",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": \"<boolean>\",\n  \"phone_confirm\": \"<boolean>\",\n  \"user_metadata\": {},\n  \"app_metadata\": {},\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/users/:user_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "users",
+                            ":user_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<uuid>\",\n  \"aud\": \"<string>\",\n  \"role\": \"<string>\",\n  \"email\": \"<email>\",\n  \"email_confirmed_at\": \"<dateTime>\",\n  \"phone\": \"<string>\",\n  \"phone_confirmed_at\": \"<dateTime>\",\n  \"confirmed_at\": \"<dateTime>\",\n  \"last_sign_in_at\": \"<dateTime>\",\n  \"app_metadata\": {\n    \"provider\": \"<string>\",\n    \"providers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"user_metadata\": {},\n  \"identities\": [\n    {\n      \"id\": \"<string>\",\n      \"user_id\": \"<uuid>\",\n      \"identity_data\": {},\n      \"provider\": \"<string>\",\n      \"last_sign_in_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"user_id\": \"<uuid>\",\n      \"identity_data\": {},\n      \"provider\": \"<string>\",\n      \"last_sign_in_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"factors\": [\n    {\n      \"id\": \"<uuid>\",\n      \"friendly_name\": \"<string>\",\n      \"factor_type\": \"totp\",\n      \"status\": \"verified\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"friendly_name\": \"<string>\",\n      \"factor_type\": \"totp\",\n      \"status\": \"verified\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-10-21T20:47:35.000Z",
+                      "updatedAt": "2026-10-21T20:47:35.000Z",
+                      "uid": "35240-05866069-103b-47c5-b088-f157fcefeac6"
+                    },
+                    {
+                      "id": "504d526d-c720-4fe2-8f07-148d13e75f1f",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": \"<boolean>\",\n  \"phone_confirm\": \"<boolean>\",\n  \"user_metadata\": {},\n  \"app_metadata\": {},\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/users/:user_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "users",
+                            ":user_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:47:35.000Z",
+                      "updatedAt": "2026-10-21T20:47:35.000Z",
+                      "uid": "35240-504d526d-c720-4fe2-8f07-148d13e75f1f"
+                    },
+                    {
+                      "id": "58a42197-859f-46fc-a8a4-29333779aac4",
+                      "name": "User not found",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": \"<boolean>\",\n  \"phone_confirm\": \"<boolean>\",\n  \"user_metadata\": {},\n  \"app_metadata\": {},\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/users/:user_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "users",
+                            ":user_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:47:35.000Z",
+                      "updatedAt": "2026-10-21T20:47:35.000Z",
+                      "uid": "35240-58a42197-859f-46fc-a8a4-29333779aac4"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:47:35.000Z",
+                  "updatedAt": "2026-10-21T20:47:35.000Z",
+                  "uid": "35240-18a3af8f-8196-43c8-b39f-67245f636900"
+                },
+                {
+                  "name": "Delete a user (admin)",
+                  "id": "b264071c-6855-40a5-af05-bfcbae3e1b54",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/users/:user_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "users",
+                        ":user_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b09e1a74-b3db-4173-8760-fc37ec7fb4df",
+                          "key": "user_id",
+                          "value": "<uuid>",
+                          "description": "(Required) UUID of the user"
+                        }
+                      ]
+                    },
+                    "description": "Permanently deletes a user and their associated data. Requires service_role key authentication."
+                  },
+                  "response": [
+                    {
+                      "id": "5ead4513-b862-47fc-8bdb-eb6d099bec05",
+                      "name": "User deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/users/:user_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "users",
+                            ":user_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:47:35.000Z",
+                      "updatedAt": "2026-10-21T20:47:35.000Z",
+                      "uid": "35240-5ead4513-b862-47fc-8bdb-eb6d099bec05"
+                    },
+                    {
+                      "id": "fccae54e-5c93-417c-8028-532f5c04a805",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/users/:user_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "users",
+                            ":user_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:47:35.000Z",
+                      "updatedAt": "2026-10-21T20:47:35.000Z",
+                      "uid": "35240-fccae54e-5c93-417c-8028-532f5c04a805"
+                    },
+                    {
+                      "id": "a70ab067-cc82-4908-81f4-e372e8ceea39",
+                      "name": "User not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/admin/users/:user_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "admin",
+                            "users",
+                            ":user_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "user_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:47:35.000Z",
+                      "updatedAt": "2026-10-21T20:47:35.000Z",
+                      "uid": "35240-a70ab067-cc82-4908-81f4-e372e8ceea39"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:47:35.000Z",
+                  "updatedAt": "2026-10-21T20:47:35.000Z",
+                  "uid": "35240-b264071c-6855-40a5-af05-bfcbae3e1b54"
                 }
               ],
-              "variable": [
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
+              "id": "b1b1165b-594c-4e38-83fd-e58b4fad1280",
+              "createdAt": "2026-10-21T20:47:35.000Z",
+              "updatedAt": "2026-10-21T20:47:35.000Z",
+              "uid": "35240-b1b1165b-594c-4e38-83fd-e58b4fad1280"
             },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
             {
-              "id": "ca6b3297-6ecb-4ec5-b5c5-535da6cc33e8",
-              "name": "Successfully retrieved users",
-              "originalRequest": {
+              "name": "List all users (admin)",
+              "id": "c9df34db-2aaf-4ed7-86db-b6ede3dbc832",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
                 "url": {
+                  "raw": "{{baseUrl}}/admin/users?page=<integer>&per_page=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
                   "path": [
                     "admin",
                     "users"
                   ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
                   "query": [
                     {
+                      "description": "Page number for pagination",
                       "key": "page",
                       "value": "<integer>"
                     },
                     {
+                      "description": "Number of users per page",
                       "key": "per_page",
                       "value": "<integer>"
                     }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                "description": "Returns a paginated list of all users in the project. Requires service_role key authentication."
               },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "response": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "id": "bdffe09f-4335-4ea6-a9bc-dc81403c610d",
+                  "name": "Successfully retrieved users",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/users?page=<integer>&per_page=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "users"
+                      ],
+                      "query": [
+                        {
+                          "description": "Page number for pagination",
+                          "key": "page",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Number of users per page",
+                          "key": "per_page",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"users\": [\n    {\n      \"id\": \"<uuid>\",\n      \"aud\": \"<string>\",\n      \"role\": \"<string>\",\n      \"email\": \"<email>\",\n      \"email_confirmed_at\": \"<dateTime>\",\n      \"phone\": \"<string>\",\n      \"phone_confirmed_at\": \"<dateTime>\",\n      \"confirmed_at\": \"<dateTime>\",\n      \"last_sign_in_at\": \"<dateTime>\",\n      \"app_metadata\": {\n        \"provider\": \"<string>\",\n        \"providers\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"user_metadata\": {},\n      \"identities\": [\n        {\n          \"id\": \"<string>\",\n          \"user_id\": \"<uuid>\",\n          \"identity_data\": {},\n          \"provider\": \"<string>\",\n          \"last_sign_in_at\": \"<dateTime>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"user_id\": \"<uuid>\",\n          \"identity_data\": {},\n          \"provider\": \"<string>\",\n          \"last_sign_in_at\": \"<dateTime>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\"\n        }\n      ],\n      \"factors\": [\n        {\n          \"id\": \"<uuid>\",\n          \"friendly_name\": \"<string>\",\n          \"factor_type\": \"totp\",\n          \"status\": \"verified\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\"\n        },\n        {\n          \"id\": \"<uuid>\",\n          \"friendly_name\": \"<string>\",\n          \"factor_type\": \"totp\",\n          \"status\": \"unverified\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"aud\": \"<string>\",\n      \"role\": \"<string>\",\n      \"email\": \"<email>\",\n      \"email_confirmed_at\": \"<dateTime>\",\n      \"phone\": \"<string>\",\n      \"phone_confirmed_at\": \"<dateTime>\",\n      \"confirmed_at\": \"<dateTime>\",\n      \"last_sign_in_at\": \"<dateTime>\",\n      \"app_metadata\": {\n        \"provider\": \"<string>\",\n        \"providers\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"user_metadata\": {},\n      \"identities\": [\n        {\n          \"id\": \"<string>\",\n          \"user_id\": \"<uuid>\",\n          \"identity_data\": {},\n          \"provider\": \"<string>\",\n          \"last_sign_in_at\": \"<dateTime>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"user_id\": \"<uuid>\",\n          \"identity_data\": {},\n          \"provider\": \"<string>\",\n          \"last_sign_in_at\": \"<dateTime>\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\"\n        }\n      ],\n      \"factors\": [\n        {\n          \"id\": \"<uuid>\",\n          \"friendly_name\": \"<string>\",\n          \"factor_type\": \"totp\",\n          \"status\": \"unverified\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\"\n        },\n        {\n          \"id\": \"<uuid>\",\n          \"friendly_name\": \"<string>\",\n          \"factor_type\": \"totp\",\n          \"status\": \"unverified\",\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\"\n        }\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"aud\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:47:35.000Z",
+                  "updatedAt": "2026-10-21T20:47:35.000Z",
+                  "uid": "35240-bdffe09f-4335-4ea6-a9bc-dc81403c610d"
+                },
+                {
+                  "id": "c837ecbc-9ac4-4fe6-b004-3ed172f01e17",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/users?page=<integer>&per_page=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "users"
+                      ],
+                      "query": [
+                        {
+                          "description": "Page number for pagination",
+                          "key": "page",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Number of users per page",
+                          "key": "per_page",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:47:35.000Z",
+                  "updatedAt": "2026-10-21T20:47:35.000Z",
+                  "uid": "35240-c837ecbc-9ac4-4fe6-b004-3ed172f01e17"
                 }
               ],
-              "body": "{\n  \"users\": [\n    {\n      \"id\": \"9fd635ca-715d-29fc-70ae-416d77e603d0\",\n      \"aud\": \"string\",\n      \"role\": \"string\",\n      \"email\": \"0AT7l3XgKOoG-K@fKdx.bbq\",\n      \"email_confirmed_at\": \"2014-09-07T22:31:42.600Z\",\n      \"phone\": \"string\",\n      \"phone_confirmed_at\": \"2003-07-21T09:18:44.422Z\",\n      \"confirmed_at\": \"1971-09-12T22:43:39.543Z\",\n      \"last_sign_in_at\": \"2023-09-12T21:44:36.296Z\",\n      \"app_metadata\": {\n        \"provider\": \"string\",\n        \"providers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"user_metadata\": {},\n      \"identities\": [\n        {\n          \"id\": \"string\",\n          \"user_id\": \"098a015c-ed6a-faee-260a-7f4622f333b4\",\n          \"identity_data\": {},\n          \"provider\": \"string\",\n          \"last_sign_in_at\": \"2012-12-23T16:09:35.520Z\",\n          \"created_at\": \"2011-07-15T23:05:39.821Z\",\n          \"updated_at\": \"1974-12-07T04:33:57.870Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"user_id\": \"92e784b4-a45d-ceda-9040-de5888c9e462\",\n          \"identity_data\": {},\n          \"provider\": \"string\",\n          \"last_sign_in_at\": \"1986-12-09T22:41:27.274Z\",\n          \"created_at\": \"1988-02-06T11:58:02.006Z\",\n          \"updated_at\": \"2019-01-14T19:38:26.538Z\"\n        }\n      ],\n      \"factors\": [\n        {\n          \"id\": \"3b62d1a7-e3d6-6eae-132a-9fe9915bbb07\",\n          \"friendly_name\": \"string\",\n          \"factor_type\": \"totp\",\n          \"status\": \"verified\",\n          \"created_at\": \"1956-09-10T03:41:15.557Z\",\n          \"updated_at\": \"1994-02-07T02:38:45.696Z\"\n        },\n        {\n          \"id\": \"ae11b393-f424-4958-9876-6b099bc45438\",\n          \"friendly_name\": \"string\",\n          \"factor_type\": \"totp\",\n          \"status\": \"verified\",\n          \"created_at\": \"2008-03-13T19:43:25.428Z\",\n          \"updated_at\": \"1953-04-27T05:16:35.017Z\"\n        }\n      ],\n      \"created_at\": \"1976-11-14T15:49:38.308Z\",\n      \"updated_at\": \"1967-11-30T21:47:29.874Z\"\n    },\n    {\n      \"id\": \"f7d3a705-4c96-49ca-05e0-6ca80a095e62\",\n      \"aud\": \"string\",\n      \"role\": \"string\",\n      \"email\": \"d7h@rQLSCDQYjowlJ.hox\",\n      \"email_confirmed_at\": \"1950-05-13T10:45:17.453Z\",\n      \"phone\": \"string\",\n      \"phone_confirmed_at\": \"1996-08-04T03:35:17.926Z\",\n      \"confirmed_at\": \"1956-06-27T09:42:22.127Z\",\n      \"last_sign_in_at\": \"1984-08-14T03:50:39.008Z\",\n      \"app_metadata\": {\n        \"provider\": \"string\",\n        \"providers\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      \"user_metadata\": {},\n      \"identities\": [\n        {\n          \"id\": \"string\",\n          \"user_id\": \"15bc52d6-438c-b062-e13c-e9489831a770\",\n          \"identity_data\": {},\n          \"provider\": \"string\",\n          \"last_sign_in_at\": \"1984-03-31T02:31:48.958Z\",\n          \"created_at\": \"1955-09-01T12:45:20.177Z\",\n          \"updated_at\": \"1960-11-12T11:11:41.193Z\"\n        },\n        {\n          \"id\": \"string\",\n          \"user_id\": \"6f2165e9-47f0-3d84-2e23-6b99712309c6\",\n          \"identity_data\": {},\n          \"provider\": \"string\",\n          \"last_sign_in_at\": \"1977-09-27T00:05:38.833Z\",\n          \"created_at\": \"2002-01-12T06:35:10.376Z\",\n          \"updated_at\": \"2003-06-21T19:34:54.655Z\"\n        }\n      ],\n      \"factors\": [\n        {\n          \"id\": \"be4df1e1-60eb-a441-18b8-91753eb7d9b1\",\n          \"friendly_name\": \"string\",\n          \"factor_type\": \"totp\",\n          \"status\": \"verified\",\n          \"created_at\": \"1988-12-26T12:56:37.763Z\",\n          \"updated_at\": \"2013-03-22T05:59:04.828Z\"\n        },\n        {\n          \"id\": \"c7e11d1e-344a-676d-d84a-8c6b3287bacc\",\n          \"friendly_name\": \"string\",\n          \"factor_type\": \"totp\",\n          \"status\": \"verified\",\n          \"created_at\": \"2018-06-25T20:30:54.224Z\",\n          \"updated_at\": \"2023-03-02T08:43:35.893Z\"\n        }\n      ],\n      \"created_at\": \"2025-04-24T15:03:01.638Z\",\n      \"updated_at\": \"2019-08-22T20:39:34.089Z\"\n    }\n  ],\n  \"aud\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
+              "createdAt": "2026-10-21T20:47:35.000Z",
+              "updatedAt": "2026-10-21T20:47:35.000Z",
+              "uid": "35240-c9df34db-2aaf-4ed7-86db-b6ede3dbc832"
             },
             {
-              "id": "8a4e5d93-955a-44f4-903a-9448fb615aa7",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "admin",
-                    "users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
+              "name": "Create a user (admin)",
+              "id": "586b17a4-cc9b-4aa4-9474-0193e8942571",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
                     {
-                      "key": "page",
-                      "value": "<integer>"
-                    },
-                    {
-                      "key": "per_page",
-                      "value": "<integer>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
                     }
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b4d08c97-20e3-434d-ab30-4ce6515e3666",
-          "name": "Create a user (admin)",
-          "request": {
-            "name": "Create a user (admin)",
-            "description": {
-              "content": "Creates a new user without requiring email confirmation. Requires service_role key authentication.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "admin",
-                "users"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": false,\n  \"phone_confirm\": false,\n  \"user_metadata\": \"<object>\",\n  \"app_metadata\": \"<object>\",\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "6a6907c8-8c1e-47eb-adfa-63ab95328c3d",
-              "name": "User created",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "admin",
-                    "users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
                 "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": false,\n  \"phone_confirm\": false,\n  \"user_metadata\": \"<object>\",\n  \"app_metadata\": \"<object>\",\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"081fc799-8c50-f507-7099-26250e0bfde5\",\n  \"aud\": \"string\",\n  \"role\": \"string\",\n  \"email\": \"fYFnKpo@qGRYwQhVUYLtWTGkWWoE.cog\",\n  \"email_confirmed_at\": \"2009-03-19T09:26:05.063Z\",\n  \"phone\": \"string\",\n  \"phone_confirmed_at\": \"1984-01-20T06:04:33.219Z\",\n  \"confirmed_at\": \"1948-01-03T17:34:18.707Z\",\n  \"last_sign_in_at\": \"1971-01-05T22:16:53.191Z\",\n  \"app_metadata\": {\n    \"provider\": \"string\",\n    \"providers\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"user_metadata\": {},\n  \"identities\": [\n    {\n      \"id\": \"string\",\n      \"user_id\": \"b45e0255-87c3-1453-0289-3830bf3cbb54\",\n      \"identity_data\": {},\n      \"provider\": \"string\",\n      \"last_sign_in_at\": \"2021-11-25T01:53:14.364Z\",\n      \"created_at\": \"1946-10-14T17:28:26.578Z\",\n      \"updated_at\": \"1990-11-17T20:44:41.137Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"user_id\": \"8a5f82c0-20e3-4b2b-986b-d77839f50d31\",\n      \"identity_data\": {},\n      \"provider\": \"string\",\n      \"last_sign_in_at\": \"2005-08-28T21:12:24.475Z\",\n      \"created_at\": \"2009-03-05T06:28:32.124Z\",\n      \"updated_at\": \"1970-10-02T15:21:59.898Z\"\n    }\n  ],\n  \"factors\": [\n    {\n      \"id\": \"8ae97642-71c9-17a5-9826-61b3c8da72a3\",\n      \"friendly_name\": \"string\",\n      \"factor_type\": \"totp\",\n      \"status\": \"unverified\",\n      \"created_at\": \"1959-10-16T01:19:37.718Z\",\n      \"updated_at\": \"1998-08-26T08:09:42.377Z\"\n    },\n    {\n      \"id\": \"cf6d33a1-aa56-0b3c-2584-739e9d9506d2\",\n      \"friendly_name\": \"string\",\n      \"factor_type\": \"totp\",\n      \"status\": \"unverified\",\n      \"created_at\": \"1969-01-27T08:54:19.880Z\",\n      \"updated_at\": \"1980-06-30T17:14:12.265Z\"\n    }\n  ],\n  \"created_at\": \"1995-02-07T06:37:04.185Z\",\n  \"updated_at\": \"1984-07-22T16:30:32.313Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "30470918-fd42-4bf6-a2b3-3551d0ac929d",
-              "name": "Bad request",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "admin",
-                    "users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": false,\n  \"phone_confirm\": false,\n  \"user_metadata\": \"<object>\",\n  \"app_metadata\": \"<object>\",\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "6908d285-07a4-4c09-afda-a7b75e9a47e7",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "admin",
-                    "users"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": false,\n  \"phone_confirm\": false,\n  \"user_metadata\": \"<object>\",\n  \"app_metadata\": \"<object>\",\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "68b07d70-26b5-471f-85b9-1dabaa1349e5",
-          "name": "Get a user by ID (admin)",
-          "request": {
-            "name": "Get a user by ID (admin)",
-            "description": {
-              "content": "Retrieves a specific user by their UUID. Requires service_role key authentication.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "admin",
-                "users",
-                ":user_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "user_id",
-                  "description": "(Required) UUID of the user"
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "f8fcadb1-f6b1-42e5-9560-3d425b0d3d2a",
-              "name": "Successfully retrieved user",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "admin",
-                    "users",
-                    ":user_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "user_id",
-                      "description": "(Required) UUID of the user"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"081fc799-8c50-f507-7099-26250e0bfde5\",\n  \"aud\": \"string\",\n  \"role\": \"string\",\n  \"email\": \"fYFnKpo@qGRYwQhVUYLtWTGkWWoE.cog\",\n  \"email_confirmed_at\": \"2009-03-19T09:26:05.063Z\",\n  \"phone\": \"string\",\n  \"phone_confirmed_at\": \"1984-01-20T06:04:33.219Z\",\n  \"confirmed_at\": \"1948-01-03T17:34:18.707Z\",\n  \"last_sign_in_at\": \"1971-01-05T22:16:53.191Z\",\n  \"app_metadata\": {\n    \"provider\": \"string\",\n    \"providers\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"user_metadata\": {},\n  \"identities\": [\n    {\n      \"id\": \"string\",\n      \"user_id\": \"b45e0255-87c3-1453-0289-3830bf3cbb54\",\n      \"identity_data\": {},\n      \"provider\": \"string\",\n      \"last_sign_in_at\": \"2021-11-25T01:53:14.364Z\",\n      \"created_at\": \"1946-10-14T17:28:26.578Z\",\n      \"updated_at\": \"1990-11-17T20:44:41.137Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"user_id\": \"8a5f82c0-20e3-4b2b-986b-d77839f50d31\",\n      \"identity_data\": {},\n      \"provider\": \"string\",\n      \"last_sign_in_at\": \"2005-08-28T21:12:24.475Z\",\n      \"created_at\": \"2009-03-05T06:28:32.124Z\",\n      \"updated_at\": \"1970-10-02T15:21:59.898Z\"\n    }\n  ],\n  \"factors\": [\n    {\n      \"id\": \"8ae97642-71c9-17a5-9826-61b3c8da72a3\",\n      \"friendly_name\": \"string\",\n      \"factor_type\": \"totp\",\n      \"status\": \"unverified\",\n      \"created_at\": \"1959-10-16T01:19:37.718Z\",\n      \"updated_at\": \"1998-08-26T08:09:42.377Z\"\n    },\n    {\n      \"id\": \"cf6d33a1-aa56-0b3c-2584-739e9d9506d2\",\n      \"friendly_name\": \"string\",\n      \"factor_type\": \"totp\",\n      \"status\": \"unverified\",\n      \"created_at\": \"1969-01-27T08:54:19.880Z\",\n      \"updated_at\": \"1980-06-30T17:14:12.265Z\"\n    }\n  ],\n  \"created_at\": \"1995-02-07T06:37:04.185Z\",\n  \"updated_at\": \"1984-07-22T16:30:32.313Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "0c480960-e7e6-40f2-87b9-2deff3b569cb",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "admin",
-                    "users",
-                    ":user_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "user_id",
-                      "description": "(Required) UUID of the user"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": false,\n  \"phone_confirm\": false,\n  \"user_metadata\": {},\n  \"app_metadata\": {},\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
                     }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
                   }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "85ee4730-b84c-4175-834c-1d6df556aaff",
-              "name": "User not found",
-              "originalRequest": {
+                },
                 "url": {
-                  "path": [
-                    "admin",
-                    "users",
-                    ":user_id"
-                  ],
+                  "raw": "{{baseUrl}}/admin/users",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "user_id",
-                      "description": "(Required) UUID of the user"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "92315c30-2366-4014-8c3a-a498ad1ade73",
-          "name": "Update a user (admin)",
-          "request": {
-            "name": "Update a user (admin)",
-            "description": {
-              "content": "Updates a user's profile, role, or confirmation status. Requires service_role key authentication.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "admin",
-                "users",
-                ":user_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "user_id",
-                  "description": "(Required) UUID of the user"
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": \"<boolean>\",\n  \"phone_confirm\": \"<boolean>\",\n  \"user_metadata\": \"<object>\",\n  \"app_metadata\": \"<object>\",\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "6be7041b-6792-4409-8ab5-8a7925b25822",
-              "name": "User updated",
-              "originalRequest": {
-                "url": {
                   "path": [
                     "admin",
-                    "users",
-                    ":user_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "user_id",
-                      "description": "(Required) UUID of the user"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
+                    "users"
                   ]
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
+                "description": "Creates a new user without requiring email confirmation. Requires service_role key authentication."
+              },
+              "response": [
+                {
+                  "id": "78a05380-8825-42fe-8eb6-fd20a2791982",
+                  "name": "User created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": false,\n  \"phone_confirm\": false,\n  \"user_metadata\": {},\n  \"app_metadata\": {},\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/users",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "users"
+                      ]
+                    }
                   },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": \"<boolean>\",\n  \"phone_confirm\": \"<boolean>\",\n  \"user_metadata\": \"<object>\",\n  \"app_metadata\": \"<object>\",\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"081fc799-8c50-f507-7099-26250e0bfde5\",\n  \"aud\": \"string\",\n  \"role\": \"string\",\n  \"email\": \"fYFnKpo@qGRYwQhVUYLtWTGkWWoE.cog\",\n  \"email_confirmed_at\": \"2009-03-19T09:26:05.063Z\",\n  \"phone\": \"string\",\n  \"phone_confirmed_at\": \"1984-01-20T06:04:33.219Z\",\n  \"confirmed_at\": \"1948-01-03T17:34:18.707Z\",\n  \"last_sign_in_at\": \"1971-01-05T22:16:53.191Z\",\n  \"app_metadata\": {\n    \"provider\": \"string\",\n    \"providers\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"user_metadata\": {},\n  \"identities\": [\n    {\n      \"id\": \"string\",\n      \"user_id\": \"b45e0255-87c3-1453-0289-3830bf3cbb54\",\n      \"identity_data\": {},\n      \"provider\": \"string\",\n      \"last_sign_in_at\": \"2021-11-25T01:53:14.364Z\",\n      \"created_at\": \"1946-10-14T17:28:26.578Z\",\n      \"updated_at\": \"1990-11-17T20:44:41.137Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"user_id\": \"8a5f82c0-20e3-4b2b-986b-d77839f50d31\",\n      \"identity_data\": {},\n      \"provider\": \"string\",\n      \"last_sign_in_at\": \"2005-08-28T21:12:24.475Z\",\n      \"created_at\": \"2009-03-05T06:28:32.124Z\",\n      \"updated_at\": \"1970-10-02T15:21:59.898Z\"\n    }\n  ],\n  \"factors\": [\n    {\n      \"id\": \"8ae97642-71c9-17a5-9826-61b3c8da72a3\",\n      \"friendly_name\": \"string\",\n      \"factor_type\": \"totp\",\n      \"status\": \"unverified\",\n      \"created_at\": \"1959-10-16T01:19:37.718Z\",\n      \"updated_at\": \"1998-08-26T08:09:42.377Z\"\n    },\n    {\n      \"id\": \"cf6d33a1-aa56-0b3c-2584-739e9d9506d2\",\n      \"friendly_name\": \"string\",\n      \"factor_type\": \"totp\",\n      \"status\": \"unverified\",\n      \"created_at\": \"1969-01-27T08:54:19.880Z\",\n      \"updated_at\": \"1980-06-30T17:14:12.265Z\"\n    }\n  ],\n  \"created_at\": \"1995-02-07T06:37:04.185Z\",\n  \"updated_at\": \"1984-07-22T16:30:32.313Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "7e832ba0-e942-49be-b92c-4796ab1a24d9",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "admin",
-                    "users",
-                    ":user_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
                     {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "user_id",
-                      "description": "(Required) UUID of the user"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
+                      "key": "Content-Type",
+                      "value": "application/json"
                     }
-                  ]
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<uuid>\",\n  \"aud\": \"<string>\",\n  \"role\": \"<string>\",\n  \"email\": \"<email>\",\n  \"email_confirmed_at\": \"<dateTime>\",\n  \"phone\": \"<string>\",\n  \"phone_confirmed_at\": \"<dateTime>\",\n  \"confirmed_at\": \"<dateTime>\",\n  \"last_sign_in_at\": \"<dateTime>\",\n  \"app_metadata\": {\n    \"provider\": \"<string>\",\n    \"providers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"user_metadata\": {},\n  \"identities\": [\n    {\n      \"id\": \"<string>\",\n      \"user_id\": \"<uuid>\",\n      \"identity_data\": {},\n      \"provider\": \"<string>\",\n      \"last_sign_in_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"user_id\": \"<uuid>\",\n      \"identity_data\": {},\n      \"provider\": \"<string>\",\n      \"last_sign_in_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"factors\": [\n    {\n      \"id\": \"<uuid>\",\n      \"friendly_name\": \"<string>\",\n      \"factor_type\": \"totp\",\n      \"status\": \"verified\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<uuid>\",\n      \"friendly_name\": \"<string>\",\n      \"factor_type\": \"totp\",\n      \"status\": \"verified\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-10-21T20:47:35.000Z",
+                  "updatedAt": "2026-10-21T20:47:35.000Z",
+                  "uid": "35240-78a05380-8825-42fe-8eb6-fd20a2791982"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": \"<boolean>\",\n  \"phone_confirm\": \"<boolean>\",\n  \"user_metadata\": \"<object>\",\n  \"app_metadata\": \"<object>\",\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "aa7a8286-a1ad-44d4-a0d2-e78789d6cb56",
-              "name": "User not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "admin",
-                    "users",
-                    ":user_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "user_id",
-                      "description": "(Required) UUID of the user"
+                  "id": "59bc8113-04ae-40cd-95fb-173794f08d9b",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": false,\n  \"phone_confirm\": false,\n  \"user_metadata\": {},\n  \"app_metadata\": {},\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
                     },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/users",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "users"
+                      ]
                     }
-                  ]
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:47:35.000Z",
+                  "updatedAt": "2026-10-21T20:47:35.000Z",
+                  "uid": "35240-59bc8113-04ae-40cd-95fb-173794f08d9b"
                 },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": \"<boolean>\",\n  \"phone_confirm\": \"<boolean>\",\n  \"user_metadata\": \"<object>\",\n  \"app_metadata\": \"<object>\",\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
                 {
-                  "key": "Content-Type",
-                  "value": "text/plain"
+                  "id": "bc915cf5-b696-4f29-ac55-03843a88c622",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"password\": \"<string>\",\n  \"email_confirm\": false,\n  \"phone_confirm\": false,\n  \"user_metadata\": {},\n  \"app_metadata\": {},\n  \"role\": \"<string>\",\n  \"ban_duration\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/admin/users",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "admin",
+                        "users"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:47:35.000Z",
+                  "updatedAt": "2026-10-21T20:47:35.000Z",
+                  "uid": "35240-bc915cf5-b696-4f29-ac55-03843a88c622"
                 }
               ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "createdAt": "2026-10-21T20:47:35.000Z",
+              "updatedAt": "2026-10-21T20:47:35.000Z",
+              "uid": "35240-586b17a4-cc9b-4aa4-9474-0193e8942571"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
+          "id": "e5825531-194c-444c-ab9b-170a93725fa5",
+          "createdAt": "2026-10-21T20:47:35.000Z",
+          "updatedAt": "2026-10-21T20:47:35.000Z",
+          "uid": "35240-e5825531-194c-444c-ab9b-170a93725fa5"
+        }
+      ],
+      "id": "a7f2cd37-43ce-4b31-8db1-de5237182087",
+      "createdAt": "2026-10-21T20:47:35.000Z",
+      "updatedAt": "2026-10-21T20:47:35.000Z",
+      "uid": "35240-a7f2cd37-43ce-4b31-8db1-de5237182087"
+    },
+    {
+      "name": "invite",
+      "item": [
         {
-          "id": "2e646ba5-ccde-4cc8-bc99-4dfe98038585",
-          "name": "Delete a user (admin)",
-          "request": {
-            "name": "Delete a user (admin)",
-            "description": {
-              "content": "Permanently deletes a user and their associated data. Requires service_role key authentication.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "admin",
-                "users",
-                ":user_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<uuid>",
-                  "key": "user_id",
-                  "description": "(Required) UUID of the user"
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            }
-          },
-          "response": [
-            {
-              "id": "48b1d0e0-225d-4f00-9100-0de7e4228981",
-              "name": "User deleted",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "admin",
-                    "users",
-                    ":user_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "user_id",
-                      "description": "(Required) UUID of the user"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "eb95443e-4f9a-4345-99c6-81fad32e5670",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "admin",
-                    "users",
-                    ":user_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "user_id",
-                      "description": "(Required) UUID of the user"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "c7561aa5-ceca-41a4-aada-8d7efa9fd012",
-              "name": "User not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "admin",
-                    "users",
-                    ":user_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<uuid>",
-                      "key": "user_id",
-                      "description": "(Required) UUID of the user"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "44e14304-ee7e-4895-a34b-ac8fd6983c6f",
           "name": "Invite a user by email",
+          "id": "69683b78-195c-445e-87ae-ada53b53135e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Invite a user by email",
-            "description": {
-              "content": "Sends an invitation email to the specified address. The recipient can use the link in the email to create their account. Requires service_role key authentication.",
-              "type": "text/plain"
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\",\n  \"data\": {}\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
             },
             "url": {
+              "raw": "{{baseUrl}}/invite",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "invite"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
               ]
             },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"<email>\",\n  \"data\": \"<object>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
+            "description": "Sends an invitation email to the specified address. The recipient can use the link in the email to create their account. Requires service_role key authentication."
           },
           "response": [
             {
-              "id": "3bcf7c32-b1c8-4be9-8022-0967d3a17e59",
+              "id": "f735e2f2-aec7-491a-980b-5cf3b53a4787",
               "name": "Invitation sent",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "invite"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"email\": \"<email>\",\n  \"data\": \"<object>\"\n}",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"data\": {}\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/invite",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "invite"
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:47:35.000Z",
+              "updatedAt": "2026-10-21T20:47:35.000Z",
+              "uid": "35240-f735e2f2-aec7-491a-980b-5cf3b53a4787"
             },
             {
-              "id": "efebd9f4-da2f-4582-8a81-3ce2ab95a902",
+              "id": "d2c874f3-bcb7-4787-909b-2957e9d04618",
               "name": "Bad request",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "invite"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"email\": \"<email>\",\n  \"data\": \"<object>\"\n}",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"data\": {}\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/invite",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "invite"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:47:35.000Z",
+              "updatedAt": "2026-10-21T20:47:35.000Z",
+              "uid": "35240-d2c874f3-bcb7-4787-909b-2957e9d04618"
             },
             {
-              "id": "808ca7c3-2f38-46b4-82b7-b291c1e67e86",
+              "id": "2379470e-11ce-49be-89ae-39524e6c9431",
               "name": "Unauthorized",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "invite"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"email\": \"<email>\",\n  \"data\": \"<object>\"\n}",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"data\": {}\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/invite",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "invite"
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:47:35.000Z",
+              "updatedAt": "2026-10-21T20:47:35.000Z",
+              "uid": "35240-2379470e-11ce-49be-89ae-39524e6c9431"
             },
             {
-              "id": "f6977111-5adc-418f-b606-a723ca3acba2",
+              "id": "cacec0ca-93da-408a-b8d3-85c8395fed20",
               "name": "User already exists",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "invite"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
                     "key": "Authorization",
                     "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"email\": \"<email>\",\n  \"data\": \"<object>\"\n}",
+                  "raw": "{\n  \"email\": \"<email>\",\n  \"data\": {}\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/invite",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "invite"
+                  ]
                 }
               },
               "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
               "code": 422,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:47:35.000Z",
+              "updatedAt": "2026-10-21T20:47:35.000Z",
+              "uid": "35240-cacec0ca-93da-408a-b8d3-85c8395fed20"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:47:35.000Z",
+          "updatedAt": "2026-10-21T20:47:35.000Z",
+          "uid": "35240-69683b78-195c-445e-87ae-ada53b53135e"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Your Supabase project reference ID",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "your-project-ref",
-      "key": "project_ref"
-    },
-    {
-      "type": "string",
-      "value": "https://{{project_ref}}.supabase.co/auth/v1",
-      "key": "baseUrl"
+      "id": "1da3625e-b228-41ca-bd27-250015196d31",
+      "createdAt": "2026-10-21T20:47:35.000Z",
+      "updatedAt": "2026-10-21T20:47:35.000Z",
+      "uid": "35240-1da3625e-b228-41ca-bd27-250015196d31"
     }
   ],
   "auth": {
@@ -1433,25 +1237,29 @@
     "apikey": [
       {
         "key": "key",
-        "value": "apikey"
+        "value": "apikey",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "698095a1-173c-40a9-a5f7-34d3aa100e8b",
-    "name": "Supabase Auth Admin API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.\n\nContact Support:\n Name: Supabase Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "project_ref",
+      "value": "your-project-ref"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{project_ref}}.supabase.co/auth/v1"
     }
-  }
+  ]
 }

@@ -1,177 +1,320 @@
 {
+  "info": {
+    "_postman_id": "4a896f69-1a70-4037-9a7e-d64eaec7934d",
+    "name": "Supabase Management Organizations API",
+    "description": "The Supabase Management API provides programmatic access to manage Supabase projects and organizations. It supports operations for creating, updating, and deleting projects, managing database configurations, retrieving project API keys, controlling organization membership, deploying Edge Functions, managing secrets, configuring custom domains, and monitoring project health. Authentication is handled via personal access tokens or OAuth2 tokens.\n\nContact Support:\n Name: Supabase Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:48:41.000Z",
+    "updatedAt": "2026-10-21T20:48:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4a896f69-1a70-4037-9a7e-d64eaec7934d"
+  },
   "item": [
     {
-      "id": "ceff74fb-5ef6-465d-aabe-e03c2ec61a7a",
-      "name": "Organizations",
-      "description": {
-        "content": "Manage organizations including membership, billing, and settings.",
-        "type": "text/plain"
-      },
+      "name": "organizations",
       "item": [
         {
-          "id": "cf80b0f3-8940-4f25-89d8-cbcce39f6c08",
-          "name": "List all organizations",
-          "request": {
-            "name": "List all organizations",
-            "description": {
-              "content": "Returns a list of all organizations the authenticated user belongs to.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "organizations"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
+          "name": "{slug}",
+          "item": [
+            {
+              "name": "members",
+              "item": [
                 {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
+                  "name": "List organization members",
+                  "id": "6bfd8254-270a-4eef-be36-9487d59d1ca9",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/organizations/:slug/members",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "organizations",
+                        ":slug",
+                        "members"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ed606131-e75f-4bc9-8bc1-0a9edc602500",
+                          "key": "slug",
+                          "value": "<string>",
+                          "description": "(Required) The URL-friendly slug identifier for the organization."
+                        }
+                      ]
+                    },
+                    "description": "Returns a list of all members in an organization along with their roles and permissions."
+                  },
+                  "response": [
+                    {
+                      "id": "9a7d9375-4059-4f0a-8421-2d258704995e",
+                      "name": "Successfully retrieved members",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/organizations/:slug/members",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "organizations",
+                            ":slug",
+                            "members"
+                          ],
+                          "variable": [
+                            {
+                              "key": "slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"user_id\": \"<uuid>\",\n    \"role_name\": \"Owner\",\n    \"primary_email\": \"<email>\",\n    \"username\": \"<string>\"\n  },\n  {\n    \"user_id\": \"<uuid>\",\n    \"role_name\": \"Developer\",\n    \"primary_email\": \"<email>\",\n    \"username\": \"<string>\"\n  }\n]",
+                      "createdAt": "2026-10-21T20:48:41.000Z",
+                      "updatedAt": "2026-10-21T20:48:41.000Z",
+                      "uid": "35240-9a7d9375-4059-4f0a-8421-2d258704995e"
+                    },
+                    {
+                      "id": "cf47a60b-2da4-4647-89b4-3f3e40610c21",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/organizations/:slug/members",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "organizations",
+                            ":slug",
+                            "members"
+                          ],
+                          "variable": [
+                            {
+                              "key": "slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:48:41.000Z",
+                      "updatedAt": "2026-10-21T20:48:41.000Z",
+                      "uid": "35240-cf47a60b-2da4-4647-89b4-3f3e40610c21"
+                    },
+                    {
+                      "id": "396d1d75-bb25-4adb-89af-e50850422361",
+                      "name": "Organization not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/organizations/:slug/members",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "organizations",
+                            ":slug",
+                            "members"
+                          ],
+                          "variable": [
+                            {
+                              "key": "slug"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:48:41.000Z",
+                      "updatedAt": "2026-10-21T20:48:41.000Z",
+                      "uid": "35240-396d1d75-bb25-4adb-89af-e50850422361"
+                    }
+                  ],
+                  "createdAt": "2026-10-21T20:48:41.000Z",
+                  "updatedAt": "2026-10-21T20:48:41.000Z",
+                  "uid": "35240-6bfd8254-270a-4eef-be36-9487d59d1ca9"
                 }
-              ]
-            },
+              ],
+              "id": "e329033a-922b-4e7f-acb5-313234edd370",
+              "createdAt": "2026-10-21T20:48:41.000Z",
+              "updatedAt": "2026-10-21T20:48:41.000Z",
+              "uid": "35240-e329033a-922b-4e7f-acb5-313234edd370"
+            }
+          ],
+          "id": "fc0e3369-816c-4ea9-8efa-c8bb3723931b",
+          "createdAt": "2026-10-21T20:48:41.000Z",
+          "updatedAt": "2026-10-21T20:48:41.000Z",
+          "uid": "35240-fc0e3369-816c-4ea9-8efa-c8bb3723931b"
+        },
+        {
+          "name": "List all organizations",
+          "id": "d13ce070-85d2-4242-8fc7-7450acf09e2f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": null
+            "url": {
+              "raw": "{{baseUrl}}/organizations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations"
+              ]
+            },
+            "description": "Returns a list of all organizations the authenticated user belongs to."
           },
           "response": [
             {
-              "id": "e3b8b11c-7cb8-4395-870c-bc9ea5ba2147",
+              "id": "7665930e-df01-4773-aa3d-5182f8112bff",
               "name": "Successfully retrieved organizations",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/organizations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "[\n  {\n    \"id\": \"8b4a78bc-5cf5-ef7c-5e66-301e824476cf\",\n    \"name\": \"string\",\n    \"slug\": \"string\",\n    \"billing_email\": \"ldbhGpuiB6pZ@vhXpRTHh.ozf\",\n    \"created_at\": \"1954-01-12T23:49:55.188Z\"\n  },\n  {\n    \"id\": \"35b59b2b-a021-8a89-90a8-cf1ebd1ceb7b\",\n    \"name\": \"string\",\n    \"slug\": \"string\",\n    \"billing_email\": \"AIEihV9QO@dcBdYV.yx\",\n    \"created_at\": \"2009-04-03T09:30:34.663Z\"\n  }\n]",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"billing_email\": \"<email>\",\n    \"created_at\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"billing_email\": \"<email>\",\n    \"created_at\": \"<dateTime>\"\n  }\n]",
+              "createdAt": "2026-10-21T20:48:41.000Z",
+              "updatedAt": "2026-10-21T20:48:41.000Z",
+              "uid": "35240-7665930e-df01-4773-aa3d-5182f8112bff"
             },
             {
-              "id": "eb98672f-0431-4ae7-9e6f-f6e6098d38a0",
+              "id": "f46a48cb-bd44-4164-ae78-b0fcff50d17b",
               "name": "Unauthorized",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "organizations"
-                  ],
+                  "raw": "{{baseUrl}}/organizations",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
+                  "path": [
+                    "organizations"
                   ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:48:41.000Z",
+              "updatedAt": "2026-10-21T20:48:41.000Z",
+              "uid": "35240-f46a48cb-bd44-4164-ae78-b0fcff50d17b"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:48:41.000Z",
+          "updatedAt": "2026-10-21T20:48:41.000Z",
+          "uid": "35240-d13ce070-85d2-4242-8fc7-7450acf09e2f"
         },
         {
-          "id": "238a3d85-255b-490c-be2a-9db532f41f33",
           "name": "Create an organization",
+          "id": "b8d819c7-3aca-4294-925f-2361a9924530",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Create an organization",
-            "description": {
-              "content": "Creates a new organization that can contain Supabase projects and team members.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "organizations"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -182,456 +325,204 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n  \"name\": \"<string>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/organizations",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "organizations"
+              ]
+            },
+            "description": "Creates a new organization that can contain Supabase projects and team members."
           },
           "response": [
             {
-              "id": "99a91c9d-1faa-44ff-a117-f9d1ddf2450b",
+              "id": "fd58556d-1ba5-4b93-a1bb-352dfd5b4ac3",
               "name": "Organization created successfully",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"name\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/organizations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations"
+                  ]
                 }
               },
               "status": "Created",
               "code": 201,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"id\": \"3228d8e5-048e-9761-8d8d-55e650926e98\",\n  \"name\": \"string\",\n  \"slug\": \"string\",\n  \"billing_email\": \"XSsh6@WFpchbovKEijGhrjvyjTxRbi.vzj\",\n  \"created_at\": \"2017-11-09T10:44:18.670Z\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<uuid>\",\n  \"name\": \"<string>\",\n  \"slug\": \"<string>\",\n  \"billing_email\": \"<email>\",\n  \"created_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-10-21T20:48:41.000Z",
+              "updatedAt": "2026-10-21T20:48:41.000Z",
+              "uid": "35240-fd58556d-1ba5-4b93-a1bb-352dfd5b4ac3"
             },
             {
-              "id": "6cfe7f65-5cf0-4f98-b5fc-3823dcbde85e",
+              "id": "9b9bbd01-c0d4-45af-a4b0-822dddcb8137",
               "name": "Bad request",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"name\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/organizations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:48:41.000Z",
+              "updatedAt": "2026-10-21T20:48:41.000Z",
+              "uid": "35240-9b9bbd01-c0d4-45af-a4b0-822dddcb8137"
             },
             {
-              "id": "0b3b1712-fabc-4947-b44b-fff59e75ba3b",
+              "id": "1d47c19c-49d6-4e37-a35c-c130b4fecbb6",
               "name": "Unauthorized",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"name\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/organizations",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "organizations"
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:48:41.000Z",
+              "updatedAt": "2026-10-21T20:48:41.000Z",
+              "uid": "35240-1d47c19c-49d6-4e37-a35c-c130b4fecbb6"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "eaa0da8e-4643-474c-82bd-f368d08019f7",
-          "name": "List organization members",
-          "request": {
-            "name": "List organization members",
-            "description": {
-              "content": "Returns a list of all members in an organization along with their roles and permissions.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "organizations",
-                ":slug",
-                "members"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "slug",
-                  "description": "(Required) The URL-friendly slug identifier for the organization."
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "9a21b702-9d5f-4aaa-a9c9-1f145b3277a3",
-              "name": "Successfully retrieved members",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":slug",
-                    "members"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "slug",
-                      "description": "(Required) The URL-friendly slug identifier for the organization."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "[\n  {\n    \"user_id\": \"bb768b5a-a125-7de8-f03b-bc1af0c1e0c5\",\n    \"role_name\": \"Administrator\",\n    \"primary_email\": \"JAg9trJY@jlBL.sd\",\n    \"username\": \"string\"\n  },\n  {\n    \"user_id\": \"af711906-3851-68d8-c9c8-d80d213cd87e\",\n    \"role_name\": \"Developer\",\n    \"primary_email\": \"F8tE6Spfs@HbHUokGhDwYeTdcuJBzRaOjxhQOr.rci\",\n    \"username\": \"string\"\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "d83ca311-0df4-46bf-bea7-952fc41b25d8",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":slug",
-                    "members"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "slug",
-                      "description": "(Required) The URL-friendly slug identifier for the organization."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "bbca7f7a-0cc5-4103-b09a-80a4795ad22f",
-              "name": "Organization not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "organizations",
-                    ":slug",
-                    "members"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "slug",
-                      "description": "(Required) The URL-friendly slug identifier for the organization."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:48:41.000Z",
+          "updatedAt": "2026-10-21T20:48:41.000Z",
+          "uid": "35240-b8d819c7-3aca-4294-925f-2361a9924530"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Your Supabase project reference ID",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "your-project-ref",
-      "key": "project_ref"
-    },
-    {
-      "type": "string",
-      "value": "https://{{project_ref}}.supabase.co/auth/v1",
-      "key": "baseUrl"
+      "id": "37be29b3-60f0-4140-9cb3-119431c59f74",
+      "createdAt": "2026-10-21T20:48:41.000Z",
+      "updatedAt": "2026-10-21T20:48:41.000Z",
+      "uid": "35240-37be29b3-60f0-4140-9cb3-119431c59f74"
     }
   ],
   "auth": {
-    "type": "apikey",
-    "apikey": [
+    "type": "bearer",
+    "bearer": [
       {
-        "key": "key",
-        "value": "apikey"
-      },
-      {
-        "key": "value",
-        "value": "{{apiKey}}"
-      },
-      {
-        "key": "in",
-        "value": "header"
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "58dd149d-0eb1-4bc8-ad08-c0121bce0a52",
-    "name": "Supabase Auth Admin Organizations API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.\n\nContact Support:\n Name: Supabase Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.supabase.com/v1"
     }
-  }
+  ]
 }

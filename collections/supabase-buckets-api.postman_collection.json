@@ -1,177 +1,885 @@
 {
+  "info": {
+    "_postman_id": "d11b339a-bba3-4a19-b6c5-5cc050195fa4",
+    "name": "Supabase Storage Buckets API",
+    "description": "The Supabase Storage API enables developers to store, organize, and serve large files such as images, videos, and documents. It provides bucket-based organization with support for uploading, downloading, and transforming files including on-the-fly image resizing and optimization. Access control is managed through Row Level Security policies tied to the PostgreSQL database. The API supports both public and private storage buckets, resumable uploads via the TUS protocol, and S3-compatible access.\n\nContact Support:\n Name: Supabase Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:47:50.000Z",
+    "updatedAt": "2026-10-21T20:47:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d11b339a-bba3-4a19-b6c5-5cc050195fa4"
+  },
   "item": [
     {
-      "id": "a06aa5a2-2e9c-4bef-accc-d3cb87071d30",
-      "name": "Buckets",
-      "description": {
-        "content": "Manage storage buckets that organize files and folders. Buckets can be public or private and have configurable file size limits and allowed MIME types.",
-        "type": "text/plain"
-      },
+      "name": "bucket",
       "item": [
         {
-          "id": "aa3ff271-3630-4496-8a55-9a582314b43b",
-          "name": "List all buckets",
-          "request": {
-            "name": "List all buckets",
-            "description": {
-              "content": "Returns a list of all storage buckets in the project. Requires authenticated access with appropriate permissions.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "bucket"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{bucketId}",
+          "item": [
             {
-              "id": "a64a973d-3502-4cd4-85d4-50dd6d9d5e33",
-              "name": "Successfully retrieved buckets",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket"
+              "name": "empty",
+              "item": [
+                {
+                  "name": "Empty a bucket",
+                  "id": "bbae0810-27e1-4de3-875c-828448208ef3",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket/:bucketId/empty",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket",
+                        ":bucketId",
+                        "empty"
+                      ],
+                      "variable": [
+                        {
+                          "id": "c2a8fb10-279d-4099-89b3-3dfd056d7cc3",
+                          "key": "bucketId",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier or name of the storage bucket"
+                        }
+                      ]
+                    },
+                    "description": "Removes all objects from a storage bucket without deleting the bucket itself."
+                  },
+                  "response": [
+                    {
+                      "id": "da96ca67-e2ce-454b-b7d6-a50233fde46a",
+                      "name": "Bucket emptied successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "apikey",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bucket/:bucketId/empty",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bucket",
+                            ":bucketId",
+                            "empty"
+                          ],
+                          "variable": [
+                            {
+                              "key": "bucketId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:47:51.000Z",
+                      "updatedAt": "2026-10-21T20:47:51.000Z",
+                      "uid": "35240-da96ca67-e2ce-454b-b7d6-a50233fde46a"
+                    },
+                    {
+                      "id": "1026c545-feca-403e-91bb-e2e84ae6cb73",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "apikey",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bucket/:bucketId/empty",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bucket",
+                            ":bucketId",
+                            "empty"
+                          ],
+                          "variable": [
+                            {
+                              "key": "bucketId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:47:51.000Z",
+                      "updatedAt": "2026-10-21T20:47:51.000Z",
+                      "uid": "35240-1026c545-feca-403e-91bb-e2e84ae6cb73"
+                    },
+                    {
+                      "id": "f777b4b4-57de-4d9b-b8c3-64062602a614",
+                      "name": "Bucket not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "apikey",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/bucket/:bucketId/empty",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "bucket",
+                            ":bucketId",
+                            "empty"
+                          ],
+                          "variable": [
+                            {
+                              "key": "bucketId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-10-21T20:47:51.000Z",
+                      "updatedAt": "2026-10-21T20:47:51.000Z",
+                      "uid": "35240-f777b4b4-57de-4d9b-b8c3-64062602a614"
+                    }
                   ],
+                  "createdAt": "2026-10-21T20:47:51.000Z",
+                  "updatedAt": "2026-10-21T20:47:51.000Z",
+                  "uid": "35240-bbae0810-27e1-4de3-875c-828448208ef3"
+                }
+              ],
+              "id": "2f9a0545-c063-41b6-89c5-27076439bbac",
+              "createdAt": "2026-10-21T20:47:51.000Z",
+              "updatedAt": "2026-10-21T20:47:51.000Z",
+              "uid": "35240-2f9a0545-c063-41b6-89c5-27076439bbac"
+            },
+            {
+              "name": "Get bucket details",
+              "id": "3afb7531-989d-42d9-826a-ede697295f68",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/bucket/:bucketId",
                   "host": [
                     "{{baseUrl}}"
                   ],
-                  "query": [],
+                  "path": [
+                    "bucket",
+                    ":bucketId"
+                  ],
                   "variable": [
                     {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
+                      "id": "f5d19c57-45f0-4b57-9427-229deba3b341",
+                      "key": "bucketId",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier or name of the storage bucket"
                     }
                   ]
                 },
+                "description": "Retrieves details about a specific storage bucket including its configuration, visibility, and file size limits."
+              },
+              "response": [
+                {
+                  "id": "dd41d40b-398b-43e8-b2cb-5abdcbf6633e",
+                  "name": "Successfully retrieved bucket details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket/:bucketId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket",
+                        ":bucketId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bucketId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"owner\": \"<uuid>\",\n  \"public\": \"<boolean>\",\n  \"file_size_limit\": \"<integer>\",\n  \"allowed_mime_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-10-21T20:47:51.000Z",
+                  "updatedAt": "2026-10-21T20:47:51.000Z",
+                  "uid": "35240-dd41d40b-398b-43e8-b2cb-5abdcbf6633e"
+                },
+                {
+                  "id": "a0a68358-1dcc-4de1-9213-7207c462377d",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket/:bucketId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket",
+                        ":bucketId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bucketId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:47:51.000Z",
+                  "updatedAt": "2026-10-21T20:47:51.000Z",
+                  "uid": "35240-a0a68358-1dcc-4de1-9213-7207c462377d"
+                },
+                {
+                  "id": "447c2687-caed-4fb4-ba34-54ea1b2a5324",
+                  "name": "Bucket not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket/:bucketId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket",
+                        ":bucketId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bucketId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:47:51.000Z",
+                  "updatedAt": "2026-10-21T20:47:51.000Z",
+                  "uid": "35240-447c2687-caed-4fb4-ba34-54ea1b2a5324"
+                }
+              ],
+              "createdAt": "2026-10-21T20:47:51.000Z",
+              "updatedAt": "2026-10-21T20:47:51.000Z",
+              "uid": "35240-3afb7531-989d-42d9-826a-ede697295f68"
+            },
+            {
+              "name": "Update a bucket",
+              "id": "bd81df95-0f26-47af-b359-b8986d18d67b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PUT",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"public\": \"<boolean>\",\n  \"file_size_limit\": \"<integer>\",\n  \"allowed_mime_types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/bucket/:bucketId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bucket",
+                    ":bucketId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "85bfda70-fd9b-43a6-8d9b-a8af01ef92f8",
+                      "key": "bucketId",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier or name of the storage bucket"
+                    }
+                  ]
+                },
+                "description": "Updates the configuration of an existing storage bucket including its visibility, file size limits, and allowed MIME types."
+              },
+              "response": [
+                {
+                  "id": "dba619cc-82e5-4f85-9080-7f5db9caf811",
+                  "name": "Bucket updated successfully",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"public\": \"<boolean>\",\n  \"file_size_limit\": \"<integer>\",\n  \"allowed_mime_types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket/:bucketId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket",
+                        ":bucketId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bucketId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\"\n}",
+                  "createdAt": "2026-10-21T20:47:51.000Z",
+                  "updatedAt": "2026-10-21T20:47:51.000Z",
+                  "uid": "35240-dba619cc-82e5-4f85-9080-7f5db9caf811"
+                },
+                {
+                  "id": "aab6c680-de76-4370-8da0-9dd75875435d",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"public\": \"<boolean>\",\n  \"file_size_limit\": \"<integer>\",\n  \"allowed_mime_types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket/:bucketId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket",
+                        ":bucketId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bucketId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:47:51.000Z",
+                  "updatedAt": "2026-10-21T20:47:51.000Z",
+                  "uid": "35240-aab6c680-de76-4370-8da0-9dd75875435d"
+                },
+                {
+                  "id": "9dc32f21-8c63-4c56-9107-26d071185326",
+                  "name": "Bucket not found",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"public\": \"<boolean>\",\n  \"file_size_limit\": \"<integer>\",\n  \"allowed_mime_types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket/:bucketId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket",
+                        ":bucketId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bucketId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:47:51.000Z",
+                  "updatedAt": "2026-10-21T20:47:51.000Z",
+                  "uid": "35240-9dc32f21-8c63-4c56-9107-26d071185326"
+                }
+              ],
+              "createdAt": "2026-10-21T20:47:51.000Z",
+              "updatedAt": "2026-10-21T20:47:51.000Z",
+              "uid": "35240-bd81df95-0f26-47af-b359-b8986d18d67b"
+            },
+            {
+              "name": "Delete a bucket",
+              "id": "d64d6db1-10c3-44eb-85d7-d360417b212b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/bucket/:bucketId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bucket",
+                    ":bucketId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "f38baf5e-e902-4708-a368-c2dbc3193894",
+                      "key": "bucketId",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier or name of the storage bucket"
+                    }
+                  ]
+                },
+                "description": "Deletes an empty storage bucket. The bucket must be emptied of all objects before deletion."
+              },
+              "response": [
+                {
+                  "id": "d871413f-1908-4031-947c-d4ed5bca7c3c",
+                  "name": "Bucket deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket/:bucketId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket",
+                        ":bucketId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bucketId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:47:51.000Z",
+                  "updatedAt": "2026-10-21T20:47:51.000Z",
+                  "uid": "35240-d871413f-1908-4031-947c-d4ed5bca7c3c"
+                },
+                {
+                  "id": "ac901a01-5d76-4856-8ca1-de10491671a6",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket/:bucketId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket",
+                        ":bucketId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bucketId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:47:51.000Z",
+                  "updatedAt": "2026-10-21T20:47:51.000Z",
+                  "uid": "35240-ac901a01-5d76-4856-8ca1-de10491671a6"
+                },
+                {
+                  "id": "5af8d911-ddeb-4944-a8c1-d25a7d622fca",
+                  "name": "Bucket not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket/:bucketId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket",
+                        ":bucketId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bucketId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:47:51.000Z",
+                  "updatedAt": "2026-10-21T20:47:51.000Z",
+                  "uid": "35240-5af8d911-ddeb-4944-a8c1-d25a7d622fca"
+                },
+                {
+                  "id": "3adf5ef7-186e-4492-8f8b-640cd4e795e6",
+                  "name": "Conflict - bucket is not empty",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "apikey",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/bucket/:bucketId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "bucket",
+                        ":bucketId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "bucketId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Conflict",
+                  "code": 409,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-21T20:47:51.000Z",
+                  "updatedAt": "2026-10-21T20:47:51.000Z",
+                  "uid": "35240-3adf5ef7-186e-4492-8f8b-640cd4e795e6"
+                }
+              ],
+              "createdAt": "2026-10-21T20:47:51.000Z",
+              "updatedAt": "2026-10-21T20:47:51.000Z",
+              "uid": "35240-d64d6db1-10c3-44eb-85d7-d360417b212b"
+            }
+          ],
+          "id": "5ef4db80-65aa-4d51-aca9-50dee1514056",
+          "createdAt": "2026-10-21T20:47:51.000Z",
+          "updatedAt": "2026-10-21T20:47:51.000Z",
+          "uid": "35240-5ef4db80-65aa-4d51-aca9-50dee1514056"
+        },
+        {
+          "name": "List all buckets",
+          "id": "555ab8e8-ae3e-4e47-848c-0bb1be970cd1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bucket",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bucket"
+              ]
+            },
+            "description": "Returns a list of all storage buckets in the project. Requires authenticated access with appropriate permissions."
+          },
+          "response": [
+            {
+              "id": "cb0924fd-5f36-4b48-a9b0-5ee908b7eba2",
+              "name": "Successfully retrieved buckets",
+              "originalRequest": {
                 "method": "GET",
-                "body": {}
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/bucket",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bucket"
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"owner\": \"c64341eb-d815-834d-c91d-973ebb57514e\",\n    \"public\": true,\n    \"file_size_limit\": 6236,\n    \"allowed_mime_types\": [\n      \"string\",\n      \"string\"\n    ],\n    \"created_at\": \"2002-12-08T04:29:21.573Z\",\n    \"updated_at\": \"2009-07-17T22:31:19.768Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"owner\": \"828f4d6a-7960-0822-0bb7-3abbd2791a90\",\n    \"public\": false,\n    \"file_size_limit\": 5973,\n    \"allowed_mime_types\": [\n      \"string\",\n      \"string\"\n    ],\n    \"created_at\": \"1978-11-18T04:19:51.823Z\",\n    \"updated_at\": \"1951-08-05T22:25:30.434Z\"\n  }\n]",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"owner\": \"<uuid>\",\n    \"public\": \"<boolean>\",\n    \"file_size_limit\": \"<integer>\",\n    \"allowed_mime_types\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"owner\": \"<uuid>\",\n    \"public\": \"<boolean>\",\n    \"file_size_limit\": \"<integer>\",\n    \"allowed_mime_types\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n]",
+              "createdAt": "2026-10-21T20:47:51.000Z",
+              "updatedAt": "2026-10-21T20:47:51.000Z",
+              "uid": "35240-cb0924fd-5f36-4b48-a9b0-5ee908b7eba2"
             },
             {
-              "id": "0ecf7353-1aa2-47bb-b6e5-201e922282cc",
+              "id": "85c166e6-1109-42e9-aaae-7a95155b40f0",
               "name": "Unauthorized",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: apikey",
                     "key": "apikey",
                     "value": "<API Key>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/bucket",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bucket"
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:47:51.000Z",
+              "updatedAt": "2026-10-21T20:47:51.000Z",
+              "uid": "35240-85c166e6-1109-42e9-aaae-7a95155b40f0"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:47:51.000Z",
+          "updatedAt": "2026-10-21T20:47:51.000Z",
+          "uid": "35240-555ab8e8-ae3e-4e47-848c-0bb1be970cd1"
         },
         {
-          "id": "2d5a68f4-a89b-49cd-bb3f-cb9a97ff1f05",
           "name": "Create a new bucket",
+          "id": "a79dbd17-2472-4d7c-8196-b43ff466feeb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Create a new bucket",
-            "description": {
-              "content": "Creates a new storage bucket with the specified configuration. Bucket names must be unique within a project and follow URL-safe naming conventions.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "bucket"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -182,1149 +890,188 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
               "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"public\": false,\n  \"file_size_limit\": \"<integer>\",\n  \"allowed_mime_types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bucket",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bucket"
+              ]
+            },
+            "description": "Creates a new storage bucket with the specified configuration. Bucket names must be unique within a project and follow URL-safe naming conventions."
           },
           "response": [
             {
-              "id": "97a4858b-9a57-49ca-87fc-5a17b6e28b50",
+              "id": "727ae526-8757-4889-8961-63906625b265",
               "name": "Bucket created successfully",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"public\": false,\n  \"file_size_limit\": \"<integer>\",\n  \"allowed_mime_types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/bucket",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bucket"
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"name\": \"string\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"name\": \"<string>\"\n}",
+              "createdAt": "2026-10-21T20:47:51.000Z",
+              "updatedAt": "2026-10-21T20:47:51.000Z",
+              "uid": "35240-727ae526-8757-4889-8961-63906625b265"
             },
             {
-              "id": "ccbdc753-9024-4c5d-b359-c4fefe6a2f22",
+              "id": "b4beb0bc-c2fb-411d-8fa3-605deda319b2",
               "name": "Bad request - invalid bucket name or configuration",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
                     "key": "apikey",
                     "value": "<API Key>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"public\": false,\n  \"file_size_limit\": \"<integer>\",\n  \"allowed_mime_types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/bucket",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bucket"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:47:51.000Z",
+              "updatedAt": "2026-10-21T20:47:51.000Z",
+              "uid": "35240-b4beb0bc-c2fb-411d-8fa3-605deda319b2"
             },
             {
-              "id": "ee894187-57e1-46bd-8e7c-b9f4b695891b",
+              "id": "61420659-e59f-4be5-96cc-d07c8fb361ee",
               "name": "Unauthorized",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: apikey",
                     "key": "apikey",
                     "value": "<API Key>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
                   "raw": "{\n  \"name\": \"<string>\",\n  \"id\": \"<string>\",\n  \"public\": false,\n  \"file_size_limit\": \"<integer>\",\n  \"allowed_mime_types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/bucket",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "bucket"
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:47:51.000Z",
+              "updatedAt": "2026-10-21T20:47:51.000Z",
+              "uid": "35240-61420659-e59f-4be5-96cc-d07c8fb361ee"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "438b9699-8edc-4b8b-a28d-b4b401685e79",
-          "name": "Get bucket details",
-          "request": {
-            "name": "Get bucket details",
-            "description": {
-              "content": "Retrieves details about a specific storage bucket including its configuration, visibility, and file size limits.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "bucket",
-                ":bucketId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "bucketId",
-                  "description": "(Required) Unique identifier or name of the storage bucket"
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "246fbaf3-9e29-464e-9d07-3c8042f5088d",
-              "name": "Successfully retrieved bucket details",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket",
-                    ":bucketId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bucketId",
-                      "description": "(Required) Unique identifier or name of the storage bucket"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"owner\": \"f7aca578-d2d0-fa03-549d-8ff3e9aafc22\",\n  \"public\": true,\n  \"file_size_limit\": 6374,\n  \"allowed_mime_types\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"1958-09-14T00:00:08.573Z\",\n  \"updated_at\": \"1988-11-10T09:24:36.357Z\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "2ebdc08c-e2c3-4086-af23-04f8ed987c23",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket",
-                    ":bucketId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bucketId",
-                      "description": "(Required) Unique identifier or name of the storage bucket"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "7c5e731b-5c66-423f-b55a-00f19fcbd5ec",
-              "name": "Bucket not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket",
-                    ":bucketId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bucketId",
-                      "description": "(Required) Unique identifier or name of the storage bucket"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "b487a369-1ef8-4725-be13-0b4157e09039",
-          "name": "Update a bucket",
-          "request": {
-            "name": "Update a bucket",
-            "description": {
-              "content": "Updates the configuration of an existing storage bucket including its visibility, file size limits, and allowed MIME types.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "bucket",
-                ":bucketId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "bucketId",
-                  "description": "(Required) Unique identifier or name of the storage bucket"
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "PUT",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"public\": \"<boolean>\",\n  \"file_size_limit\": \"<integer>\",\n  \"allowed_mime_types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "aa1bea0d-a3ab-44ff-85f5-233541cfc409",
-              "name": "Bucket updated successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket",
-                    ":bucketId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bucketId",
-                      "description": "(Required) Unique identifier or name of the storage bucket"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"public\": \"<boolean>\",\n  \"file_size_limit\": \"<integer>\",\n  \"allowed_mime_types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\"\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "c9cd979a-1b53-4655-ae8f-cf5e04cd47fa",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket",
-                    ":bucketId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bucketId",
-                      "description": "(Required) Unique identifier or name of the storage bucket"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"public\": \"<boolean>\",\n  \"file_size_limit\": \"<integer>\",\n  \"allowed_mime_types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "bf04294e-ca51-4ee5-b746-7b20281accb6",
-              "name": "Bucket not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket",
-                    ":bucketId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bucketId",
-                      "description": "(Required) Unique identifier or name of the storage bucket"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"public\": \"<boolean>\",\n  \"file_size_limit\": \"<integer>\",\n  \"allowed_mime_types\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c7d4cec3-6303-4887-9819-e473435429fc",
-          "name": "Delete a bucket",
-          "request": {
-            "name": "Delete a bucket",
-            "description": {
-              "content": "Deletes an empty storage bucket. The bucket must be emptied of all objects before deletion.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "bucket",
-                ":bucketId"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "bucketId",
-                  "description": "(Required) Unique identifier or name of the storage bucket"
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "method": "DELETE",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "1912c4e3-8aed-4c51-b3b4-c3208dc6ec94",
-              "name": "Bucket deleted successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket",
-                    ":bucketId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bucketId",
-                      "description": "(Required) Unique identifier or name of the storage bucket"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "b0b06111-89c7-460a-a550-9e9be8e4631d",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket",
-                    ":bucketId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bucketId",
-                      "description": "(Required) Unique identifier or name of the storage bucket"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "7093abb3-c3a8-4f75-a213-a7cc5b3dfb56",
-              "name": "Bucket not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket",
-                    ":bucketId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bucketId",
-                      "description": "(Required) Unique identifier or name of the storage bucket"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "f1b79ae4-ed4a-494d-8f0b-2d05ca3bba0d",
-              "name": "Conflict - bucket is not empty",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket",
-                    ":bucketId"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bucketId",
-                      "description": "(Required) Unique identifier or name of the storage bucket"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Conflict",
-              "code": 409,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "1fb1ff52-a970-4e5c-bcbf-0d27bc66eaaa",
-          "name": "Empty a bucket",
-          "request": {
-            "name": "Empty a bucket",
-            "description": {
-              "content": "Removes all objects from a storage bucket without deleting the bucket itself.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "bucket",
-                ":bucketId",
-                "empty"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "bucketId",
-                  "description": "(Required) Unique identifier or name of the storage bucket"
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "method": "POST",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "21672abc-69f4-4ec2-b1d9-40cb6ca47dc7",
-              "name": "Bucket emptied successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket",
-                    ":bucketId",
-                    "empty"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bucketId",
-                      "description": "(Required) Unique identifier or name of the storage bucket"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "d8b7949e-c527-4e8d-82dc-c91baa1b16d3",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket",
-                    ":bucketId",
-                    "empty"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bucketId",
-                      "description": "(Required) Unique identifier or name of the storage bucket"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "9cf93505-5c90-4be0-b204-e2790d5d9223",
-              "name": "Bucket not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "bucket",
-                    ":bucketId",
-                    "empty"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "bucketId",
-                      "description": "(Required) Unique identifier or name of the storage bucket"
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:47:51.000Z",
+          "updatedAt": "2026-10-21T20:47:51.000Z",
+          "uid": "35240-a79dbd17-2472-4d7c-8196-b43ff466feeb"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Your Supabase project reference ID",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "your-project-ref",
-      "key": "project_ref"
-    },
-    {
-      "type": "string",
-      "value": "https://{{project_ref}}.supabase.co/auth/v1",
-      "key": "baseUrl"
+      "id": "4df9c408-6f8d-47d1-8e4e-f42f8108572d",
+      "createdAt": "2026-10-21T20:47:51.000Z",
+      "updatedAt": "2026-10-21T20:47:51.000Z",
+      "uid": "35240-4df9c408-6f8d-47d1-8e4e-f42f8108572d"
     }
   ],
   "auth": {
@@ -1332,25 +1079,29 @@
     "apikey": [
       {
         "key": "key",
-        "value": "apikey"
+        "value": "apikey",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "cbe99f5d-93ba-48ff-a734-c828ac163733",
-    "name": "Supabase Auth Admin Buckets API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.\n\nContact Support:\n Name: Supabase Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "project_ref",
+      "value": "your-project-ref"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{project_ref}}.supabase.co/storage/v1"
     }
-  }
+  ]
 }

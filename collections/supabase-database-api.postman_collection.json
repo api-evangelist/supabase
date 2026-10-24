@@ -1,535 +1,457 @@
 {
+  "info": {
+    "_postman_id": "59895a51-18ef-42d3-9315-c6740bd1e4d7",
+    "name": "Supabase Management Database API",
+    "description": "The Supabase Management API provides programmatic access to manage Supabase projects and organizations. It supports operations for creating, updating, and deleting projects, managing database configurations, retrieving project API keys, controlling organization membership, deploying Edge Functions, managing secrets, configuring custom domains, and monitoring project health. Authentication is handled via personal access tokens or OAuth2 tokens.\n\nContact Support:\n Name: Supabase Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:48:03.000Z",
+    "updatedAt": "2026-10-21T20:48:03.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-59895a51-18ef-42d3-9315-c6740bd1e4d7"
+  },
   "item": [
     {
-      "id": "9cc3f99b-3318-42d3-9bdd-0edc1dc6bd22",
-      "name": "Database",
-      "description": {
-        "content": "Manage database configurations, migrations, and extensions.",
-        "type": "text/plain"
-      },
+      "name": "projects",
       "item": [
         {
-          "id": "1afa564f-fc05-4020-8482-d92af9444ac7",
-          "name": "List database migrations",
-          "request": {
-            "name": "List database migrations",
-            "description": {
-              "content": "Returns a list of all migrations that have been applied to the project database, stored in the supabase_migrations schema.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "projects",
-                ":ref",
-                "database",
-                "migrations"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ref",
-                  "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
+          "name": "{ref}",
+          "item": [
             {
-              "id": "a9c98970-4cd1-4802-b9be-9adb90dcf602",
-              "name": "Successfully retrieved migrations",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "database",
-                    "migrations"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
+              "name": "database",
+              "item": [
                 {
-                  "key": "Content-Type",
-                  "value": "application/json"
+                  "name": "migrations",
+                  "item": [
+                    {
+                      "name": "List database migrations",
+                      "id": "95159dfd-dee5-4917-b6d0-56025d37190d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:ref/database/migrations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":ref",
+                            "database",
+                            "migrations"
+                          ],
+                          "variable": [
+                            {
+                              "id": "238d6953-34fe-46ee-8fe8-c0646f6749cb",
+                              "key": "ref",
+                              "value": "<string>",
+                              "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
+                            }
+                          ]
+                        },
+                        "description": "Returns a list of all migrations that have been applied to the project database, stored in the supabase_migrations schema."
+                      },
+                      "response": [
+                        {
+                          "id": "e23f3aba-49a3-4f16-8109-a10dc6a779dc",
+                          "name": "Successfully retrieved migrations",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:ref/database/migrations",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":ref",
+                                "database",
+                                "migrations"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ref"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "[\n  {\n    \"version\": \"<string>\",\n    \"name\": \"<string>\",\n    \"statements\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  {\n    \"version\": \"<string>\",\n    \"name\": \"<string>\",\n    \"statements\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n]",
+                          "createdAt": "2026-10-21T20:48:04.000Z",
+                          "updatedAt": "2026-10-21T20:48:04.000Z",
+                          "uid": "35240-e23f3aba-49a3-4f16-8109-a10dc6a779dc"
+                        },
+                        {
+                          "id": "6883ebce-2815-4ec0-885d-8fb382762c5b",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:ref/database/migrations",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":ref",
+                                "database",
+                                "migrations"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ref"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:48:04.000Z",
+                          "updatedAt": "2026-10-21T20:48:04.000Z",
+                          "uid": "35240-6883ebce-2815-4ec0-885d-8fb382762c5b"
+                        },
+                        {
+                          "id": "36292003-8c46-4898-8819-526ce64c2c2b",
+                          "name": "Project not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:ref/database/migrations",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":ref",
+                                "database",
+                                "migrations"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ref"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:48:04.000Z",
+                          "updatedAt": "2026-10-21T20:48:04.000Z",
+                          "uid": "35240-36292003-8c46-4898-8819-526ce64c2c2b"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:48:04.000Z",
+                      "updatedAt": "2026-10-21T20:48:04.000Z",
+                      "uid": "35240-95159dfd-dee5-4917-b6d0-56025d37190d"
+                    },
+                    {
+                      "name": "Create a database migration",
+                      "id": "406dde5b-7fe6-45b0-81a9-f09340b40799",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"query\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:ref/database/migrations",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":ref",
+                            "database",
+                            "migrations"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f07b5a5a-4fb2-4859-91db-c1933fcaed73",
+                              "key": "ref",
+                              "value": "<string>",
+                              "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
+                            }
+                          ]
+                        },
+                        "description": "Creates and runs a new SQL migration on the project database. The migration is recorded in the supabase_migrations schema."
+                      },
+                      "response": [
+                        {
+                          "id": "7276d2f0-779e-4d64-b5ed-7005b9cc7685",
+                          "name": "Migration created and applied successfully",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"query\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:ref/database/migrations",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":ref",
+                                "database",
+                                "migrations"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ref"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Created",
+                          "code": 201,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:48:04.000Z",
+                          "updatedAt": "2026-10-21T20:48:04.000Z",
+                          "uid": "35240-7276d2f0-779e-4d64-b5ed-7005b9cc7685"
+                        },
+                        {
+                          "id": "a37ab614-372d-401e-803c-5022c2312cc9",
+                          "name": "Bad request - invalid SQL or migration error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"query\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:ref/database/migrations",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":ref",
+                                "database",
+                                "migrations"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ref"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:48:04.000Z",
+                          "updatedAt": "2026-10-21T20:48:04.000Z",
+                          "uid": "35240-a37ab614-372d-401e-803c-5022c2312cc9"
+                        },
+                        {
+                          "id": "91e83ce2-43b9-4570-b3c6-de96a6312bb8",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"query\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/projects/:ref/database/migrations",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "projects",
+                                ":ref",
+                                "database",
+                                "migrations"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "ref"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-10-21T20:48:04.000Z",
+                          "updatedAt": "2026-10-21T20:48:04.000Z",
+                          "uid": "35240-91e83ce2-43b9-4570-b3c6-de96a6312bb8"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:48:04.000Z",
+                      "updatedAt": "2026-10-21T20:48:04.000Z",
+                      "uid": "35240-406dde5b-7fe6-45b0-81a9-f09340b40799"
+                    }
+                  ],
+                  "id": "9cca2c87-82f1-450d-a631-f17122ffd961",
+                  "createdAt": "2026-10-21T20:48:04.000Z",
+                  "updatedAt": "2026-10-21T20:48:04.000Z",
+                  "uid": "35240-9cca2c87-82f1-450d-a631-f17122ffd961"
                 }
               ],
-              "body": "[\n  {\n    \"version\": \"string\",\n    \"name\": \"string\",\n    \"statements\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"version\": \"string\",\n    \"name\": \"string\",\n    \"statements\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "6f886052-5d09-4908-bbae-9fc836b7ec08",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "database",
-                    "migrations"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "8d007ba5-631e-4c24-9c50-ff9ba9bf9b18",
-              "name": "Project not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "database",
-                    "migrations"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
+              "id": "c2c516ea-3cdf-41a5-8498-b142b999bf2f",
+              "createdAt": "2026-10-21T20:48:04.000Z",
+              "updatedAt": "2026-10-21T20:48:04.000Z",
+              "uid": "35240-c2c516ea-3cdf-41a5-8498-b142b999bf2f"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "5dcb5187-2c8f-4e53-b625-41d2688e3ae0",
-          "name": "Create a database migration",
-          "request": {
-            "name": "Create a database migration",
-            "description": {
-              "content": "Creates and runs a new SQL migration on the project database. The migration is recorded in the supabase_migrations schema.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "projects",
-                ":ref",
-                "database",
-                "migrations"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "ref",
-                  "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                },
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "method": "POST",
-            "auth": null,
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"query\": \"<string>\"\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            }
-          },
-          "response": [
-            {
-              "id": "98d714ff-c9b8-45ce-bbb7-61b3f8ae050c",
-              "name": "Migration created and applied successfully",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "database",
-                    "migrations"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"query\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "5c836b61-81b8-43b1-9882-bca51afde1ec",
-              "name": "Bad request - invalid SQL or migration error",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "database",
-                    "migrations"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"query\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            },
-            {
-              "id": "e06b0c4d-a548-42d1-83eb-9ef23928e988",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "projects",
-                    ":ref",
-                    "database",
-                    "migrations"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "ref",
-                      "description": "(Required) The unique reference ID for the project, found in the project settings or URL."
-                    },
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"query\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
-              "cookie": [],
-              "_postman_previewlanguage": "text"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "id": "de425fb7-9cac-4506-9895-462881271471",
+          "createdAt": "2026-10-21T20:48:04.000Z",
+          "updatedAt": "2026-10-21T20:48:04.000Z",
+          "uid": "35240-de425fb7-9cac-4506-9895-462881271471"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Your Supabase project reference ID",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "your-project-ref",
-      "key": "project_ref"
-    },
-    {
-      "type": "string",
-      "value": "https://{{project_ref}}.supabase.co/auth/v1",
-      "key": "baseUrl"
+      "id": "6b021509-7d07-4fe8-baba-e22b11204f09",
+      "createdAt": "2026-10-21T20:48:04.000Z",
+      "updatedAt": "2026-10-21T20:48:04.000Z",
+      "uid": "35240-6b021509-7d07-4fe8-baba-e22b11204f09"
     }
   ],
   "auth": {
-    "type": "apikey",
-    "apikey": [
+    "type": "bearer",
+    "bearer": [
       {
-        "key": "key",
-        "value": "apikey"
-      },
-      {
-        "key": "value",
-        "value": "{{apiKey}}"
-      },
-      {
-        "key": "in",
-        "value": "header"
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "1f3194e0-a828-4f4e-8106-e50884b36073",
-    "name": "Supabase Auth Admin Database API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.\n\nContact Support:\n Name: Supabase Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.supabase.com/v1"
     }
-  }
+  ]
 }

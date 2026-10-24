@@ -1,364 +1,303 @@
 {
+  "info": {
+    "_postman_id": "497c20e6-8331-4e00-a606-580a916bef59",
+    "name": "Supabase Auth OAuth API",
+    "description": "The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.\n\nContact Support:\n Name: Supabase Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:49:28.000Z",
+    "updatedAt": "2026-10-21T20:49:28.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-497c20e6-8331-4e00-a606-580a916bef59"
+  },
   "item": [
     {
-      "id": "73ac1e27-9163-4dff-9cac-d660768d32c4",
-      "name": "OAuth",
-      "description": {
-        "content": "OAuth social login provider endpoints.",
-        "type": "text/plain"
-      },
+      "name": "authorize",
       "item": [
         {
-          "id": "c3af6c95-ea21-446d-b346-791862aeccaa",
           "name": "Initiate OAuth login",
+          "id": "f99ea9bb-cd72-4774-bdf2-70eb1b10815f",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Initiate OAuth login",
-            "description": {
-              "content": "Redirects the user to the specified OAuth provider's authorization page. After the user grants access, they are redirected back to the application with an authorization code or tokens.",
-              "type": "text/plain"
-            },
+            "method": "GET",
+            "header": [],
             "url": {
+              "raw": "{{baseUrl}}/authorize?provider=discord&redirect_to=<uri>&scopes=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
               "path": [
                 "authorize"
               ],
-              "host": [
-                "{{baseUrl}}"
-              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "(Required) The OAuth provider to authenticate with",
                   "key": "provider",
-                  "value": "<string>",
-                  "description": "(Required) The OAuth provider to authenticate with"
+                  "value": "discord"
                 },
                 {
-                  "disabled": false,
+                  "description": "URL to redirect to after authentication",
                   "key": "redirect_to",
-                  "value": "<uri>",
-                  "description": "URL to redirect to after authentication"
+                  "value": "<uri>"
                 },
                 {
-                  "disabled": false,
+                  "description": "Space-separated list of OAuth scopes to request",
                   "key": "scopes",
-                  "value": "<string>",
-                  "description": "Space-separated list of OAuth scopes to request"
-                }
-              ],
-              "variable": [
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
+                  "value": "<string>"
                 }
               ]
             },
-            "method": "GET",
-            "auth": null
+            "description": "Redirects the user to the specified OAuth provider's authorization page. After the user grants access, they are redirected back to the application with an authorization code or tokens."
           },
           "response": [
             {
-              "id": "0a584f9e-a71e-4705-81f4-989854e4330e",
+              "id": "29b0600a-6627-4083-9688-bcc73d0f6b65",
               "name": "Redirect to OAuth provider",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "authorize"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "provider",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "redirect_to",
-                      "value": "<uri>"
-                    },
-                    {
-                      "key": "scopes",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: apikey",
                     "key": "apikey",
                     "value": "<API Key>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/authorize?provider=discord&redirect_to=<uri>&scopes=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "authorize"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The OAuth provider to authenticate with",
+                      "key": "provider",
+                      "value": "discord"
+                    },
+                    {
+                      "description": "URL to redirect to after authentication",
+                      "key": "redirect_to",
+                      "value": "<uri>"
+                    },
+                    {
+                      "description": "Space-separated list of OAuth scopes to request",
+                      "key": "scopes",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Found",
               "code": 302,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:49:29.000Z",
+              "updatedAt": "2026-10-21T20:49:29.000Z",
+              "uid": "35240-29b0600a-6627-4083-9688-bcc73d0f6b65"
             },
             {
-              "id": "f92f46b4-9761-4810-a54c-e6c2d4f5081c",
+              "id": "a398fb86-3d34-4530-a6f5-798a48999699",
               "name": "Bad request - invalid provider",
               "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "apikey",
+                    "value": "<API Key>"
+                  }
+                ],
                 "url": {
-                  "path": [
-                    "authorize"
-                  ],
+                  "raw": "{{baseUrl}}/authorize?provider=discord&redirect_to=<uri>&scopes=<string>",
                   "host": [
                     "{{baseUrl}}"
                   ],
+                  "path": [
+                    "authorize"
+                  ],
                   "query": [
                     {
+                      "description": "(Required) The OAuth provider to authenticate with",
                       "key": "provider",
-                      "value": "<string>"
+                      "value": "discord"
                     },
                     {
+                      "description": "URL to redirect to after authentication",
                       "key": "redirect_to",
                       "value": "<uri>"
                     },
                     {
+                      "description": "Space-separated list of OAuth scopes to request",
                       "key": "scopes",
                       "value": "<string>"
                     }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
                   ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
-                    "key": "apikey",
-                    "value": "<API Key>"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
+                }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:49:29.000Z",
+              "updatedAt": "2026-10-21T20:49:29.000Z",
+              "uid": "35240-a398fb86-3d34-4530-a6f5-798a48999699"
             }
           ],
-          "event": [],
+          "createdAt": "2026-10-21T20:49:29.000Z",
+          "updatedAt": "2026-10-21T20:49:29.000Z",
+          "uid": "35240-f99ea9bb-cd72-4774-bdf2-70eb1b10815f"
+        }
+      ],
+      "id": "2939bef3-860b-4bb7-8ef5-c4f6475994e9",
+      "createdAt": "2026-10-21T20:49:29.000Z",
+      "updatedAt": "2026-10-21T20:49:29.000Z",
+      "uid": "35240-2939bef3-860b-4bb7-8ef5-c4f6475994e9"
+    },
+    {
+      "name": "callback",
+      "item": [
+        {
+          "name": "OAuth callback",
+          "id": "b74c0093-ab8d-4346-8454-5dd832ae948e",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "c11a140f-3284-4841-af79-71a26f0d6ed0",
-          "name": "OAuth callback",
+          },
           "request": {
-            "name": "OAuth callback",
-            "description": {
-              "content": "Receives the OAuth callback from the provider after user authorization. Exchanges the authorization code for tokens and creates or updates the user account.",
-              "type": "text/plain"
-            },
+            "method": "GET",
+            "header": [],
             "url": {
-              "path": [
-                "callback"
-              ],
+              "raw": "{{baseUrl}}/callback?code=<string>&state=<string>",
               "host": [
                 "{{baseUrl}}"
               ],
+              "path": [
+                "callback"
+              ],
               "query": [
                 {
-                  "disabled": false,
+                  "description": "Authorization code from the OAuth provider",
                   "key": "code",
-                  "value": "<string>",
-                  "description": "Authorization code from the OAuth provider"
+                  "value": "<string>"
                 },
                 {
-                  "disabled": false,
+                  "description": "State parameter for CSRF protection",
                   "key": "state",
-                  "value": "<string>",
-                  "description": "State parameter for CSRF protection"
-                }
-              ],
-              "variable": [
-                {
-                  "description": "Your Supabase project reference ID",
-                  "type": "any",
-                  "value": "{{project_ref}}",
-                  "key": "project_ref"
+                  "value": "<string>"
                 }
               ]
             },
-            "method": "GET",
-            "auth": null
+            "description": "Receives the OAuth callback from the provider after user authorization. Exchanges the authorization code for tokens and creates or updates the user account."
           },
           "response": [
             {
-              "id": "aa32c814-d6a9-438b-97ac-b1b2112e9dc3",
+              "id": "1319c561-ff61-4fb1-9efc-cdc6e1a6080a",
               "name": "Redirect to application with session",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "callback"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "code",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "state",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: apikey",
                     "key": "apikey",
                     "value": "<API Key>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/callback?code=<string>&state=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "callback"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authorization code from the OAuth provider",
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "State parameter for CSRF protection",
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "See Other",
               "code": 303,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:49:29.000Z",
+              "updatedAt": "2026-10-21T20:49:29.000Z",
+              "uid": "35240-1319c561-ff61-4fb1-9efc-cdc6e1a6080a"
             },
             {
-              "id": "414a226d-a30f-4625-b8bc-998cfbd24482",
+              "id": "8973f424-c86b-4d7c-8b56-1ac04da9ce91",
               "name": "Invalid callback parameters",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "callback"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "code",
-                      "value": "<string>"
-                    },
-                    {
-                      "key": "state",
-                      "value": "<string>"
-                    }
-                  ],
-                  "variable": [
-                    {
-                      "description": "Your Supabase project reference ID",
-                      "type": "any",
-                      "value": "{{project_ref}}",
-                      "key": "project_ref"
-                    }
-                  ]
-                },
+                "method": "GET",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: apikey",
-                      "type": "text/plain"
-                    },
+                    "description": "Added as a part of security scheme: apikey",
                     "key": "apikey",
                     "value": "<API Key>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/callback?code=<string>&state=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "callback"
+                  ],
+                  "query": [
+                    {
+                      "description": "Authorization code from the OAuth provider",
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "State parameter for CSRF protection",
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ]
+                }
               },
               "status": "Bad Request",
               "code": 400,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "text/plain"
-                }
-              ],
-              "body": "",
+              "_postman_previewlanguage": "text",
+              "header": [],
               "cookie": [],
-              "_postman_previewlanguage": "text"
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-21T20:49:29.000Z",
+              "updatedAt": "2026-10-21T20:49:29.000Z",
+              "uid": "35240-8973f424-c86b-4d7c-8b56-1ac04da9ce91"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:49:29.000Z",
+          "updatedAt": "2026-10-21T20:49:29.000Z",
+          "uid": "35240-b74c0093-ab8d-4346-8454-5dd832ae948e"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
-    {
-      "description": {
-        "content": "Your Supabase project reference ID",
-        "type": "text/plain"
-      },
-      "type": "any",
-      "value": "your-project-ref",
-      "key": "project_ref"
-    },
-    {
-      "type": "string",
-      "value": "https://{{project_ref}}.supabase.co/auth/v1",
-      "key": "baseUrl"
+      "id": "19c0f7aa-ff46-412f-b448-b04d5d3492ee",
+      "createdAt": "2026-10-21T20:49:29.000Z",
+      "updatedAt": "2026-10-21T20:49:29.000Z",
+      "uid": "35240-19c0f7aa-ff46-412f-b448-b04d5d3492ee"
     }
   ],
   "auth": {
@@ -366,25 +305,29 @@
     "apikey": [
       {
         "key": "key",
-        "value": "apikey"
+        "value": "apikey",
+        "type": "string"
       },
       {
         "key": "value",
-        "value": "{{apiKey}}"
+        "value": "{{apiKey}}",
+        "type": "string"
       },
       {
         "key": "in",
-        "value": "header"
+        "value": "header",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "887c040c-1db0-4469-a14d-09ee0673c840",
-    "name": "Supabase Auth Admin OAuth API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Supabase Auth API (based on GoTrue) is a JWT-based API for managing users and issuing access tokens. It provides endpoints for user signup, signin with email/password, magic links, one-time passwords, OAuth social login, token refresh, user management, multi-factor authentication, and SAML-based single sign-on. When deployed on Supabase, the server requires an apikey header containing a valid Supabase-issued API key.\n\nContact Support:\n Name: Supabase Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "project_ref",
+      "value": "your-project-ref"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{project_ref}}.supabase.co/auth/v1"
     }
-  }
+  ]
 }
